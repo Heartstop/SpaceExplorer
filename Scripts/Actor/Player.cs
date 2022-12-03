@@ -66,7 +66,7 @@ public class Player : RigidBody2D
 			return;
 
 		var gravityFields = GravitationalFields.Select(GetNode<CelestialBody>);
-		var gravitationalForce = Physics.CalculateForce(this, gravityFields);
+		var gravitationalForce = delta * Physics.CalculateForce(this, gravityFields);
 		LinearVelocity += gravitationalForce;
 	}
 

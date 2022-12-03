@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/TractorBeam.cs" type="Script" id=1]
+[ext_resource path="res://Materials/Beam.tres" type="Material" id=2]
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 10, 0, -10, 0, -100, 200, 100, 200 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( 0, 200 )
+amount = 100
+lifetime = 5.0
+preprocess = 10.0
+visibility_rect = Rect2( -99.8962, -215.92, 199.49, 216.885 )
+process_material = ExtResource( 2 )
+
+[node name="TractorBeam" type="Node2D" parent="."]
