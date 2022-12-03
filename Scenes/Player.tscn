@@ -8,6 +8,7 @@
 [ext_resource path="res://Sounds/Explosion.wav" type="AudioStream" id=6]
 [ext_resource path="res://Scripts/Camera.cs" type="Script" id=7]
 [ext_resource path="res://Shaders/Background.gdshader" type="Shader" id=8]
+[ext_resource path="res://Scenes/TractorBeam.tscn" type="PackedScene" id=9]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
@@ -155,3 +156,11 @@ layer = -1
 material = SubResource( 15 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+
+[node name="RocketAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -9.0
+bus = "Fx"
+
+[node name="TractorBeam" parent="." instance=ExtResource( 9 )]
+position = Vector2( 0, 20 )
