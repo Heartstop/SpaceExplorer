@@ -11,3 +11,8 @@ polygon = PoolVector2Array( -15, 20, 15, 20, 4, -20, -4, -20 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+smoothing_enabled = true
+smoothing_speed = 1.0
