@@ -13,7 +13,7 @@ public class Player : RigidBody2D
 	public NodePath[]? GravitationalFields;
 
 	private AnimatedSprite _thrustAnimatedSprite = null!;
-	private AudioStreamPlayer2D _rocketAudio;
+	private AudioStreamPlayer2D _rocketAudio = null!;
 
 	public override void _Ready()
 	{

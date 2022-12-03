@@ -47,8 +47,6 @@ visible = false
 position = Vector2( 0, 25 )
 z_index = -1
 frames = SubResource( 2 )
-frame = 4
-playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 rotating = true
