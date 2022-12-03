@@ -1,8 +1,9 @@
 shader_type canvas_item;
-uniform int cell_amount = 8;
-uniform sampler2D noise_pattern;
-uniform vec2 period = vec2(3, 3);
-uniform float scale = 200;
+uniform float SCALE = 3;
+uniform vec3 BASE_COLOR = vec3(.85, .6, .77);
+uniform vec3 OUTLINE_COLOR = vec3(0.86, .8, .9);
+uniform vec3 COLOR_1 = vec3(.7, .48, .64);
+uniform vec3 COLOR_2 = vec3(.6, .34, .54);
 
 float rand(vec2 cord){
 	cord = mod(cord, 10000.0);
@@ -52,23 +53,21 @@ void fragment(){
 	}
 	else
 	{
-		vec2 scaledUv = UV * 50.0;
+		vec2 scaledUv = UV * SCALE;
 		float generatedNoise = perlin_noise(scaledUv);
 		
-		vec3 color = vec3(.1, .56, .2);
+		vec3 color = BASE_COLOR;
 		
 		if(generatedNoise > .2)
-			color = vec3(.2, .55, .1);
+			color = COLOR_1;
 				
 		if(generatedNoise > .5)
-			color = vec3(.1, .5, .1);
+			color = COLOR_2;
 		
-		if(distanceFromCenter > (.4997))
-		{
-			color = vec3(.1, .7 ,.1);
-		}
-		
-		color = color - (distanceFromCenter * distanceFromCenter * 1.1);
+		if(distanceFromCenter > (.4995))
+			color = OUTLINE_COLOR;
+	
+		color = color - (distanceFromCenter * distanceFromCenter * 0.5);
 		COLOR.rgb = color;
 	}
 }
