@@ -1,22 +1,15 @@
+using System.Runtime.InteropServices;
 using Godot;
 
 namespace SpaceExplorer.Scripts;
 
 public class MainScene : Node
 {
-	// Declare member variables here. Examples:
-	// private int a = 2;
-	// private string b = "text";
-
-	// Called when the node enters the scene tree for the first time.
+	AudioStreamPlayer _musicPlayer = null!;
 	public override void _Ready()
 	{
-		
+		_musicPlayer = GetNode<AudioStreamPlayer>("MusicPlayer");
+		_musicPlayer.Play();
 	}
 
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
 }
