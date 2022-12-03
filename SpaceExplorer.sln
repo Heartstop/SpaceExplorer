@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceExplorer", "SpaceExplorer.csproj", "{C872130D-8D4D-4650-B777-C209EA4F3D7E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C872130D-8D4D-4650-B777-C209EA4F3D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C872130D-8D4D-4650-B777-C209EA4F3D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C872130D-8D4D-4650-B777-C209EA4F3D7E}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{C872130D-8D4D-4650-B777-C209EA4F3D7E}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{C872130D-8D4D-4650-B777-C209EA4F3D7E}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{C872130D-8D4D-4650-B777-C209EA4F3D7E}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal
