@@ -10,6 +10,7 @@ public class Player : RigidBody2D
 	public override void _Ready()
 	{
 		_thrustAnimatedSprite = GetNode<AnimatedSprite>("ThrustAnimation");
+		_thrustAnimatedSprite.Play();
 	}
 
 	public override void _Process(float delta)
