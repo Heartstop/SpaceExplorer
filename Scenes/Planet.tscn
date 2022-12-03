@@ -19,6 +19,7 @@ noise = SubResource( 3 )
 shader = ExtResource( 1 )
 shader_param/cell_amount = 8
 shader_param/period = Vector2( 3, 3 )
+shader_param/scale = 200.0
 shader_param/noise_pattern = SubResource( 4 )
 
 [node name="Planet" type="StaticBody2D"]
