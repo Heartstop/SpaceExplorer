@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Shaders/Planet.gdshader" type="Shader" id=1]
+
+[sub_resource type="CircleShape2D" id=5]
+
+[sub_resource type="OpenSimplexNoise" id=3]
+seed = 1
+octaves = 1
+period = 0.1
+persistence = 1.0
+lacunarity = 1.0
+
+[sub_resource type="NoiseTexture" id=4]
+flags = 3
+noise = SubResource( 3 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+shader_param/cell_amount = 8
+shader_param/period = Vector2( 3, 3 )
+shader_param/noise_pattern = SubResource( 4 )
+
+[node name="Planet" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 5 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource( 2 )
+margin_left = -10.0
+margin_top = -10.0
+margin_right = 10.0
+margin_bottom = 10.0
