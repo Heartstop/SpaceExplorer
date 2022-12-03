@@ -1,11 +1,13 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Actor/Player.cs" type="Script" id=1]
 [ext_resource path="res://Sprites/ship.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/thrust.png" type="Texture" id=3]
 [ext_resource path="res://Sounds/RocketNoise.ogg" type="AudioStream" id=4]
-[ext_resource path="res://Scripts/Camera.cs" type="Script" id=5]
-[ext_resource path="res://Shaders/Background.gdshader" type="Shader" id=6]
+[ext_resource path="res://Sprites/8x8circle.png" type="Texture" id=5]
+[ext_resource path="res://Sounds/Explosion.wav" type="AudioStream" id=6]
+[ext_resource path="res://Scripts/Camera.cs" type="Script" id=7]
+[ext_resource path="res://Shaders/Background.gdshader" type="Shader" id=8]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
@@ -35,8 +37,63 @@ animations = [ {
 "speed": 25.0
 } ]
 
-[sub_resource type="ShaderMaterial" id=7]
-shader = ExtResource( 6 )
+[sub_resource type="Gradient" id=16]
+offsets = PoolRealArray( 0.101266, 0.131646, 0.281013, 0.311392, 0.762025, 0.941772, 0.946835, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.941406, 0.731681, 0.40451, 1, 1, 0.421875, 0, 1, 0.265625, 0.265625, 0.265625, 1, 0.0776367, 0.0776367, 0.0776367, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0.964091, 0.964091, 0.964091, 0.0421687 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 16 )
+
+[sub_resource type="Curve" id=9]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.380383, 0.756818 ), -3.12581, -3.12581, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+curve = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=11]
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 11.47
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 154.91
+initial_velocity_random = 0.38
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 71.65
+damping_random = 0.62
+angle_random = 1.0
+scale = 2.5
+scale_curve = SubResource( 10 )
+color_ramp = SubResource( 8 )
+
+[sub_resource type="Gradient" id=12]
+interpolation_mode = 2
+offsets = PoolRealArray( 0.136709, 0.212658, 0.997468 )
+colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0 )
+
+[sub_resource type="GradientTexture" id=13]
+gradient = SubResource( 12 )
+
+[sub_resource type="ParticlesMaterial" id=14]
+lifetime_randomness = 0.29
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 211.73
+angular_velocity = 78.19
+angular_velocity_random = 0.93
+orbit_velocity = 0.5
+orbit_velocity_random = 1.0
+scale = 8.0
+scale_random = 0.64
+color_ramp = SubResource( 13 )
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = ExtResource( 8 )
 shader_param/ROTATION = 0.0
 shader_param/ASPECT = 1.7
 
@@ -57,21 +114,44 @@ position = Vector2( 0, 25 )
 z_index = -1
 frames = SubResource( 2 )
 
+[node name="RocketAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
+volume_db = -9.0
+bus = "Fx"
+
+[node name="ExplosionNode" type="Node2D" parent="."]
+
+[node name="DustParticles" type="Particles2D" parent="ExplosionNode"]
+emitting = false
+amount = 128
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 11 )
+texture = ExtResource( 5 )
+
+[node name="DebrisParticles" type="Particles2D" parent="ExplosionNode"]
+emitting = false
+amount = 16
+lifetime = 1.4
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 14 )
+
+[node name="ExplosionAudio" type="AudioStreamPlayer2D" parent="ExplosionNode"]
+stream = ExtResource( 6 )
+volume_db = -0.133
+bus = "Fx"
+
 [node name="PlayerCamera" type="Camera2D" parent="."]
 rotating = true
 current = true
 smoothing_speed = 10.0
-script = ExtResource( 5 )
+script = ExtResource( 7 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="PlayerCamera"]
 layer = -1
 
 [node name="ColorRect" type="ColorRect" parent="PlayerCamera/CanvasLayer"]
-material = SubResource( 7 )
+material = SubResource( 15 )
 anchor_right = 1.0
 anchor_bottom = 1.0
-
-[node name="RocketAudio" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 4 )
-volume_db = -9.0
-bus = "Fx"

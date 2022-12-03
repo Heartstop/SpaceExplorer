@@ -14,11 +14,18 @@ public class Player : RigidBody2D
 
 	private AnimatedSprite _thrustAnimatedSprite = null!;
 	private AudioStreamPlayer2D _rocketAudio = null!;
+	private AudioStreamPlayer2D _explosionAudio = null!;
+	private Particles2D	_dustParticles = null!;
+	private Particles2D _debrisParticles = null!;
 
 	public override void _Ready()
 	{
 		_thrustAnimatedSprite = GetNode<AnimatedSprite>("ThrustAnimation");
 		_rocketAudio = GetNode<AudioStreamPlayer2D>("RocketAudio");
+		_explosionAudio = GetNode<AudioStreamPlayer2D>("ExplosionNode/ExplosionAudio");
+		_dustParticles = GetNode<Particles2D>("ExplosionNode/DustParticles");
+		_debrisParticles = GetNode<Particles2D>("ExplosionNode/DebrisParticles");
+
 		_thrustAnimatedSprite.Play();
 	}
 
@@ -28,6 +35,7 @@ public class Player : RigidBody2D
 		{
 			_thrustAnimatedSprite.Show();
 			_rocketAudio.Play();
+			Explode();
 		}
 
 		if (Input.IsActionJustReleased("player_up"))
@@ -60,5 +68,12 @@ public class Player : RigidBody2D
 		var gravityFields = GravitationalFields.Select(GetNode<CelestialBody>);
 		var gravitationalForce = Physics.CalculateForce(this, gravityFields);
 		LinearVelocity += gravitationalForce;
+	}
+
+	private void Explode()
+	{
+		_dustParticles.Emitting = true;
+		_debrisParticles.Emitting = true;
+		_explosionAudio.Play();
 	}
 }
