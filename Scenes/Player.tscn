@@ -41,6 +41,8 @@ shader_param/ROTATION = 0.0
 shader_param/ASPECT = 1.7
 
 [node name="Player" type="RigidBody2D"]
+linear_damp = 0.0
+angular_damp = 0.0
 script = ExtResource( 1 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
