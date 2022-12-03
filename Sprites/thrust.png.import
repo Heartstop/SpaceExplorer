@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/thrist.png-4513d111442643383e0943b1771ee05b.stex"
+path="res://.import/thrust.png-9aad83d9d602ce09574af9665abd8888.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/thrist.png"
-dest_files=[ "res://.import/thrist.png-4513d111442643383e0943b1771ee05b.stex" ]
+source_file="res://Sprites/thrust.png"
+dest_files=[ "res://.import/thrust.png-9aad83d9d602ce09574af9665abd8888.stex" ]
 
 [params]
 
