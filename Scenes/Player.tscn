@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Actor/Player.cs" type="Script" id=1]
 [ext_resource path="res://Sprites/ship.png" type="Texture" id=2]
 [ext_resource path="res://Sprites/thrust.png" type="Texture" id=3]
 [ext_resource path="res://Sounds/RocketNoise.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Scripts/Camera.cs" type="Script" id=5]
+[ext_resource path="res://Shaders/Background.gdshader" type="Shader" id=6]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
@@ -33,6 +35,11 @@ animations = [ {
 "speed": 25.0
 } ]
 
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 6 )
+shader_param/ROTATION = 0.0
+shader_param/ASPECT = 1.7
+
 [node name="Player" type="RigidBody2D"]
 script = ExtResource( 1 )
 
@@ -48,12 +55,19 @@ position = Vector2( 0, 25 )
 z_index = -1
 frames = SubResource( 2 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="PlayerCamera" type="Camera2D" parent="."]
 rotating = true
 current = true
-drag_margin_h_enabled = true
-drag_margin_v_enabled = true
 smoothing_speed = 10.0
+script = ExtResource( 5 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="PlayerCamera"]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="PlayerCamera/CanvasLayer"]
+material = SubResource( 7 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="RocketAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
