@@ -24,13 +24,13 @@ public class Player : RigidBody2D
 
 	public override void _Process(float delta)
 	{
-		if(Input.IsActionJustPressed("player_up"))
+		if (Input.IsActionJustPressed("player_up"))
 		{
 			_thrustAnimatedSprite.Show();
 			_rocketAudio.Play();
 		}
 
-		if(Input.IsActionJustReleased("player_up"))
+		if (Input.IsActionJustReleased("player_up"))
 		{
 			_thrustAnimatedSprite.Hide();
 			_rocketAudio.Stop();
@@ -54,11 +54,11 @@ public class Player : RigidBody2D
 
 	private void ApplyGravity(float delta)
 	{
-		if(GravitationalFields is null)
+		if (GravitationalFields is null)
 			return;
 
 		var gravityFields = GravitationalFields.Select(GetNode<CelestialBody>);
 		var gravitationalForce = Physics.CalculateForce(this, gravityFields);
-		LinearVelocity += gravitationalForce; 
+		LinearVelocity += gravitationalForce;
 	}
 }
