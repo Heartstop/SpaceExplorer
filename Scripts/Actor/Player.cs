@@ -1,7 +1,8 @@
-using System;
 using System.Linq;
 using Godot;
-using SpaceExplorer.Scripts;
+using SpaceExplorer.Scripts.CelestialBodies;
+
+namespace SpaceExplorer.Scripts.Actor;
 
 public class Player : RigidBody2D
 {
