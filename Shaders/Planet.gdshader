@@ -3,6 +3,10 @@ uniform int cell_amount = 8;
 uniform sampler2D noise_pattern;
 uniform vec2 period = vec2(3, 3);
 
+float rand(vec2 co){
+    return fract(sin(dot(co.xy ,vec2(12.9898,78.233))) * 43758.5453);
+}
+
 void fragment(){
 	if(distance(UV, vec2(0.5, 0.5)) > 1.0/2.0)
 	{
@@ -11,8 +15,6 @@ void fragment(){
 	}
 	else
 	{
-		vec4 text = texture(noise_pattern, UV);
-		text = text * 0.3 + 0.3;
-		COLOR = text;
+		COLOR.rgb = vec3(rand(UV*200.0) * 0.3 + 0.5)
 	}
 }
