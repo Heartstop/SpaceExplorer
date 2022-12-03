@@ -6,20 +6,28 @@ public class Player : RigidBody2D
 	public float ThrustSpeed => 100;
 
 	private AnimatedSprite _thrustAnimatedSprite;
+	private AudioStreamPlayer2D _rocketAudio;
 
 	public override void _Ready()
 	{
 		_thrustAnimatedSprite = GetNode<AnimatedSprite>("ThrustAnimation");
+		_rocketAudio = GetNode<AudioStreamPlayer2D>("RocketAudio");
 		_thrustAnimatedSprite.Play();
 	}
 
 	public override void _Process(float delta)
 	{
 		if(Input.IsActionJustPressed("player_up"))
+		{
 			_thrustAnimatedSprite.Show();
+			_rocketAudio.Play();
+		}
 
 		if(Input.IsActionJustReleased("player_up"))
+		{
 			_thrustAnimatedSprite.Hide();
+			_rocketAudio.Stop();
+		}
 	}
 
 	public override void _PhysicsProcess(float delta)
