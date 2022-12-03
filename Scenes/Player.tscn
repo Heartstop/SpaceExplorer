@@ -1,7 +1,36 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Actor/Player.cs" type="Script" id=1]
 [ext_resource path="res://Sprites/ship.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/thrust.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 48, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [node name="Player" type="RigidBody2D"]
 script = ExtResource( 1 )
@@ -9,8 +38,15 @@ script = ExtResource( 1 )
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -15, 20, 15, 20, 4, -20, -4, -20 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="ShipSprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
+
+[node name="ThrustAnimation" type="AnimatedSprite" parent="."]
+position = Vector2( 0, 25 )
+z_index = -1
+frames = SubResource( 2 )
+frame = 2
+playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
