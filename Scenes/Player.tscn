@@ -29,7 +29,7 @@ animations = [ {
 "frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 1 ) ],
 "loop": true,
 "name": "default",
-"speed": 5.0
+"speed": 25.0
 } ]
 
 [node name="Player" type="RigidBody2D"]
@@ -42,10 +42,11 @@ polygon = PoolVector2Array( -15, 20, 15, 20, 4, -20, -4, -20 )
 texture = ExtResource( 2 )
 
 [node name="ThrustAnimation" type="AnimatedSprite" parent="."]
+visible = false
 position = Vector2( 0, 25 )
 z_index = -1
 frames = SubResource( 2 )
-frame = 4
+frame = 2
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]

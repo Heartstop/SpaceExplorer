@@ -5,6 +5,22 @@ public class Player : RigidBody2D
 	public float RotSpeed => 2;
 	public float ThrustSpeed => 100;
 
+	private AnimatedSprite _thrustAnimatedSprite;
+
+	public override void _Ready()
+	{
+		_thrustAnimatedSprite = GetNode<AnimatedSprite>("ThrustAnimation");
+	}
+
+	public override void _Process(float delta)
+	{
+		if(Input.IsActionJustPressed("player_up"))
+			_thrustAnimatedSprite.Show();
+
+		if(Input.IsActionJustReleased("player_up"))
+			_thrustAnimatedSprite.Hide();
+	}
+
 	public override void _PhysicsProcess(float delta)
 	{
 		ApplyThrust(delta);
