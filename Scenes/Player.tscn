@@ -45,10 +45,12 @@ texture = ExtResource( 2 )
 position = Vector2( 0, 25 )
 z_index = -1
 frames = SubResource( 2 )
-frame = 2
+frame = 4
 playing = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
+rotating = true
 current = true
-smoothing_enabled = true
-smoothing_speed = 1.0
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_speed = 10.0
