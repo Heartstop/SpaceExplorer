@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,14 @@
 [ext_resource path="res://Sounds/SpaceMusic.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Scenes/Minable.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/GameUi.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Sprites/LandingPlatform.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/FuelSilo.png" type="Texture" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 24, 4.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 21.5, 39 )
 
 [node name="MainScene" type="Node"]
 script = ExtResource( 1 )
@@ -16,7 +24,29 @@ script = ExtResource( 1 )
 [node name="World" type="Node2D" parent="."]
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
+position = Vector2( 0, -11 )
 z_index = 1
+
+[node name="LandingPlatform" type="StaticBody2D" parent="World"]
+
+[node name="Sprite" type="Sprite" parent="World/LandingPlatform"]
+position = Vector2( 0, 14 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/LandingPlatform"]
+position = Vector2( 0, 13.5 )
+shape = SubResource( 1 )
+
+[node name="FuelSilo" type="StaticBody2D" parent="World"]
+position = Vector2( -74, -19 )
+collision_layer = 3
+
+[node name="Sprite" type="Sprite" parent="World/FuelSilo"]
+texture = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/FuelSilo"]
+position = Vector2( -0.5, 0 )
+shape = SubResource( 2 )
 
 [node name="Planet" parent="World" instance=ExtResource( 3 )]
 position = Vector2( 1, 4018 )

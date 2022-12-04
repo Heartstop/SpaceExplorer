@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ship.png-b246dcaf9a7b29bfff61a6fe2655ee6a.stex"
+path="res://.import/LandingPlatform.png-9103e4762a1a7c7d715691eb8f45b689.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/ship.png"
-dest_files=[ "res://.import/ship.png-b246dcaf9a7b29bfff61a6fe2655ee6a.stex" ]
+source_file="res://Sprites/LandingPlatform.png"
+dest_files=[ "res://.import/LandingPlatform.png-9103e4762a1a7c7d715691eb8f45b689.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
@@ -31,5 +31,5 @@ process/invert_color=false
 process/normal_map_invert_y=false
 stream=false
 size_limit=0
-detect_3d=false
+detect_3d=true
 svg/scale=1.0
