@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Actor/Player.cs" type="Script" id=1]
 [ext_resource path="res://Sprites/ship.png" type="Texture" id=2]
@@ -72,29 +72,6 @@ scale = 2.5
 scale_curve = SubResource( 10 )
 color_ramp = SubResource( 8 )
 
-[sub_resource type="Gradient" id=12]
-interpolation_mode = 2
-offsets = PoolRealArray( 0.136709, 0.212658, 0.997468 )
-colors = PoolColorArray( 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0 )
-
-[sub_resource type="GradientTexture" id=13]
-gradient = SubResource( 12 )
-
-[sub_resource type="ParticlesMaterial" id=14]
-lifetime_randomness = 0.29
-flag_disable_z = true
-direction = Vector3( 0, 0, 0 )
-spread = 180.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 211.73
-angular_velocity = 78.19
-angular_velocity_random = 0.93
-orbit_velocity = 0.5
-orbit_velocity_random = 1.0
-scale = 8.0
-scale_random = 0.64
-color_ramp = SubResource( 13 )
-
 [sub_resource type="ShaderMaterial" id=15]
 shader = ExtResource( 8 )
 shader_param/ROTATION = 0.0
@@ -156,15 +133,6 @@ one_shot = true
 explosiveness = 1.0
 process_material = SubResource( 11 )
 texture = ExtResource( 5 )
-
-[node name="DebrisParticles" type="Particles2D" parent="ExplosionNode"]
-visible = false
-emitting = false
-amount = 16
-lifetime = 1.4
-one_shot = true
-explosiveness = 1.0
-process_material = SubResource( 14 )
 
 [node name="ExplosionAudio" type="AudioStreamPlayer2D" parent="ExplosionNode"]
 stream = ExtResource( 6 )

@@ -5,7 +5,7 @@ namespace SpaceExplorer.Scripts.Actor;
 
 public class Player : RigidBody2D
 {
-	const float FUEL_CONSUMPTION_RATE = 20f;
+	const float FUEL_CONSUMPTION_RATE = 4f;
 	const float REFUEL_RATE = 8f;
 
 	[Signal] public delegate void HealthChanged(int newHealth);
