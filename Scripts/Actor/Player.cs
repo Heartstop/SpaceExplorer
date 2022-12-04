@@ -1,6 +1,4 @@
-using System.Linq;
 using Godot;
-using SpaceExplorer.Scripts.CelestialBodies;
 
 namespace SpaceExplorer.Scripts.Actor;
 
@@ -8,9 +6,6 @@ public class Player : RigidBody2D
 {
 	public float RotSpeed => 2;
 	public float ThrustSpeed => 100;
-
-	[Export]
-	public NodePath[]? GravitationalFields;
 
 	private AnimatedSprite _thrustAnimatedSprite = null!;
 	private AudioStreamPlayer2D _rocketAudio = null!;
@@ -48,7 +43,6 @@ public class Player : RigidBody2D
 	public override void _PhysicsProcess(float delta)
 	{
 		ApplyThrust(delta);
-		ApplyGravity(delta);
 	}
 
 	private void ApplyThrust(float delta)
@@ -58,16 +52,6 @@ public class Player : RigidBody2D
 
 		var torque = Input.GetActionStrength("player_right") - Input.GetActionStrength("player_left");
 		AngularVelocity += delta * RotSpeed * torque;
-	}
-
-	private void ApplyGravity(float delta)
-	{
-		if (GravitationalFields is null)
-			return;
-
-		var gravityFields = GravitationalFields.Select(GetNode<CelestialBody>);
-		var gravitationalForce = delta * Physics.CalculateForce(this, gravityFields);
-		LinearVelocity += gravitationalForce;
 	}
 
 	private void Explode()

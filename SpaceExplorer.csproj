@@ -4,4 +4,7 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Scripts\CelestialBodies\GravityField.cs" />
+  </ItemGroup>
 </Project>
