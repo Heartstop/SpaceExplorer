@@ -43,7 +43,8 @@ public class Player : RigidBody2D
 		_health = MaxHealth;
 		_fuel = MaxFuel;
 
-		Connect("body_entered", this, nameof(_on_Player_body_entered));
+		GetNode<Area2D>("FeetHurtBox").Connect("body_entered", this, nameof(OnBodyShapeEnteredFeet));
+		GetNode<Area2D>("HullHurtBox").Connect("body_entered", this, nameof(OnBodyShapeEnteredHull));
 		_impactAudio.Connect("finished", this, nameof(OnImpactSoundFinished));
 	}
 
@@ -88,9 +89,12 @@ public class Player : RigidBody2D
 		AngularVelocity += delta * RotSpeed * torque;
 	}
 
-	private void _on_Player_body_entered(Node body)
+	private void OnBodyShapeEnteredFeet(Node _) => DamageShip(0.1f);
+	private void OnBodyShapeEnteredHull(Node _) => DamageShip(0.5f);
+
+	private void DamageShip(float modifier = 1f)
 	{
-		var impact = (float)Math.Round(_velocityLastFrame.Length() * 0.5f);
+		var impact = (float)Math.Round(_velocityLastFrame.Length() * modifier);
 		if(impact < 10)
 			return;
 
