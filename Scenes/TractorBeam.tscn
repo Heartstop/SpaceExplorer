@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/TractorBeam.cs" type="Script" id=1]
 [ext_resource path="res://Materials/Beam.tres" type="Material" id=2]
 [ext_resource path="res://Scripts/Minable/PickupArea.cs" type="Script" id=3]
+[ext_resource path="res://Sounds/Collect.wav" type="AudioStream" id=4]
 
 [node name="Tractor" type="Area2D"]
 collision_layer = 0
@@ -24,6 +25,11 @@ process_material = ExtResource( 2 )
 [node name="Pickup" type="Area2D" parent="."]
 collision_layer = 0
 script = ExtResource( 3 )
+
+[node name="GrabAudio" type="AudioStreamPlayer2D" parent="Pickup"]
+stream = ExtResource( 4 )
+volume_db = -25.752
+bus = "Fx"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Pickup"]
 polygon = PoolVector2Array( -10, 0, 10, 0, 15, 5, -15, 5 )

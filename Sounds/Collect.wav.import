@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/Explosion Small_01.wav-4b310f4d8775b9cbf197e8acb8d00216.sample"
+path="res://.import/Collect.wav-14e0dd009dd46219b47de1994ae1b54f.sample"
 
 [deps]
 
-source_file="res://Scripts/CelestialBodies/Explosion Small_01.wav"
-dest_files=[ "res://.import/Explosion Small_01.wav-4b310f4d8775b9cbf197e8acb8d00216.sample" ]
+source_file="res://Sounds/Collect.wav"
+dest_files=[ "res://.import/Collect.wav-14e0dd009dd46219b47de1994ae1b54f.sample" ]
 
 [params]
 
