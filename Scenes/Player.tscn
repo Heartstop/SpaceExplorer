@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Scripts/Actor/Player.cs" type="Script" id=1]
 [ext_resource path="res://Sprites/ship.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Shaders/Background.gdshader" type="Shader" id=8]
 [ext_resource path="res://Scenes/TractorBeam.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Sounds/Impact.wav" type="AudioStream" id=10]
+[ext_resource path="res://Sounds/FuelSound.ogg" type="AudioStream" id=11]
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 3 )
@@ -136,6 +137,11 @@ stream = ExtResource( 4 )
 volume_db = -9.0
 bus = "Fx"
 
+[node name="RefuelAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 11 )
+volume_db = -14.179
+bus = "Fx"
+
 [node name="ImpactAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 10 )
 volume_db = -15.422
@@ -152,6 +158,7 @@ process_material = SubResource( 11 )
 texture = ExtResource( 5 )
 
 [node name="DebrisParticles" type="Particles2D" parent="ExplosionNode"]
+visible = false
 emitting = false
 amount = 16
 lifetime = 1.4
