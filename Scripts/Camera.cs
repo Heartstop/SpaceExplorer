@@ -6,6 +6,5 @@ public class Camera : Camera2D
 	{
 		var material = (ShaderMaterial)GetNode<ColorRect>("CanvasLayer/ColorRect").Material;
 		material.SetShaderParam("ROTATION", GlobalRotation);
-		material.SetShaderParam("ASPECT", GetViewportRect().Size.Aspect());
 	}
 }

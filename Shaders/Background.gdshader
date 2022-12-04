@@ -1,6 +1,5 @@
 shader_type canvas_item;
 uniform float ROTATION = 0.0;
-uniform float ASPECT = 1.7;
 
 const float PI = 3.141592653589793;
 const float TAU = 6.283185307179586;
@@ -42,9 +41,29 @@ float perlin_noise(vec2 coord) {
 	return clamp(wholemix, 0, 1);
 }
 
-void fragment() {
-	mat2 rotation = mat2(vec2(sin(-ROTATION), -cos(-ROTATION)), vec2(cos(-ROTATION), sin(-ROTATION)));
-	vec2 coords = (UV - vec2(0.5)) * vec2(ASPECT, 1) * rotation + vec2(0.5);
+vec3 star(vec2 coord) {
+	return vec3(pow(0.00000000000000001, perlin_noise(coord * 250.0)));
+}
 
-	COLOR.rgb = vec3(pow(perlin_noise(coords * 100.0), 1000));
+void fragment() {
+	float aspect = SCREEN_PIXEL_SIZE.y / SCREEN_PIXEL_SIZE.x;
+	mat2 rotation = mat2(vec2(sin(-ROTATION), -cos(-ROTATION)), vec2(cos(-ROTATION), sin(-ROTATION)));
+	vec2 coord = (UV - vec2(0.5)) * vec2(aspect, 1) * rotation + vec2(0.5);
+
+	COLOR.rgb =
+		max(
+			vec3(0.07421875, 0.1015625, 0.12109375),
+			(
+				  star(coord + SCREEN_PIXEL_SIZE * vec2(-0.5, -0.5))
+				+ star(coord + SCREEN_PIXEL_SIZE * vec2( 0.0, -0.5))
+				+ star(coord + SCREEN_PIXEL_SIZE * vec2( 0.5, -0.5))
+				+ star(coord + SCREEN_PIXEL_SIZE * vec2(-0.5,  0.0))
+				+ star(coord + SCREEN_PIXEL_SIZE * vec2( 0.0,  0.0))
+				+ star(coord + SCREEN_PIXEL_SIZE * vec2( 0.0,  0.0))
+				+ star(coord + SCREEN_PIXEL_SIZE * vec2( 0.5,  0.0))
+				+ star(coord + SCREEN_PIXEL_SIZE * vec2(-0.5,  0.5))
+				+ star(coord + SCREEN_PIXEL_SIZE * vec2( 0.0,  0.5))
+				+ star(coord + SCREEN_PIXEL_SIZE * vec2( 0.5,  0.5))
+			) * 0.1
+		);
 }
