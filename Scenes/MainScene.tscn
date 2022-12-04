@@ -28,7 +28,7 @@ stream = ExtResource( 5 )
 volume_db = -20.975
 bus = "Music"
 
-[node name="RigidBody2D" parent="." instance=ExtResource( 6 )]
+[node name="Minable" parent="." instance=ExtResource( 6 )]
 position = Vector2( -111, 7 )
 
 [node name="Planet2" parent="." instance=ExtResource( 3 )]
