@@ -6,7 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 1 )
-shader_param/SCALE = 8.0
+shader_param/SCALE = 1.0
 shader_param/BASE_COLOR = Vector3( 0.344, 0.242, 0.195 )
 shader_param/OUTLINE_COLOR = Vector3( 0.86, 0.8, 0.9 )
 shader_param/COLOR_1 = Vector3( 0.375, 0.266, 0.215 )

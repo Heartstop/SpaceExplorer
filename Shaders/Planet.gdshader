@@ -1,5 +1,5 @@
 shader_type canvas_item;
-uniform float SCALE = 3;
+uniform float SCALE = 1;
 uniform vec3 BASE_COLOR = vec3(.85, .6, .77);
 uniform vec3 OUTLINE_COLOR = vec3(0.86, .8, .9);
 uniform vec3 COLOR_1 = vec3(.7, .48, .64);
@@ -51,7 +51,7 @@ void fragment(){
 	}
 	else
 	{
-		vec2 pixelatedUV = floor(UV * 400.0 * 20.0) / 400.0 / 20.0;
+		vec2 pixelatedUV = floor(UV * SCALE * 400.0 * 20.0) / 400.0 / 20.0;
 
 		float generatedNoise = (
 			0.6 * perlin_noise(pixelatedUV * 100.0)
