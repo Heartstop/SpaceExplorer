@@ -6,12 +6,15 @@ namespace SpaceExplorer.Scripts.Actor;
 public class Player : RigidBody2D
 {
 	[Signal] public delegate void HealthChanged(int newHealth);
+	[Signal] public delegate void FuelChanged(int newFuel);
 
 	public float RotSpeed => 2;
 	public float ThrustSpeed => 100;
 
 	[Export]
-	public int StartHealth = 100;
+	public float MaxHealth = 100;
+	[Export]
+	public float MaxFuel = 100;
 
 	// Node refs
 	private AnimatedSprite _thrustAnimatedSprite = null!;
@@ -24,7 +27,8 @@ public class Player : RigidBody2D
 
 	// Vars
 	private Vector2 _velocityLastFrame = new Vector2(0,0); 
-	private int _health = 100;
+	private float _health;
+	private float _fuel;
 
 	public override void _Ready()
 	{
@@ -36,7 +40,8 @@ public class Player : RigidBody2D
 		_debrisParticles = GetNode<Particles2D>("ExplosionNode/DebrisParticles");
 		_shipSprite = GetNode<Sprite>("ShipSprite");
 		_thrustAnimatedSprite.Play();
-		_health = StartHealth;
+		_health = MaxHealth;
+		_fuel = MaxFuel;
 
 		Connect("body_entered", this, nameof(_on_Player_body_entered));
 		_impactAudio.Connect("finished", this, nameof(OnImpactSoundFinished));
@@ -44,17 +49,25 @@ public class Player : RigidBody2D
 
 	public override void _Process(float delta)
 	{
-		if (Input.IsActionJustPressed("player_up"))
+		if (Input.IsActionJustPressed("player_up") && _fuel > 0)
 		{
 			_thrustAnimatedSprite.Show();
 			_rocketAudio.Play();
 		}
 
-		if (Input.IsActionJustReleased("player_up"))
+		if (Input.IsActionJustReleased("player_up") || _fuel <= 0)
 		{
 			_thrustAnimatedSprite.Hide();
 			_rocketAudio.Stop();
 		}
+
+		ConsumeFuel(); 
+	}
+
+	public void ConsumeFuel() {
+		var inputStrength = Input.GetActionStrength("player_up");
+		_fuel -= inputStrength * 0.05f;
+		EmitSignal(nameof(FuelChanged), _fuel);
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -65,8 +78,11 @@ public class Player : RigidBody2D
 
 	private void ApplyThrust(float delta)
 	{
-		var force = Vector2.Up * Input.GetActionStrength("player_up");
-		LinearVelocity += delta * ThrustSpeed * force.Rotated(GlobalRotation);
+		if(_fuel > 0)
+		{
+			var force = Vector2.Up * Input.GetActionStrength("player_up");
+			LinearVelocity += delta * ThrustSpeed * force.Rotated(GlobalRotation);
+		}
 
 		var torque = Input.GetActionStrength("player_right") - Input.GetActionStrength("player_left");
 		AngularVelocity += delta * RotSpeed * torque;
@@ -74,7 +90,7 @@ public class Player : RigidBody2D
 
 	private void _on_Player_body_entered(Node body)
 	{
-		var impact = (int)Math.Round(_velocityLastFrame.Length() * 0.5);
+		var impact = (float)Math.Round(_velocityLastFrame.Length() * 0.5f);
 		if(impact < 10)
 			return;
 

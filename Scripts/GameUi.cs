@@ -7,8 +7,8 @@ public class GameUi : CanvasLayer
 
     public override void _Ready()
     {
-        _healthProgressBar = GetNode<ProgressBar>("HFlowContainer/HealthVBoxContainer/HealthProgressBar");
-        _fuelProgressBar = GetNode<ProgressBar>("HFlowContainer/FuelVBoxContainer/HealthProgressBar");
+        _healthProgressBar = GetNode<ProgressBar>("Container/HealthVBoxContainer/HealthProgressBar");
+        _fuelProgressBar = GetNode<ProgressBar>("Container/FuelVBoxContainer/FuelProgressBar");
     }
 
     public void SetHealthBarValue(double value) => _healthProgressBar.Value = value;

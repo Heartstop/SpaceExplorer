@@ -6,22 +6,21 @@
 [node name="GameUi" type="CanvasLayer"]
 script = ExtResource( 2 )
 
-[node name="HFlowContainer" type="GridContainer" parent="."]
+[node name="Container" type="Control" parent="."]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 11.0
 margin_top = -37.0
 margin_bottom = -1.0
-columns = 4
 
-[node name="HealthVBoxContainer" type="VBoxContainer" parent="HFlowContainer"]
+[node name="HealthVBoxContainer" type="VBoxContainer" parent="Container"]
 margin_right = 253.0
 margin_bottom = 36.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HFlowContainer/HealthVBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Container/HealthVBoxContainer"]
 margin_right = 253.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
@@ -30,24 +29,25 @@ theme = ExtResource( 1 )
 text = "Health"
 scroll_active = false
 
-[node name="HealthProgressBar" type="ProgressBar" parent="HFlowContainer/HealthVBoxContainer"]
+[node name="HealthProgressBar" type="ProgressBar" parent="Container/HealthVBoxContainer"]
 margin_top = 24.0
 margin_right = 253.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme = ExtResource( 1 )
+step = 0.001
 value = 50.0
 percent_visible = false
 
-[node name="FuelVBoxContainer" type="VBoxContainer" parent="HFlowContainer"]
-margin_left = 291.0
-margin_right = 543.0
+[node name="FuelVBoxContainer" type="VBoxContainer" parent="Container"]
+margin_left = 305.0
+margin_right = 557.0
 margin_bottom = 36.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HFlowContainer/FuelVBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="Container/FuelVBoxContainer"]
 margin_right = 252.0
 margin_bottom = 20.0
 rect_min_size = Vector2( 0, 20 )
@@ -57,12 +57,13 @@ text = "Fuel
 "
 scroll_active = false
 
-[node name="FuelProgressBar" type="ProgressBar" parent="HFlowContainer/FuelVBoxContainer"]
+[node name="FuelProgressBar" type="ProgressBar" parent="Container/FuelVBoxContainer"]
 margin_top = 24.0
 margin_right = 252.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 theme = ExtResource( 1 )
-value = 50.0
+step = 0.001
+value = 100.0
 percent_visible = false
