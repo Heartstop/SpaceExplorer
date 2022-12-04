@@ -96,7 +96,6 @@ color_ramp = SubResource( 13 )
 [sub_resource type="ShaderMaterial" id=15]
 shader = ExtResource( 8 )
 shader_param/ROTATION = 0.0
-shader_param/ASPECT = 1.7
 
 [node name="Player" type="RigidBody2D"]
 linear_damp = 0.0
