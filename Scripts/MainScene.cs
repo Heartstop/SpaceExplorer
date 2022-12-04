@@ -15,6 +15,7 @@ public class MainScene : Node
 		_ui = GetNode<GameUi>("GameUi");
 
 		_ui.SetMaxHealthBarValue(_player.StartHealth);
+		_ui.SetHealthBarValue(_player.StartHealth);
 		_player.Connect(nameof(Player.HealthChanged), this, nameof(OnPlayerHealthChanged));
 		_musicPlayer.Play();
 	}
