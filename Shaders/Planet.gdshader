@@ -11,7 +11,7 @@ float rand(vec2 uv) {
 
 float noise(vec2 uv)
 {
-	return rand(uv);
+	return rand(uv * 50.0);
 }
 
 float perlin_noise(vec2 coord)
