@@ -44,30 +44,36 @@ float perlin_noise(vec2 coord)
 }
 
 void fragment(){
-	float distanceFromCenter = distance(UV, vec2(0.5, 0.5));
-	if(distanceFromCenter > 0.5)
+	float distanceFromCenter = 2.0 * distance(UV, vec2(0.5, 0.5));
+
+	if(distanceFromCenter > 1.0)
 	{
 		COLOR.rgba = vec4(0, 0, 0, 0);
 	}
 	else
 	{
-		vec2 pixelatedUV = floor(UV * SCALE * 400.0 * 20.0) / 400.0 / 20.0;
-
-		float generatedNoise = (
-			0.6 * perlin_noise(pixelatedUV * 100.0)
-			+ 0.4 * noise(pixelatedUV) * 0.3
-		) * (
-			min(1.0, max(0.0, - (distanceFromCenter - 0.5) / 0.01))
-		);
-		
-		vec3 color = BASE_COLOR;
-		
-		if (generatedNoise > .1)
-			color = COLOR_1;
-				
-		if (generatedNoise > .3)
-			color = COLOR_2;
+		vec2 pixelatedUV = floor(UV * 8000.0) / 8000.0;
 	
-		COLOR.rgb = color;
+		COLOR.rgb = mix(
+			mix(
+				vec3(0.390625, 0.29296875, 0.25),
+				vec3(0.31640625, 0.22265625, 0.1796875),
+				clamp(1.0, 0.0, (
+					(pow(distanceFromCenter, 2) + pow(distanceFromCenter, 20))
+					* (0.2 + 0.8 * perlin_noise(pixelatedUV * 50.0))
+					* (0.5 + 0.5 * noise(pixelatedUV))
+				))
+			),
+			mix(
+				vec3(0.2734375, 0.27734375, 0.140625),
+				vec3(0.32421875, 0.3515625, 0.13671875),
+				noise(pixelatedUV)
+			),
+			step(0.4, clamp(1.0, 0.0, (
+				pow(distanceFromCenter, 100)
+				* (0.6 + 0.4 * perlin_noise(pixelatedUV * 50.0))
+				* (0.8 + 0.2 * noise(pixelatedUV))
+			)))
+		);
 	}
 }
