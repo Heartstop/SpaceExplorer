@@ -5,9 +5,8 @@ uniform vec3 OUTLINE_COLOR = vec3(0.86, .8, .9);
 uniform vec3 COLOR_1 = vec3(.7, .48, .64);
 uniform vec3 COLOR_2 = vec3(.6, .34, .54);
 
-float rand(vec2 cord){
-	cord = mod(cord, 10000.0);
-    return fract(sin(dot(cord.xy ,vec2(12.9898,78.233))) * 43758.5453);
+float rand(vec2 uv) {
+	return fract(sin(dot(uv.xy, vec2(12.9898,78.233))) * 43758.5453123);
 }
 
 float noise(vec2 uv)
@@ -48,26 +47,27 @@ void fragment(){
 	float distanceFromCenter = distance(UV, vec2(0.5, 0.5));
 	if(distanceFromCenter > 0.5)
 	{
-		COLOR.rgb = vec3(0,0,0);
-		COLOR.a = 0.0;
+		COLOR.rgba = vec4(0, 0, 0, 0);
 	}
 	else
 	{
-		vec2 scaledUv = UV * SCALE;
-		float generatedNoise = perlin_noise(scaledUv);
+		vec2 pixelatedUV = floor(UV * 400.0 * 20.0) / 400.0 / 20.0;
+
+		float generatedNoise = (
+			0.6 * perlin_noise(pixelatedUV * 100.0)
+			+ 0.4 * noise(pixelatedUV) * 0.3
+		) * (
+			min(1.0, max(0.0, - (distanceFromCenter - 0.5) / 0.01))
+		);
 		
 		vec3 color = BASE_COLOR;
 		
-		if(generatedNoise > .2)
+		if (generatedNoise > .1)
 			color = COLOR_1;
 				
-		if(generatedNoise > .5)
+		if (generatedNoise > .3)
 			color = COLOR_2;
-		
-		if(distanceFromCenter > (.4995))
-			color = OUTLINE_COLOR;
 	
-		color = color - (distanceFromCenter * distanceFromCenter * 0.5);
 		COLOR.rgb = color;
 	}
 }
