@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/Actor/Player.cs" type="Script" id=1]
 [ext_resource path="res://Sprites/ship.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Sounds/RocketNoise.ogg" type="AudioStream" id=4]
 [ext_resource path="res://Sprites/8x8circle.png" type="Texture" id=5]
 [ext_resource path="res://Sounds/Explosion.wav" type="AudioStream" id=6]
+[ext_resource path="res://Scenes/ZoomedOutContainer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/TractorBeam.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Sounds/Impact.wav" type="AudioStream" id=10]
 [ext_resource path="res://Sounds/FuelSound.ogg" type="AudioStream" id=11]
@@ -95,6 +96,7 @@ polygon = PoolVector2Array( -8, 4, -4, -20, 4, -20, 8, 4 )
 polygon = PoolVector2Array( -8, 4, -14, 15, -14, 20, -10, 20, -3, 18, 3, 18, 10, 20, 14, 20, 14, 15, 8, 4, 4, -20, -4, -20 )
 
 [node name="ShipSprite" type="Sprite" parent="."]
+visible = false
 texture = ExtResource( 2 )
 
 [node name="ThrustAnimation" type="AnimatedSprite" parent="."]
@@ -140,3 +142,8 @@ bus = "Fx"
 
 [node name="TractorBeam" parent="." instance=ExtResource( 9 )]
 position = Vector2( 0, 20 )
+
+[node name="ZoomedOutContainer" parent="." instance=ExtResource( 7 )]
+visible = false
+position = Vector2( 0, -25 )
+texture = ExtResource( 5 )

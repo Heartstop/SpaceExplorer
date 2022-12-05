@@ -13,7 +13,7 @@ public class MainScene : Node
 		_musicPlayer = GetNode<AudioStreamPlayer>("MusicPlayer");
 		_player = GetNode<Player>("World/Player");
 		_ui = GetNode<GameUi>("GameUi");
-
+		
 		_ui.SetMaxHealthBarValue(_player.MaxHealth);
 		_ui.SetHealthBarValue(_player.MaxHealth);
 		_ui.SetMaxFuelBarValue(_player.MaxFuel);
@@ -23,6 +23,7 @@ public class MainScene : Node
 
 		_musicPlayer.Play();
 	}
+
 
 	public void OnPlayerHealthChanged(int health) => _ui.SetHealthBarValue(health);
 	public void OnPlayerFuelChanged(int fuel) => _ui.SetFuelBarValue(fuel);
