@@ -14,24 +14,31 @@ public class ZoomedOutIconRef {
 
 public class GameUi : CanvasLayer
 {
+    public bool ShowIcons { get; set; } = false;
+
     ProgressBar _healthProgressBar = null!;
     ProgressBar _fuelProgressBar = null!;
+    Control _worldIconsContainer = null!;
     private Dictionary<ulong, ZoomedOutIconRef> _zoomedOutIconRefs = new Dictionary<ulong, ZoomedOutIconRef>();
-
+ 
     public override void _Ready()
     {
+        _healthProgressBar = GetNode<ProgressBar>("Container/HealthVBoxContainer/HealthProgressBar");
+        _fuelProgressBar = GetNode<ProgressBar>("Container/FuelVBoxContainer/FuelProgressBar");
+        _worldIconsContainer = GetNode<Control>("WorldIconsContainer");
+
         foreach(var node in GetTree().GetNodesInGroup("ZoomedOutContainer")){
             EvalIconRef(node);
         }
-
-        _healthProgressBar = GetNode<ProgressBar>("Container/HealthVBoxContainer/HealthProgressBar");
-        _fuelProgressBar = GetNode<ProgressBar>("Container/FuelVBoxContainer/FuelProgressBar");
         
     }
 
     public override void _Process(float delta)
     {
         base._Process(delta);
+
+        _worldIconsContainer.Visible = ShowIcons;
+
         foreach(var containerRef in _zoomedOutIconRefs.Values){
             containerRef.LocalRef.Position = containerRef.GameRef.GetGlobalTransformWithCanvas().origin;
         }
@@ -44,7 +51,7 @@ public class GameUi : CanvasLayer
         var sprite = new Sprite();
         sprite.Texture = zoomedOutIcon.Texture;
         _zoomedOutIconRefs.Add(zoomedOutIcon.GetInstanceId(), new ZoomedOutIconRef(sprite, zoomedOutIcon));
-        AddChild(sprite);
+        _worldIconsContainer.AddChild(sprite);
     }
 
     private void OnNodeAdded(Node node) => EvalIconRef(node);

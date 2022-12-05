@@ -6,6 +6,7 @@ public class Camera : Camera2D
 {
 	[Export] public float MinZoom = 0.25f;
 	[Export] public float MaxZoom = 3.5f;
+	[Signal] public delegate void ZoomChanged(float newZoom);
 	const float SCROLL_WHEEL_ZOOM_RATE = 0.1f; 
 
 	public override void _Process(float delta)
@@ -40,5 +41,6 @@ public class Camera : Camera2D
 	private void AddRelativeZoom(float amount) {
 		var newZoom = Math.Max(Math.Min(MaxZoom, Zoom.x + amount), MinZoom);
 		Zoom = new Vector2(newZoom, newZoom);
+		EmitSignal(nameof(ZoomChanged), newZoom);
 	}
 }
