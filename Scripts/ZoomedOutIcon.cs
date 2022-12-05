@@ -1,6 +1,6 @@
 using Godot;
 
-public class ZoomedOutContainer : Sprite
+public class ZoomedOutIcon : Sprite
 {
 
     public override void _Ready()
