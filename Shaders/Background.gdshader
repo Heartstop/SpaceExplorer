@@ -19,14 +19,14 @@ void fragment() {
 	vec2 coord = (UV - vec2(0.5)) * vec2(aspect, 1) * rotation + vec2(0.5);
 
 	vec2 pixelatedCoord = floor(coord * 600.0) / 600.0;
-	vec2 subArea = floor(coord * 60.0) / 60.0;
-	vec2 subAreaCoord = (pixelatedCoord - subArea) * 60.0;
+	vec2 subArea = floor(coord * 120.0) / 120.0;
+	vec2 subAreaCoord = (pixelatedCoord - subArea) * 120.0;
 
 	float starX = floor(noise(subArea) * 100.0) / 100.0;
 	float starY = floor(noise(-subArea) * 100.0) / 100.0;
 
 	COLOR.rgb = vec3(0.07421875, 0.1015625, 0.12109375);
 
-	if (distance(subAreaCoord, vec2(starX, starY)) < 0.05)
-		COLOR.rgb += vec3(noise(subArea * 2.0));
+	if (distance(subAreaCoord, vec2(starX, starY)) < 0.1)
+		COLOR.rgb += vec3(pow(noise(subArea * 2.0), 12));
 }
