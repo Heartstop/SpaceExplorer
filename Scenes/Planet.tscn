@@ -27,6 +27,7 @@ margin_left = -10.0
 margin_top = -10.0
 margin_right = 10.0
 margin_bottom = 10.0
+mouse_filter = 2
 
 [node name="GravityField" type="Area2D" parent="."]
 visible = false
