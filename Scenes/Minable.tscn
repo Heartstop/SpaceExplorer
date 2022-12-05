@@ -41,4 +41,3 @@ shape = SubResource( 7 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 modulate = Color( 0.278431, 0.521569, 0.694118, 1 )
 frames = SubResource( 6 )
-frame = 1

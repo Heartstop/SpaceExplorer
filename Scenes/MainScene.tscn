@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scenes/GameUi.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/LandingPlatform.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Sprites/FuelSilo.png" type="Texture" id=9]
+[ext_resource path="res://Scenes/PlayerCamera.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 21.5, 39 )
@@ -62,6 +63,9 @@ script = ExtResource( 4 )
 [node name="Player" parent="World" instance=ExtResource( 2 )]
 position = Vector2( 0, -11 )
 z_index = 1
+
+[node name="PlayerCamera" parent="World/Player" instance=ExtResource( 10 )]
+z_as_relative = false
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
