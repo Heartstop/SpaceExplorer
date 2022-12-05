@@ -6,6 +6,11 @@
 [node name="GameUi" type="CanvasLayer"]
 script = ExtResource( 2 )
 
+[node name="WorldIconsContainer" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
 [node name="Container" type="Control" parent="."]
 anchor_top = 1.0
 anchor_right = 1.0
