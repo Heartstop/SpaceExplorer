@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://Scenes/LandingPlatform.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Sprites/FuelSilo.png" type="Texture" id=9]
 [ext_resource path="res://Scenes/PlayerCamera.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Sprites/AtlasHomeIcon.tres" type="Texture" id=11]
+[ext_resource path="res://Scenes/ZoomedOutIcon.tscn" type="PackedScene" id=12]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 21.5, 39 )
@@ -43,6 +45,10 @@ position = Vector2( 0, -11 )
 
 [node name="LandingPlatform" parent="World/PlanetWrapper/Doodads" instance=ExtResource( 8 )]
 position = Vector2( 0, 25 )
+
+[node name="ZoomedOutContainer" parent="World/PlanetWrapper/Doodads/LandingPlatform" instance=ExtResource( 12 )]
+visible = false
+texture = ExtResource( 11 )
 
 [node name="FuelSilo" type="StaticBody2D" parent="World/PlanetWrapper/Doodads"]
 position = Vector2( -74, -8 )

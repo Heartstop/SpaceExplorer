@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Scripts/Actor/Player.cs" type="Script" id=1]
 [ext_resource path="res://Sprites/ship.png" type="Texture" id=2]
@@ -7,7 +7,7 @@
 [ext_resource path="res://Sprites/8x8circle.png" type="Texture" id=5]
 [ext_resource path="res://Sounds/Explosion.wav" type="AudioStream" id=6]
 [ext_resource path="res://Scenes/ZoomedOutIcon.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Sprites/IconsSpriteSheet.png" type="Texture" id=8]
+[ext_resource path="res://Sprites/AtlasPlayerIcon.tres" type="Texture" id=8]
 [ext_resource path="res://Scenes/TractorBeam.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Sounds/Impact.wav" type="AudioStream" id=10]
 [ext_resource path="res://Sounds/FuelSound.ogg" type="AudioStream" id=11]
@@ -71,10 +71,6 @@ angle_random = 1.0
 scale = 2.5
 scale_curve = SubResource( 10 )
 color_ramp = SubResource( 8 )
-
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 8 )
-region = Rect2( 0, 0, 16, 16 )
 
 [node name="Player" type="RigidBody2D"]
 contacts_reported = 1
@@ -149,4 +145,4 @@ position = Vector2( 0, 20 )
 
 [node name="ZoomedOutIcon" parent="." instance=ExtResource( 7 )]
 visible = false
-texture = SubResource( 17 )
+texture = ExtResource( 8 )
