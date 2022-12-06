@@ -28,11 +28,11 @@ public class MiningLaser : Node2D
 		_detectionArea = GetNode<Area2D>("DetectionArea");
 	}
 
-	public override void _Process(float delta)
+	public override void _PhysicsProcess(float delta)
 	{
 		if (!Input.IsActionPressed("mine"))
 		{
-			Visible = false;
+			SetBeamEnabled(false);
 			return;
 		}
 		
@@ -43,12 +43,13 @@ public class MiningLaser : Node2D
 			.FirstOrDefault();
 		if (target == null)
 		{
-			Visible = false;
+			SetBeamEnabled(false);
 			return;
 		}
 
-		Visible = true;
+		SetBeamEnabled(true);
 		_rayCast.CastTo = _rayCast.ToLocal(target.GlobalPosition);
+		_rayCast.ForceRaycastUpdate();
 		var laserEndGlobal = _rayCast.GetCollisionPoint();
 		_laser.Points = new[] { Vector2.Zero, _laser.ToLocal(laserEndGlobal) };
 		_hitParticles.GlobalPosition = laserEndGlobal;
@@ -59,5 +60,11 @@ public class MiningLaser : Node2D
 		{
 			target.EmitSignal("Mined", delta);
 		}
+	}
+
+	private void SetBeamEnabled(bool enabled)
+	{
+		_laser.Visible = enabled;
+		_hitParticles.Emitting = enabled;
 	}
 }
