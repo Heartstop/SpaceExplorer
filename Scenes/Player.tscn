@@ -8,7 +8,7 @@
 [ext_resource path="res://Sounds/Explosion.wav" type="AudioStream" id=6]
 [ext_resource path="res://Scenes/ZoomedOutIcon.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sprites/AtlasPlayerIcon.tres" type="Texture" id=8]
-[ext_resource path="res://Scenes/TractorBeam.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/MiningLaser.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Sounds/Impact.wav" type="AudioStream" id=10]
 [ext_resource path="res://Sounds/FuelSound.ogg" type="AudioStream" id=11]
 
@@ -140,9 +140,8 @@ stream = ExtResource( 4 )
 volume_db = -9.0
 bus = "Fx"
 
-[node name="TractorBeam" parent="." instance=ExtResource( 9 )]
-position = Vector2( 0, 20 )
-
 [node name="ZoomedOutIcon" parent="." instance=ExtResource( 7 )]
 visible = false
 texture = ExtResource( 8 )
+
+[node name="MiningLaser" parent="." instance=ExtResource( 9 )]
