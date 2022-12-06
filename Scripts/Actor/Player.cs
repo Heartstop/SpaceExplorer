@@ -118,7 +118,7 @@ public class Player : RigidBody2D
 		if(node is LandingPlatform)
 			IsOnLandingPad = true;
 
-		DamageShip(0.1f);	
+		DamageShip(0.1f);
 	}
 
 	private void OnBodyShapeExitedFeet(Node node){ 

@@ -12,10 +12,9 @@ public class PickupArea : Area2D
 
 	public void OnBodyEntered(PhysicsBody2D body)
 	{
-		if (body is Minable minable)
-		{
-			minable.GetParent().RemoveChild(minable);
-			_grabAudio.Play();
-		}
+		if (body is not Minable minable)
+			return;
+		minable.QueueFree();
+		_grabAudio.Play();
 	}
 }
