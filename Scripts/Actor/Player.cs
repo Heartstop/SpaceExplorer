@@ -7,19 +7,19 @@ public class Player : RigidBody2D
 {
 	const float FUEL_CONSUMPTION_RATE = 4f;
 	const float REFUEL_RATE = 8f;
+    const float REPAIR_RATE = 8f;
 
 	[Signal] public delegate void HealthChanged(int newHealth);
 	[Signal] public delegate void FuelChanged(int newFuel);
 
-	public float RotSpeed => 2;
-	public float ThrustSpeed => 100;
-
-	public bool IsOnLandingPad { get; private set; } = false;
-
 	[Export]
 	public float MaxHealth = 100;
 	[Export]
+
 	public float MaxFuel = 100;
+	public float RotSpeed => 2;
+	public float ThrustSpeed => 100;
+	public bool IsOnLandingPad { get; private set; } = false;
 
 	// Node refs
 	private AnimatedSprite _thrustAnimatedSprite = null!;
@@ -70,11 +70,11 @@ public class Player : RigidBody2D
 		}
 
 		ConsumeFuel(delta);
-		Refueling(delta);
+		RefuelingAndRepair(delta);
 	}
 
-	public void Refueling(float delta){
-		if(!IsOnLandingPad || _fuel >= MaxFuel || Input.IsActionPressed("player_up"))
+	public void RefuelingAndRepair(float delta){
+		if(!IsOnLandingPad || (_fuel >= MaxFuel && _health >= MaxHealth ) || Input.IsActionPressed("player_up"))
 		{
 			if(_refuelAudio.Playing)
 				_refuelAudio.Stop();
@@ -85,9 +85,16 @@ public class Player : RigidBody2D
 		if(!_refuelAudio.Playing)
 			_refuelAudio.Play();
 
-		_refuelAudio.PitchScale = (_fuel / MaxFuel) * 0.25f + 0.75f;
+		_refuelAudio.PitchScale = (_fuel / MaxFuel) * (_health / MaxHealth) * 0.25f + 0.75f;
 		_fuel += delta * REFUEL_RATE;
+		_health += delta * REPAIR_RATE;
+
+		_fuel = Math.Min(_fuel, MaxFuel);
+		_health = Math.Min(_health, MaxHealth);
+
 		EmitSignal(nameof(FuelChanged), _fuel);
+		EmitSignal(nameof(HealthChanged), _health);
+
 	}
 
 	public void ConsumeFuel(float delta) {
