@@ -31,6 +31,6 @@ public class MainScene : Node
 
 	private void OnPlayerHealthChanged(int health) => _ui.SetHealthBarValue(health);
 	private void OnPlayerFuelChanged(int fuel) => _ui.SetFuelBarValue(fuel);
-	private void OnCameraZoomChanged(float zoom) => _ui.ShowIcons = zoom > 4.5f;
+	private void OnCameraZoomChanged(float zoom) => _ui.AlwaysShowIcons = zoom > 4.5f;
 
 }
