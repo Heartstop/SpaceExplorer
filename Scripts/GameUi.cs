@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -14,7 +15,12 @@ public class ZoomedOutIconRef {
 
 public class GameUi : CanvasLayer
 {
-    public bool ShowIcons { get; set; } = false;
+    public bool AlwaysShowIcons { get; set; } = false;
+
+    [Export] float MarginTop = 20f;
+    [Export] float MarginRight = 20f;
+    [Export] float MarginBottom = 20f;
+    [Export] float MarginLeft = 20f;
 
     ProgressBar _healthProgressBar = null!;
     ProgressBar _fuelProgressBar = null!;
@@ -36,11 +42,25 @@ public class GameUi : CanvasLayer
     public override void _Process(float delta)
     {
         base._Process(delta);
-
-        _worldIconsContainer.Visible = ShowIcons;
+        var viewPortSize = GetViewport().GetVisibleRect().Size;
 
         foreach(var containerRef in _zoomedOutIconRefs.Values){
-            containerRef.LocalRef.Position = containerRef.GameRef.GetGlobalTransformWithCanvas().origin;
+            var xMin = MarginLeft;
+            var xMax = viewPortSize.x - MarginRight;
+            var yMin = MarginTop;
+            var yMax = viewPortSize.y - MarginBottom;
+            var canvasPosition = containerRef.GameRef.GetGlobalTransformWithCanvas().origin;
+
+            containerRef.LocalRef.Visible = AlwaysShowIcons 
+                || canvasPosition.x <= xMin 
+                || canvasPosition.x >= xMax
+                || canvasPosition.y <= yMin
+                || canvasPosition.y >= yMax;
+
+            containerRef.LocalRef.Position = new Vector2(
+                x: Math.Min(xMax, (Math.Max(xMin, canvasPosition.x))),
+                y: Math.Min(yMax, (Math.Max(yMin, canvasPosition.y)))
+            );
         }
     }
 
