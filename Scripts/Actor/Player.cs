@@ -7,7 +7,7 @@ public class Player : RigidBody2D
 {
 	const float FUEL_CONSUMPTION_RATE = 4f;
 	const float REFUEL_RATE = 8f;
-    const float REPAIR_RATE = 8f;
+	const float REPAIR_RATE = 8f;
 
 	[Signal] public delegate void HealthChanged(int newHealth);
 	[Signal] public delegate void FuelChanged(int newFuel);
