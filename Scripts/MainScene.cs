@@ -29,6 +29,11 @@ public class MainScene : Node
 		_musicPlayer.Play();
 	}
 
+	public override void _Process(float delta)
+	{
+		_player.DisableInput = _ui.IsUpgradeMenuOpen;
+	}
+
 	private void OnPlayerHealthChanged(int health) => _ui.SetHealthBarValue(health);
 	private void OnPlayerFuelChanged(int fuel) => _ui.SetFuelBarValue(fuel);
 	private void OnCameraZoomChanged(float zoom) => _ui.AlwaysShowIcons = zoom > 4.5f;
