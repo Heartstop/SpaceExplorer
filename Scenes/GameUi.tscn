@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://UiTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/GameUi.cs" type="Script" id=2]
+[ext_resource path="res://Sprites/AtlasQuestionIcon.tres" type="Texture" id=3]
+[ext_resource path="res://UpgradeButton.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/UpgradeMenu.cs" type="Script" id=5]
 
 [node name="GameUi" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -10,6 +13,189 @@ script = ExtResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+
+[node name="UpgradeMenuContainer" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="UpgradeMenu" type="Panel" parent="UpgradeMenuContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -179.0
+margin_top = -141.0
+margin_right = 179.0
+margin_bottom = 141.0
+theme = ExtResource( 1 )
+script = ExtResource( 5 )
+
+[node name="Label" type="Label" parent="UpgradeMenuContainer/UpgradeMenu"]
+margin_top = 8.0
+margin_right = 107.0
+margin_bottom = 25.0
+text = "Upgrades"
+align = 1
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu"]
+margin_left = 3.0
+margin_top = 39.0
+margin_right = 151.0
+margin_bottom = 284.0
+custom_constants/separation = 16
+
+[node name="HBox" type="HBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu/VBoxContainer"]
+margin_right = 148.0
+margin_bottom = 32.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="RocketPower" type="Button" parent="UpgradeMenuContainer/UpgradeMenu/VBoxContainer/HBox"]
+margin_left = 58.0
+margin_right = 90.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 1 )
+icon = ExtResource( 3 )
+icon_align = 1
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="HBox2" type="HBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu/VBoxContainer"]
+margin_top = 48.0
+margin_right = 148.0
+margin_bottom = 80.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="Radio" type="Button" parent="UpgradeMenuContainer/UpgradeMenu/VBoxContainer/HBox2"]
+margin_left = 58.0
+margin_right = 90.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 1 )
+icon = ExtResource( 3 )
+icon_align = 1
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true,
+"_editor_description_": ""
+}
+
+[node name="HBox3" type="HBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu/VBoxContainer"]
+margin_top = 96.0
+margin_right = 148.0
+margin_bottom = 128.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="TitaniumHull" type="Button" parent="UpgradeMenuContainer/UpgradeMenu/VBoxContainer/HBox3"]
+margin_left = 34.0
+margin_right = 66.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 1 )
+icon = ExtResource( 3 )
+icon_align = 1
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true,
+"_editor_description_": ""
+}
+
+[node name="Antifreeze" type="Button" parent="UpgradeMenuContainer/UpgradeMenu/VBoxContainer/HBox3"]
+margin_left = 82.0
+margin_right = 114.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 1 )
+icon = ExtResource( 3 )
+icon_align = 1
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true,
+"_editor_description_": ""
+}
+
+[node name="HBox4" type="HBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu/VBoxContainer"]
+margin_top = 144.0
+margin_right = 148.0
+margin_bottom = 176.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="RadiationShielding" type="Button" parent="UpgradeMenuContainer/UpgradeMenu/VBoxContainer/HBox4"]
+margin_left = 58.0
+margin_right = 90.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 1 )
+icon = ExtResource( 3 )
+icon_align = 1
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true,
+"_editor_description_": ""
+}
+
+[node name="HBox5" type="HBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu/VBoxContainer"]
+margin_top = 192.0
+margin_right = 148.0
+margin_bottom = 224.0
+custom_constants/separation = 16
+alignment = 1
+
+[node name="WarpDrive" type="Button" parent="UpgradeMenuContainer/UpgradeMenu/VBoxContainer/HBox5"]
+margin_left = 58.0
+margin_right = 90.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 32, 32 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme = ExtResource( 1 )
+icon = ExtResource( 3 )
+icon_align = 1
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_lock_": true,
+"_editor_description_": ""
+}
+
+[node name="InfoVBox" type="VBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu"]
+margin_left = 171.0
+margin_top = 25.0
+margin_right = 336.0
+margin_bottom = 234.0
+
+[node name="NameLabel" type="RichTextLabel" parent="UpgradeMenuContainer/UpgradeMenu/InfoVBox"]
+margin_right = 165.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Name"
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="UpgradeMenuContainer/UpgradeMenu/InfoVBox"]
+margin_top = 28.0
+margin_right = 165.0
+margin_bottom = 209.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "This is some long descirption of sorts just for reference. You are welcome."
 
 [node name="Container" type="Control" parent="."]
 anchor_top = 1.0

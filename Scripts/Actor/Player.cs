@@ -14,9 +14,12 @@ public class Player : RigidBody2D
 
 	[Export]
 	public float MaxHealth = 100;
-	[Export]
 
+	[Export]
 	public float MaxFuel = 100;
+
+	public bool DisableInput { get; set; } = false;
+
 	public float RotSpeed => 2;
 	public float ThrustSpeed => 100;
 	public bool IsOnLandingPad { get; private set; } = false;
@@ -57,6 +60,16 @@ public class Player : RigidBody2D
 
 	public override void _Process(float delta)
 	{
+		ConsumeFuel(delta);
+		RefuelingAndRepair(delta);
+		EffectsProcess();
+	}
+
+	public void EffectsProcess()
+	{
+		if(DisableInput)
+			return;
+		
 		if (Input.IsActionJustPressed("player_up") && _fuel > 0)
 		{
 			_thrustAnimatedSprite.Show();
@@ -68,9 +81,6 @@ public class Player : RigidBody2D
 			_thrustAnimatedSprite.Hide();
 			_rocketAudio.Stop();
 		}
-
-		ConsumeFuel(delta);
-		RefuelingAndRepair(delta);
 	}
 
 	public void RefuelingAndRepair(float delta){
@@ -98,6 +108,9 @@ public class Player : RigidBody2D
 	}
 
 	public void ConsumeFuel(float delta) {
+		if(DisableInput)
+			return;
+
 		var inputStrength = Input.GetActionStrength("player_up");
 		_fuel -= inputStrength * delta * FUEL_CONSUMPTION_RATE;
 		EmitSignal(nameof(FuelChanged), _fuel);
@@ -111,6 +124,9 @@ public class Player : RigidBody2D
 
 	private void ApplyThrust(float delta)
 	{
+		if(DisableInput)
+			return;
+
 		if(_fuel > 0)
 		{
 			var force = Vector2.Up * Input.GetActionStrength("player_up");
