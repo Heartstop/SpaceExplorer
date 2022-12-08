@@ -16,6 +16,9 @@ public class Trajectory : Node2D
 	[Export]
 	public float Width = 5f;
 
+	[Export]
+	public float TimeStep = 0.5f;
+
 	private ImmutableArray<TrajectoryPoint> _trajectoryPoints;
 
 	public override void _Ready()
@@ -31,10 +34,9 @@ public class Trajectory : Node2D
 		}
 
 		_trajectoryPoints = pointStack.AsEnumerable().Reverse().ToImmutableArray();
-		for (var i = 0; i < _trajectoryPoints.Length; i++)
+		foreach (var trajectoryPoint in _trajectoryPoints)
 		{
-			var trajectoryPoint = _trajectoryPoints[i];
-			trajectoryPoint.TimeStep = Mathf.Pow(i, 2) / _trajectoryPoints.Length;
+			trajectoryPoint.TimeStep = TimeStep;
 			AddChild(trajectoryPoint);
 		}
 	}
