@@ -1,21 +1,29 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Shaders/Planet.gdshader" type="Shader" id=1]
+[ext_resource path="res://Scripts/CelestialBodies/Planet.cs" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=5]
 
 [sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
 shader = ExtResource( 1 )
-shader_param/SCALE = 1.0
-shader_param/BASE_COLOR = Vector3( 0.344, 0.242, 0.195 )
-shader_param/OUTLINE_COLOR = Vector3( 0.86, 0.8, 0.9 )
-shader_param/COLOR_1 = Vector3( 0.375, 0.266, 0.215 )
-shader_param/COLOR_2 = Vector3( 0.391, 0.293, 0.25 )
+shader_param/PIXEL_SCALE = 20.0
+shader_param/BORDER_SIZE = 100.0
+shader_param/COLOR_1 = Color( 0.356863, 0.356863, 0.356863, 1 )
+shader_param/COLOR_2 = Color( 0.517647, 0.517647, 0.517647, 1 )
+shader_param/OUTLINE_COLOR_1 = Color( 0.2, 0.2, 0.2, 1 )
+shader_param/OUTLINE_COLOR_2 = Color( 0.32549, 0.32549, 0.32549, 1 )
 
 [sub_resource type="CircleShape2D" id=6]
 
 [node name="Planet" type="StaticBody2D"]
 collision_layer = 3
+script = ExtResource( 2 )
+Color1 = Color( 0.356863, 0.356863, 0.356863, 1 )
+Color2 = Color( 0.517647, 0.517647, 0.517647, 1 )
+OutlineColor1 = Color( 0.2, 0.2, 0.2, 1 )
+OutlineColor2 = Color( 0.32549, 0.32549, 0.32549, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -35,6 +43,7 @@ space_override = 1
 gravity_point = true
 gravity_distance_scale = 1.0
 gravity_vec = Vector2( 0, 0 )
+gravity = 11.3137
 linear_damp = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GravityField"]
