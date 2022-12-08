@@ -1,11 +1,9 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Planet.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scripts/CelestialBodies/Planet.cs" type="Script" id=4]
 [ext_resource path="res://Sounds/SpaceMusic.ogg" type="AudioStream" id=5]
-[ext_resource path="res://Scenes/Minable.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/GameUi.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/LandingPlatform.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Sprites/FuelSilo.png" type="Texture" id=9]
@@ -27,21 +25,6 @@ MarginLeft = 40.0
 
 [node name="World" type="Node2D" parent="."]
 
-[node name="Planet2" parent="World" instance=ExtResource( 3 )]
-position = Vector2( -4014, -371 )
-scale = Vector2( 100, 100 )
-
-[node name="Minable" parent="World" instance=ExtResource( 6 )]
-position = Vector2( -111, 7 )
-SpriteIndex = 3
-
-[node name="Minable2" parent="World" instance=ExtResource( 6 )]
-position = Vector2( -136, 9 )
-SpriteIndex = 1
-
-[node name="Minable3" parent="World" instance=ExtResource( 6 )]
-position = Vector2( -158, 15 )
-
 [node name="PlanetWrapper" type="Node2D" parent="World"]
 position = Vector2( 0, -11 )
 
@@ -55,7 +38,7 @@ visible = false
 texture = ExtResource( 11 )
 
 [node name="FuelSilo" type="StaticBody2D" parent="World/PlanetWrapper/Doodads"]
-position = Vector2( -74, -8 )
+position = Vector2( -51, 1 )
 collision_layer = 3
 
 [node name="Sprite" type="Sprite" parent="World/PlanetWrapper/Doodads/FuelSilo"]
@@ -66,9 +49,14 @@ position = Vector2( -0.5, 0 )
 shape = SubResource( 2 )
 
 [node name="Planet" parent="World/PlanetWrapper" instance=ExtResource( 3 )]
-position = Vector2( 1, 4029 )
-scale = Vector2( 400, 400 )
-script = ExtResource( 4 )
+position = Vector2( 1, 276 )
+scale = Vector2( 25, 25 )
+GravityFactor = 10.0
+Color1 = Color( 0.270588, 0.270588, 0.270588, 1 )
+Color2 = Color( 0.321569, 0.321569, 0.321569, 1 )
+OutlineColor1 = Color( 0.286275, 0.286275, 0.286275, 1 )
+OutlineColor2 = Color( 0.219608, 0.219608, 0.219608, 1 )
+BorderSize = 200.0
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
 position = Vector2( 0, -11 )

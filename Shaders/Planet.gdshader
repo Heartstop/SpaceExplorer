@@ -1,9 +1,10 @@
 shader_type canvas_item;
-uniform float SCALE = 1;
-uniform vec3 BASE_COLOR = vec3(.85, .6, .77);
-uniform vec3 OUTLINE_COLOR = vec3(0.86, .8, .9);
-uniform vec3 COLOR_1 = vec3(.7, .48, .64);
-uniform vec3 COLOR_2 = vec3(.6, .34, .54);
+uniform float PIXEL_SCALE = 8000.;
+uniform float BORDER_SIZE = 100;
+uniform vec4 COLOR_1 : hint_color = vec4(0.390625, 0.29296875, 0.25, 1.);
+uniform vec4 COLOR_2 : hint_color = vec4(0.31640625, 0.22265625, 0.1796875, 1.);
+uniform vec4 OUTLINE_COLOR_1 : hint_color  = vec4(0.2734375, 0.27734375, 0.140625, 1.);
+uniform vec4 OUTLINE_COLOR_2 : hint_color = vec4(0.32421875, 0.3515625, 0.13671875, 1.);
 
 float rand(vec2 uv) {
 	return fract(sin(dot(uv.xy, vec2(12.9898,78.233))) * 43758.5453123);
@@ -52,12 +53,12 @@ void fragment(){
 	}
 	else
 	{
-		vec2 pixelatedUV = floor(UV * 8000.0) / 8000.0;
+		vec2 pixelatedUV = floor(UV * PIXEL_SCALE) / PIXEL_SCALE;
 	
 		COLOR.rgb = mix(
 			mix(
-				vec3(0.390625, 0.29296875, 0.25),
-				vec3(0.31640625, 0.22265625, 0.1796875),
+				COLOR_1.rgb,
+				COLOR_2.rgb,
 				clamp(1.0, 0.0, (
 					(pow(distanceFromCenter, 2) + pow(distanceFromCenter, 20))
 					* (0.2 + 0.8 * perlin_noise(pixelatedUV * 50.0))
@@ -65,12 +66,12 @@ void fragment(){
 				))
 			),
 			mix(
-				vec3(0.2734375, 0.27734375, 0.140625),
-				vec3(0.32421875, 0.3515625, 0.13671875),
+				OUTLINE_COLOR_1.rgb,
+				OUTLINE_COLOR_2.rgb,
 				noise(pixelatedUV)
 			),
 			step(0.4, clamp(1.0, 0.0, (
-				pow(distanceFromCenter, 100)
+				pow(distanceFromCenter, BORDER_SIZE)
 				* (0.6 + 0.4 * perlin_noise(pixelatedUV * 50.0))
 				* (0.8 + 0.2 * noise(pixelatedUV))
 			)))
