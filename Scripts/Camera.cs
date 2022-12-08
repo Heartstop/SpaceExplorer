@@ -8,6 +8,7 @@ public class Camera : Camera2D
 	[Export] public float MaxZoom = 3.5f;
 	[Signal] public delegate void ZoomChanged(float newZoom);
 
+	public bool DisableInput { get; set; }
 	public float CurrentZoom { get; set; }
 	const float SCROLL_WHEEL_ZOOM_RATE = 0.1f; 
 
@@ -21,6 +22,9 @@ public class Camera : Camera2D
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
+		if(DisableInput)
+			return;
+
 		var zoom = Zoom.x;
 
 		if(!@event.IsAction("camera_zoom_in") && !@event.IsAction("camera_zoom_out"))
@@ -36,6 +40,9 @@ public class Camera : Camera2D
 
 	private void ZoomProcess(float delta)
 	{
+		if(DisableInput)
+			return;
+			
 		var amount = (Input.GetActionStrength("camera_zoom_in") - Input.GetActionStrength("camera_zoom_out")) * delta;
 		AddRelativeZoom(amount);
 		
