@@ -17,38 +17,37 @@ public class Trajectory : Node2D
 	public float Width = 5f;
 
 	[Export]
-	public float TimeStep = 0.5f;
+	public float StepSize = 10;
 
-	private ImmutableArray<TrajectoryPoint> _trajectoryPoints;
-
-	public override void _Ready()
-	{
-		var pointStack = new List<TrajectoryPoint>(Points) { new() };
-		for (var i = 1; i < Points; i++)
-		{
-			var point = new TrajectoryPoint
-			{
-				NextPoint = pointStack.Last()
-			};
-			pointStack.Add(point);
-		}
-
-		_trajectoryPoints = pointStack.AsEnumerable().Reverse().ToImmutableArray();
-		foreach (var trajectoryPoint in _trajectoryPoints)
-		{
-			trajectoryPoint.TimeStep = TimeStep;
-			AddChild(trajectoryPoint);
-		}
-	}
+	private Vector2[] _pathPoints = {};
 
 	public override void _PhysicsProcess(float delta)
 	{
-		_trajectoryPoints[0].PointVelocity = GetParent<RigidBody2D>().LinearVelocity;
+		var gravityFields = GetTree().GetNodesInGroup("gravity_field").Cast<Area2D>().ToImmutableArray();
+		var points = new List<(Vector2 GlobalPos, Vector2 Velocity)>(Points){(GlobalPos: GlobalPosition, Velocity: GetParent<RigidBody2D>().LinearVelocity)};
+		for (var i = 0; i < Points; i++)
+		{
+			var lastNode = points.Last();
+			var force = gravityFields.Select(area =>
+			{
+				var directionVector = area.GlobalPosition - lastNode.GlobalPos;
+				var scaledDistance = directionVector.Length() * area.GravityDistanceScale;
+				var gravityForce = directionVector.Normalized() * (area.Gravity / (scaledDistance * scaledDistance));
+				return gravityForce;
+			}).Aggregate((vec1, vec2) => vec1 + vec2);
+
+			var timeStep = Mathf.Min(StepSize / force.Length(), 1f);
+			points.Add((
+				GlobalPos: timeStep * lastNode.Velocity + lastNode.GlobalPos,
+				Velocity: timeStep * force + lastNode.Velocity));
+		}
+
+		_pathPoints = points.Select(p => ToLocal(p.GlobalPos)).ToArray();
 		Update();
 	}
 
 	public override void _Draw()
 	{
-		DrawPolyline(_trajectoryPoints.Select(point => point.Position).ToArray(), Color, Width, true);
+		DrawPolyline(_pathPoints, Color, Width, true);
 	}
 }
