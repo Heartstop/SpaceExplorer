@@ -37,7 +37,7 @@ margin_right = 10.0
 margin_bottom = 10.0
 mouse_filter = 2
 
-[node name="GravityField" type="Area2D" parent="."]
+[node name="GravityField" type="Area2D" parent="." groups=["gravity_field"]]
 visible = false
 space_override = 1
 gravity_point = true
