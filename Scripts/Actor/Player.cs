@@ -21,7 +21,7 @@ public class Player : RigidBody2D
 	public bool DisableInput { get; set; } = false;
 
 	public float RotSpeed => 2;
-	public float ThrustSpeed => 100;
+	public float ThrustSpeed => 400;
 	public bool IsOnLandingPad { get; private set; } = false;
 
 	// Node refs
@@ -52,8 +52,6 @@ public class Player : RigidBody2D
 		_fuel = MaxFuel;
 
 		var feetHurtBox = GetNode<Area2D>("FeetHurtBox");
-		feetHurtBox.Connect("body_entered", this, nameof(OnBodyShapeEnteredFeet));
-		feetHurtBox.Connect("body_exited", this, nameof(OnBodyShapeExitedFeet));
 		GetNode<Area2D>("HullHurtBox").Connect("body_entered", this, nameof(OnBodyShapeEnteredHull));
 		_impactAudio.Connect("finished", this, nameof(OnImpactSoundFinished));
 	}
