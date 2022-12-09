@@ -1,6 +1,5 @@
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Diagnostics.Contracts;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using Godot;
 
@@ -10,12 +9,16 @@ public static class Physics
 {
     [Pure]
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Vector2 CalculateGravity(IEnumerable<Area2D> gravityFields, Vector2 globalPosition) =>
-        gravityFields.Select(area =>
+    public static Vector2 CalculateGravity(ImmutableArray<Area2D> gravityFields, Vector2 globalPosition)
+    {
+        var gravityForce = Vector2.Zero;
+        foreach (var gravityField in gravityFields)
         {
-            var directionVector = area.GlobalPosition - globalPosition;
-            var scaledDistance = directionVector.Length() * area.GravityDistanceScale;
-            var gravityForce = directionVector.Normalized() * (area.Gravity / (scaledDistance * scaledDistance));
-            return gravityForce;
-        }).Aggregate(Vector2.Zero, (vec1, vec2) => vec1 + vec2);
+            var directionVector = gravityField.GlobalPosition - globalPosition;
+            var scaledDistance = directionVector.Length() * gravityField.GravityDistanceScale;
+            gravityForce += directionVector.Normalized() * (gravityField.Gravity / (scaledDistance * scaledDistance));
+        }
+
+        return gravityForce;
+    }
 }

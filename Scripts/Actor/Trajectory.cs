@@ -31,9 +31,11 @@ public class Trajectory : Node2D
 			var force = Physics.CalculateGravity(gravityFields, lastNode.GlobalPos);
 
 			var timeStep = Mathf.Min(StepSize / force.Length(), 1f);
+			var newVelocity = timeStep * force + lastNode.Velocity;
+			var newGlobalPosition = timeStep * newVelocity + lastNode.GlobalPos;
 			points.Add((
-				GlobalPos: timeStep * lastNode.Velocity + lastNode.GlobalPos,
-				Velocity: timeStep * force + lastNode.Velocity));
+				GlobalPos: newGlobalPosition,
+				Velocity: newVelocity));
 		}
 
 		_pathPoints = points.Select(p => ToLocal(p.GlobalPos)).ToArray();

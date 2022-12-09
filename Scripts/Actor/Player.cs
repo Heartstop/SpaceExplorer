@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Immutable;
 using System.Linq;
 using Godot;
 
@@ -143,9 +144,9 @@ public class Player : RigidBody2D
 
 	private void ApplyGravity()
 	{
-		var gravityFields = GetTree().GetNodesInGroup("gravity_field").Cast<Area2D>();
+		var gravityFields = GetTree().GetNodesInGroup("gravity_field").Cast<Area2D>().ToImmutableArray();
 		var force = Physics.CalculateGravity(gravityFields, GlobalPosition);
-		AppliedForce += force;
+		AppliedForce += force * Mass;
 	}
 
 	private void OnBodyShapeEnteredFeet(Node node){ 
