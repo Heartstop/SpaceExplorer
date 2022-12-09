@@ -74,6 +74,7 @@ scale_curve = SubResource( 10 )
 color_ramp = SubResource( 8 )
 
 [node name="Player" type="RigidBody2D"]
+gravity_scale = 0.0
 contacts_reported = 1
 contact_monitor = true
 linear_damp = 0.0
@@ -148,3 +149,5 @@ texture = ExtResource( 8 )
 [node name="MiningLaser" parent="." instance=ExtResource( 9 )]
 
 [node name="Trajectory" parent="." instance=ExtResource( 12 )]
+Points = 50
+Color = Color( 1, 0, 0, 1 )

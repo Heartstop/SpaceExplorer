@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Godot;
 
 namespace SpaceExplorer.Scripts.Actor;
@@ -20,7 +21,7 @@ public class Player : RigidBody2D
 
 	public bool DisableInput { get; set; } = false;
 
-	public float RotSpeed => 2;
+	public float RotSpeed => 100;
 	public float ThrustSpeed => 100;
 	public bool IsOnLandingPad { get; private set; } = false;
 
@@ -118,23 +119,33 @@ public class Player : RigidBody2D
 
 	public override void _PhysicsProcess(float delta)
 	{
-		ApplyThrust(delta);
+		AppliedForce = Vector2.Zero;
+		AppliedTorque = 0f;
+		ApplyGravity();
+		ApplyThrust();
 		_velocityLastFrame = LinearVelocity;
 	}
 
-	private void ApplyThrust(float delta)
+	private void ApplyThrust()
 	{
 		if(DisableInput)
 			return;
 
 		if(_fuel > 0)
 		{
-			var force = Vector2.Up * Input.GetActionStrength("player_up");
-			LinearVelocity += delta * ThrustSpeed * force.Rotated(GlobalRotation);
+			var thrust = ThrustSpeed * Vector2.Up * Input.GetActionStrength("player_up");
+			AppliedForce += thrust.Rotated(Rotation);
 		}
 
 		var torque = Input.GetActionStrength("player_right") - Input.GetActionStrength("player_left");
-		AngularVelocity += delta * RotSpeed * torque;
+		AppliedTorque += RotSpeed * torque;
+	}
+
+	private void ApplyGravity()
+	{
+		var gravityFields = GetTree().GetNodesInGroup("gravity_field").Cast<Area2D>();
+		var force = Physics.CalculateGravity(gravityFields, GlobalPosition);
+		AppliedForce += force;
 	}
 
 	private void OnBodyShapeEnteredFeet(Node node){ 
