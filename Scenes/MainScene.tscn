@@ -76,7 +76,7 @@ scale = Vector2( 900, 900 )
 __meta__ = {
 "_edit_lock_": true
 }
-GravityFactor = 0.5
+Density = 0.5
 Color1 = Color( 1, 1, 1, 1 )
 Color2 = Color( 1, 0.988235, 0.8, 1 )
 OutlineColor1 = Color( 1, 0.921569, 0.607843, 1 )
@@ -188,7 +188,7 @@ scale = Vector2( 25, 25 )
 __meta__ = {
 "_edit_lock_": true
 }
-GravityFactor = 60.0
+Density = 60.0
 BorderSize = 50.0
 
 [node name="IronSpawner" type="Node2D" parent="World/HomePlanetWrapper/Planet"]

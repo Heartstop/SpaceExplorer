@@ -5,7 +5,7 @@ namespace SpaceExplorer.Scripts.CelestialBodies;
 [Tool]
 public class Planet : CelestialBody
 {
-	[Export] float GravityFactor = 4;
+	[Export] float Density = 5;
 	[Export] Color Color1 = new Color() {};
 
 	[Export] Color Color2 = new Color();
@@ -20,7 +20,7 @@ public class Planet : CelestialBody
 
 	public override void _Ready()
 	{
-		GetNode<Area2D>("GravityField").Gravity = GravityFactor * Mathf.Pow(Scale.Length(), 3);
+		GetNode<Area2D>("GravityField").Gravity = Density * Mathf.Pi * Scale.x * Scale.x * Scale.x;
 		_colorRect = GetNode<ColorRect>("ColorRect");
 		SetShaderParams();
 	}
