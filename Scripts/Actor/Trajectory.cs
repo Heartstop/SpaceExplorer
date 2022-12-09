@@ -28,18 +28,14 @@ public class Trajectory : Node2D
 		for (var i = 0; i < Points; i++)
 		{
 			var lastNode = points.Last();
-			var force = gravityFields.Select(area =>
-			{
-				var directionVector = area.GlobalPosition - lastNode.GlobalPos;
-				var scaledDistance = directionVector.Length() * area.GravityDistanceScale;
-				var gravityForce = directionVector.Normalized() * (area.Gravity / (scaledDistance * scaledDistance));
-				return gravityForce;
-			}).Aggregate((vec1, vec2) => vec1 + vec2);
+			var force = Physics.CalculateGravity(gravityFields, lastNode.GlobalPos);
 
 			var timeStep = Mathf.Min(StepSize / force.Length(), 1f);
+			var newVelocity = timeStep * force + lastNode.Velocity;
+			var newGlobalPosition = timeStep * newVelocity + lastNode.GlobalPos;
 			points.Add((
-				GlobalPos: timeStep * lastNode.Velocity + lastNode.GlobalPos,
-				Velocity: timeStep * force + lastNode.Velocity));
+				GlobalPos: newGlobalPosition,
+				Velocity: newVelocity));
 		}
 
 		_pathPoints = points.Select(p => ToLocal(p.GlobalPos)).ToArray();

@@ -1,5 +1,4 @@
 using System;
-using System.Security.Permissions;
 using Godot;
 
 public class Camera : Camera2D
