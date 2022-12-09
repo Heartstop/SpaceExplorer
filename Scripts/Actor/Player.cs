@@ -51,7 +51,6 @@ public class Player : RigidBody2D
 		_health = MaxHealth;
 		_fuel = MaxFuel;
 
-		var feetHurtBox = GetNode<Area2D>("FeetHurtBox");
 		GetNode<Area2D>("HullHurtBox").Connect("body_entered", this, nameof(OnBodyShapeEnteredHull));
 		_impactAudio.Connect("finished", this, nameof(OnImpactSoundFinished));
 	}

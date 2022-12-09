@@ -74,6 +74,7 @@ scale_curve = SubResource( 10 )
 color_ramp = SubResource( 8 )
 
 [node name="Player" type="RigidBody2D"]
+mass = 0.5
 contacts_reported = 1
 contact_monitor = true
 linear_damp = 0.0
@@ -84,27 +85,24 @@ script = ExtResource( 1 )
 position = Vector2( -11, 3 )
 node_a = NodePath("..")
 node_b = NodePath("../GrooveJoint2D/RigidBody2D")
-bias = 0.9
-length = 15.0
-rest_length = 15.0
-stiffness = 58.8
-damping = 2.0
+length = 21.0
+rest_length = 20.0
+stiffness = 56.7
 
 [node name="DampedSpringJoint2D2" type="DampedSpringJoint2D" parent="."]
 position = Vector2( 11, 3 )
 node_a = NodePath("..")
 node_b = NodePath("../GrooveJoint2D2/RigidBody2D")
-bias = 0.9
-length = 15.0
-rest_length = 15.0
-stiffness = 55.2
-damping = 2.0
+length = 21.0
+rest_length = 20.0
+stiffness = 55.3
 
 [node name="GrooveJoint2D" type="PinJoint2D" parent="."]
 position = Vector2( -7, 5 )
 node_a = NodePath("..")
 node_b = NodePath("RigidBody2D")
 bias = 0.9
+softness = 16.0
 __meta__ = {
 "_edit_lock_": true
 }
@@ -127,6 +125,7 @@ position = Vector2( 7, 5 )
 node_a = NodePath("..")
 node_b = NodePath("RigidBody2D")
 bias = 0.9
+softness = 16.0
 
 [node name="RigidBody2D" type="RigidBody2D" parent="GrooveJoint2D2"]
 mass = 0.25

@@ -41,6 +41,5 @@ public class Planet : CelestialBody
 		material.SetShaderParam("OUTLINE_COLOR_1", OutlineColor1);
 		material.SetShaderParam("OUTLINE_COLOR_2", OutlineColor2);
 		material.SetShaderParam("BORDER_SIZE", BorderSize);
-
 	}
 }
