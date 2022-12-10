@@ -25,7 +25,7 @@ __meta__ = {
 [node name="GameUi" parent="." instance=ExtResource( 7 )]
 MarginTop = 40.0
 MarginRight = 40.0
-MarginBottom = 40.0
+MarginBottom = 50.0
 MarginLeft = 40.0
 
 [node name="World" type="Node2D" parent="."]
@@ -33,10 +33,48 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="PlanetWrapper" type="Node2D" parent="World"]
+[node name="Home" type="Node2D" parent="World"]
+position = Vector2( 5232, 6656 )
+
+[node name="Doodads" type="Node2D" parent="World/Home"]
+
+[node name="LandingPlatform" parent="World/Home/Doodads" instance=ExtResource( 8 )]
+position = Vector2( 0, 25 )
+
+[node name="ZoomedOutIcon" parent="World/Home/Doodads/LandingPlatform" instance=ExtResource( 12 )]
+visible = false
+texture = ExtResource( 11 )
+AlwaysHidden = false
+
+[node name="FuelSilo" type="StaticBody2D" parent="World/Home/Doodads"]
+position = Vector2( -51, 1 )
+collision_layer = 3
+
+[node name="Sprite" type="Sprite" parent="World/Home/Doodads/FuelSilo"]
+texture = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/Home/Doodads/FuelSilo"]
+position = Vector2( -0.5, 0 )
+shape = SubResource( 2 )
+
+[node name="Planet" parent="World/Home" instance=ExtResource( 3 )]
+position = Vector2( 1, 276 )
+scale = Vector2( 25, 25 )
+__meta__ = {
+"_edit_lock_": true
+}
+Density = 60.0
+BorderSize = 50.0
+
+[node name="IronSpawner" type="Node2D" parent="World/Home/Planet"]
+script = ExtResource( 6 )
+SpawnAmount = 10
+MaxClusters = 3
+
+[node name="P1" type="Node2D" parent="World"]
 position = Vector2( -6519, 18060 )
 
-[node name="Planet" parent="World/PlanetWrapper" instance=ExtResource( 3 )]
+[node name="Planet" parent="World/P1" instance=ExtResource( 3 )]
 scale = Vector2( 300, 300 )
 __meta__ = {
 "_edit_lock_": true
@@ -47,14 +85,14 @@ OutlineColor1 = Color( 0.192157, 0.447059, 0.188235, 1 )
 OutlineColor2 = Color( 0.141176, 0.313726, 0.12549, 1 )
 BorderSize = 75.0
 
-[node name="ZoomedOutContainer" parent="World/PlanetWrapper" instance=ExtResource( 12 )]
+[node name="ZoomedOutIcon" parent="World/P1" instance=ExtResource( 12 )]
 visible = false
 texture = ExtResource( 4 )
 
-[node name="PlanetWrapper2" type="Node2D" parent="World"]
-position = Vector2( 42498, -48834 )
+[node name="M1" type="Node2D" parent="World"]
+position = Vector2( 25136, -51504 )
 
-[node name="Planet" parent="World/PlanetWrapper2" instance=ExtResource( 3 )]
+[node name="Planet" parent="World/M1" instance=ExtResource( 3 )]
 scale = Vector2( 150, 150 )
 __meta__ = {
 "_edit_lock_": true
@@ -65,69 +103,14 @@ OutlineColor1 = Color( 0.121569, 0.0823529, 0.129412, 1 )
 OutlineColor2 = Color( 0.192157, 0.12549, 0.196078, 1 )
 BorderSize = 75.0
 
-[node name="ZoomedOutContainer" parent="World/PlanetWrapper2" instance=ExtResource( 12 )]
+[node name="ZoomedOutIcon" parent="World/M1" instance=ExtResource( 12 )]
 visible = false
 texture = ExtResource( 4 )
 
-[node name="PlanetWrapper7" type="Node2D" parent="World"]
-position = Vector2( -95744, -33792 )
+[node name="M2" type="Node2D" parent="World"]
+position = Vector2( 56613, -43298 )
 
-[node name="Planet" parent="World/PlanetWrapper7" instance=ExtResource( 3 )]
-scale = Vector2( 900, 900 )
-__meta__ = {
-"_edit_lock_": true
-}
-Density = 2.0
-Color1 = Color( 1, 1, 1, 1 )
-Color2 = Color( 1, 0.988235, 0.8, 1 )
-OutlineColor1 = Color( 1, 0.921569, 0.607843, 1 )
-OutlineColor2 = Color( 1, 0.964706, 0.662745, 1 )
-BorderSize = 0.0
-
-[node name="ZoomedOutContainer" parent="World/PlanetWrapper7" instance=ExtResource( 12 )]
-visible = false
-texture = ExtResource( 4 )
-
-[node name="PlanetWrapper3" type="Node2D" parent="World"]
-position = Vector2( 41958, -40441 )
-
-[node name="Planet" parent="World/PlanetWrapper3" instance=ExtResource( 3 )]
-scale = Vector2( 400, 400 )
-__meta__ = {
-"_edit_lock_": true
-}
-Color1 = Color( 0.482353, 0.243137, 0.588235, 1 )
-Color2 = Color( 0.345098, 0.152941, 0.521569, 1 )
-OutlineColor1 = Color( 0.686275, 0.247059, 0.847059, 1 )
-OutlineColor2 = Color( 0.627451, 0.270588, 0.486275, 1 )
-BorderSize = 75.0
-
-[node name="ZoomedOutContainer" parent="World/PlanetWrapper3" instance=ExtResource( 12 )]
-visible = false
-texture = ExtResource( 4 )
-
-[node name="PlanetWrapper4" type="Node2D" parent="World"]
-position = Vector2( -60439, -11721 )
-
-[node name="Planet" parent="World/PlanetWrapper4" instance=ExtResource( 3 )]
-scale = Vector2( 500, 500 )
-__meta__ = {
-"_edit_lock_": true
-}
-Color1 = Color( 0.905882, 0.560784, 0.196078, 1 )
-Color2 = Color( 0.945098, 0.615686, 0.415686, 1 )
-OutlineColor1 = Color( 0.898039, 0.341176, 0.0666667, 1 )
-OutlineColor2 = Color( 0.92549, 0.392157, 0.156863, 1 )
-BorderSize = 50.0
-
-[node name="ZoomedOutContainer" parent="World/PlanetWrapper4" instance=ExtResource( 12 )]
-visible = false
-texture = ExtResource( 4 )
-
-[node name="PlanetWrapper5" type="Node2D" parent="World"]
-position = Vector2( 63397, -48290 )
-
-[node name="Planet" parent="World/PlanetWrapper5" instance=ExtResource( 3 )]
+[node name="Planet" parent="World/M2" instance=ExtResource( 3 )]
 scale = Vector2( 50, 50 )
 __meta__ = {
 "_edit_lock_": true
@@ -138,14 +121,50 @@ OutlineColor1 = Color( 1, 1, 1, 1 )
 OutlineColor2 = Color( 0.933333, 0.933333, 0.933333, 1 )
 BorderSize = 50.0
 
-[node name="ZoomedOutContainer" parent="World/PlanetWrapper5" instance=ExtResource( 12 )]
+[node name="ZoomedOutIcon" parent="World/M2" instance=ExtResource( 12 )]
 visible = false
 texture = ExtResource( 4 )
 
-[node name="PlanetWrapper6" type="Node2D" parent="World"]
-position = Vector2( 44488, 47006 )
+[node name="P2" type="Node2D" parent="World"]
+position = Vector2( 35174, -35449 )
 
-[node name="Planet" parent="World/PlanetWrapper6" instance=ExtResource( 3 )]
+[node name="Planet" parent="World/P2" instance=ExtResource( 3 )]
+scale = Vector2( 400, 400 )
+__meta__ = {
+"_edit_lock_": true
+}
+Color1 = Color( 0.482353, 0.243137, 0.588235, 1 )
+Color2 = Color( 0.345098, 0.152941, 0.521569, 1 )
+OutlineColor1 = Color( 0.686275, 0.247059, 0.847059, 1 )
+OutlineColor2 = Color( 0.627451, 0.270588, 0.486275, 1 )
+BorderSize = 75.0
+
+[node name="ZoomedOutIcon" parent="World/P2" instance=ExtResource( 12 )]
+visible = false
+texture = ExtResource( 4 )
+
+[node name="P3" type="Node2D" parent="World"]
+position = Vector2( -60439, -11721 )
+
+[node name="Planet" parent="World/P3" instance=ExtResource( 3 )]
+scale = Vector2( 500, 500 )
+__meta__ = {
+"_edit_lock_": true
+}
+Color1 = Color( 0.905882, 0.560784, 0.196078, 1 )
+Color2 = Color( 0.945098, 0.615686, 0.415686, 1 )
+OutlineColor1 = Color( 0.898039, 0.341176, 0.0666667, 1 )
+OutlineColor2 = Color( 0.92549, 0.392157, 0.156863, 1 )
+BorderSize = 50.0
+
+[node name="ZoomedOutIcon" parent="World/P3" instance=ExtResource( 12 )]
+visible = false
+texture = ExtResource( 4 )
+
+[node name="P4" type="Node2D" parent="World"]
+position = Vector2( 70368, 54014 )
+
+[node name="Planet" parent="World/P4" instance=ExtResource( 3 )]
 scale = Vector2( 700, 700 )
 __meta__ = {
 "_edit_lock_": true
@@ -156,47 +175,9 @@ OutlineColor1 = Color( 0.580392, 0.835294, 0.12549, 1 )
 OutlineColor2 = Color( 0.74902, 0.937255, 0.364706, 1 )
 BorderSize = 125.0
 
-[node name="ZoomedOutContainer" parent="World/PlanetWrapper6" instance=ExtResource( 12 )]
+[node name="ZoomedOutIcon" parent="World/P4" instance=ExtResource( 12 )]
 visible = false
 texture = ExtResource( 4 )
-
-[node name="HomePlanetWrapper" type="Node2D" parent="World"]
-position = Vector2( 5232, 6656 )
-
-[node name="Doodads" type="Node2D" parent="World/HomePlanetWrapper"]
-
-[node name="LandingPlatform" parent="World/HomePlanetWrapper/Doodads" instance=ExtResource( 8 )]
-position = Vector2( 0, 25 )
-
-[node name="ZoomedOutContainer" parent="World/HomePlanetWrapper/Doodads/LandingPlatform" instance=ExtResource( 12 )]
-visible = false
-texture = ExtResource( 11 )
-
-[node name="FuelSilo" type="StaticBody2D" parent="World/HomePlanetWrapper/Doodads"]
-position = Vector2( -51, 1 )
-collision_layer = 3
-
-[node name="Sprite" type="Sprite" parent="World/HomePlanetWrapper/Doodads/FuelSilo"]
-texture = ExtResource( 9 )
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/HomePlanetWrapper/Doodads/FuelSilo"]
-position = Vector2( -0.5, 0 )
-shape = SubResource( 2 )
-
-[node name="Planet" parent="World/HomePlanetWrapper" instance=ExtResource( 3 )]
-position = Vector2( 1, 276 )
-scale = Vector2( 25, 25 )
-__meta__ = {
-"_edit_lock_": true
-}
-Density = 60.0
-BorderSize = 50.0
-
-[node name="IronSpawner" type="Node2D" parent="World/HomePlanetWrapper/Planet"]
-position = Vector2( -5.12, -2831.36 )
-script = ExtResource( 6 )
-SpawnAmount = 10
-MaxClusters = 3
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
 position = Vector2( 5232, 6656 )
@@ -204,8 +185,8 @@ z_index = 1
 
 [node name="PlayerCamera" parent="World/Player" instance=ExtResource( 10 )]
 z_as_relative = false
-MinZoom = 0.75
-MaxZoom = 8.0
+MinZoom = 0.65
+MaxZoom = 1.0
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
