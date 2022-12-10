@@ -21,9 +21,10 @@ public class Trajectory : Node2D
 
 	private int _updatesPerFrame = 100;
 	private Vector2[] _pathPoints = { };
-	private Vector2 _lastGlobalPosition;
 	private Vector2 _lastVelocity;
 	private int _pointIndex;
+	// Reused to optimize performance
+	private Vector2[] _renderPoints = { };
 
 	public override void _PhysicsProcess(float delta)
 	{
@@ -39,20 +40,20 @@ public class Trajectory : Node2D
 
 		if (_pointIndex == 0)
 		{
-			_pathPoints[0] = Vector2.Zero;
-			_lastGlobalPosition = GlobalPosition;
+			_pathPoints[0] = GlobalPosition;
 			_lastVelocity = GetParent<RigidBody2D>().LinearVelocity;
 			_pointIndex++;
 		}
 
+		var lastGlobalPosition = _pathPoints[_pointIndex - 1];
 		var end = Math.Min(_pathPoints.Length, _pointIndex + _updatesPerFrame);
 		for (; _pointIndex < end; _pointIndex++)
 		{
-			var acceleration = Physics.CalculateGravity(gravityFields, _lastGlobalPosition);
+			var acceleration = Physics.CalculateGravity(gravityFields, lastGlobalPosition);
 			var timeStep = Mathf.Min(StepSize / acceleration.Length(), 1f);
 			_lastVelocity += timeStep * acceleration;
-			_lastGlobalPosition += timeStep * _lastVelocity;
-			_pathPoints[_pointIndex] = ToLocal(_lastGlobalPosition);
+			lastGlobalPosition += timeStep * _lastVelocity;
+			_pathPoints[_pointIndex] = lastGlobalPosition;
 		}
 
 		if (_pointIndex == _pathPoints.Length)
@@ -71,8 +72,16 @@ public class Trajectory : Node2D
 
 	public override void _Draw()
 	{
+		if (_renderPoints.Length != _pathPoints.Length)
+			_renderPoints = new Vector2[_pathPoints.Length];
+
+		// First pos should always be Vector2.Zero
+		for (var i = 1; i < _renderPoints.Length; i++)
+		{
+			_renderPoints[i] = ToLocal(_pathPoints[i]);
+		}
 		DrawPolyline(
-			points: _pathPoints,
+			points: _renderPoints,
 			color: Color,
 			width: Width,
 			antialiased: false);
