@@ -52,7 +52,6 @@ public class Camera : Camera2D
 	private void AddRelativeZoom(float amount) {
 		var newZoom = (float)Math.Max(Math.Min(MaxZoom, CurrentZoom + amount), MinZoom);
 		CurrentZoom = newZoom;
-		GD.Print(CurrentZoom);
 		EmitSignal(nameof(ZoomChanged), newZoom);
 	}
 }
