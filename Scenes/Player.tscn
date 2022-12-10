@@ -147,7 +147,9 @@ visible = false
 texture = ExtResource( 8 )
 
 [node name="MiningLaser" parent="." instance=ExtResource( 9 )]
+position = Vector2( 0, -18 )
 
 [node name="Trajectory" parent="." instance=ExtResource( 12 )]
+z_index = -1
 Points = 300
 Color = Color( 1, 0, 0, 1 )
