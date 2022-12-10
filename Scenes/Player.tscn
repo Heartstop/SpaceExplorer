@@ -149,5 +149,5 @@ texture = ExtResource( 8 )
 [node name="MiningLaser" parent="." instance=ExtResource( 9 )]
 
 [node name="Trajectory" parent="." instance=ExtResource( 12 )]
-Points = 50
+Points = 300
 Color = Color( 1, 0, 0, 1 )

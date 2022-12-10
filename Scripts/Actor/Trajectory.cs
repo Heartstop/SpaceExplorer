@@ -19,31 +19,35 @@ public class Trajectory : Node2D
 	[Export]
 	public float StepSize = 10;
 
-	private Vector2[] _pathPoints = {};
+	private Vector2[] _pathPoints = { };
 
 	public override void _PhysicsProcess(float delta)
 	{
 		var gravityFields = GetTree().GetNodesInGroup("gravity_field").Cast<Area2D>().ToImmutableArray();
-		var points = new List<(Vector2 GlobalPos, Vector2 Velocity)>(Points){(GlobalPos: GlobalPosition, Velocity: GetParent<RigidBody2D>().LinearVelocity)};
-		for (var i = 0; i < Points; i++)
-		{
-			var lastNode = points.Last();
-			var force = Physics.CalculateGravity(gravityFields, lastNode.GlobalPos);
 
-			var timeStep = Mathf.Min(StepSize / force.Length(), 1f);
-			var newVelocity = timeStep * force + lastNode.Velocity;
-			var newGlobalPosition = timeStep * newVelocity + lastNode.GlobalPos;
-			points.Add((
-				GlobalPos: newGlobalPosition,
-				Velocity: newVelocity));
+		_pathPoints = new Vector2[Points];
+		_pathPoints[0] = Vector2.Zero;
+		var lastGlobalPos = GlobalPosition;
+		var lastVelocity = GetParent<RigidBody2D>().LinearVelocity;
+
+		for (var i = 1; i < Points; i++)
+		{
+			var acceleration = Physics.CalculateGravity(gravityFields, lastGlobalPos);
+			var timeStep = Mathf.Min(StepSize / acceleration.Length(), 10f);
+			lastVelocity += timeStep * acceleration;
+			lastGlobalPos += timeStep * lastVelocity;
+			_pathPoints[i] = ToLocal(lastGlobalPos);
 		}
 
-		_pathPoints = points.Select(p => ToLocal(p.GlobalPos)).ToArray();
 		Update();
 	}
 
 	public override void _Draw()
 	{
-		DrawPolyline(_pathPoints, Color, Width, true);
+		DrawPolyline(
+			points: _pathPoints,
+			color: Color,
+			width: Width,
+			antialiased: false);
 	}
 }

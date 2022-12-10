@@ -32,11 +32,11 @@ public class Player : RigidBody2D
 	private AudioStreamPlayer2D _impactAudio = null!;
 	private AudioStreamPlayer2D _refuelAudio = null!;
 	private AudioStreamPlayer2D _explosionAudio = null!;
-	private Particles2D	_dustParticles = null!;
+	private Particles2D _dustParticles = null!;
 	private Sprite _shipSprite = null!;
 
 	// Vars
-	private Vector2 _velocityLastFrame = new Vector2(0,0); 
+	private Vector2 _velocityLastFrame = new Vector2(0, 0);
 	private float _health;
 	private float _fuel;
 
@@ -69,9 +69,9 @@ public class Player : RigidBody2D
 
 	public void EffectsProcess()
 	{
-		if(DisableInput)
+		if (DisableInput)
 			return;
-		
+
 		if (Input.IsActionJustPressed("player_up") && _fuel > 0)
 		{
 			_thrustAnimatedSprite.Show();
@@ -85,16 +85,17 @@ public class Player : RigidBody2D
 		}
 	}
 
-	public void RefuelingAndRepair(float delta){
-		if(!IsOnLandingPad || (_fuel >= MaxFuel && _health >= MaxHealth ) || Input.IsActionPressed("player_up"))
+	public void RefuelingAndRepair(float delta)
+	{
+		if (!IsOnLandingPad || (_fuel >= MaxFuel && _health >= MaxHealth) || Input.IsActionPressed("player_up"))
 		{
-			if(_refuelAudio.Playing)
+			if (_refuelAudio.Playing)
 				_refuelAudio.Stop();
 
 			return;
 		}
 
-		if(!_refuelAudio.Playing)
+		if (!_refuelAudio.Playing)
 			_refuelAudio.Play();
 
 		_refuelAudio.PitchScale = (_fuel / MaxFuel) * (_health / MaxHealth) * 0.25f + 0.75f;
@@ -109,8 +110,9 @@ public class Player : RigidBody2D
 
 	}
 
-	public void ConsumeFuel(float delta) {
-		if(DisableInput)
+	public void ConsumeFuel(float delta)
+	{
+		if (DisableInput)
 			return;
 
 		var inputStrength = Input.GetActionStrength("player_up");
@@ -129,10 +131,10 @@ public class Player : RigidBody2D
 
 	private void ApplyThrust()
 	{
-		if(DisableInput)
+		if (DisableInput)
 			return;
 
-		if(_fuel > 0)
+		if (_fuel > 0)
 		{
 			var thrust = ThrustSpeed * Vector2.Up * Input.GetActionStrength("player_up");
 			AppliedForce += thrust.Rotated(Rotation);
@@ -149,15 +151,17 @@ public class Player : RigidBody2D
 		AppliedForce += force * Mass;
 	}
 
-	private void OnBodyShapeEnteredFeet(Node node){ 
-		if(node is LandingPlatform)
+	private void OnBodyShapeEnteredFeet(Node node)
+	{
+		if (node is LandingPlatform)
 			IsOnLandingPad = true;
 
 		DamageShip(0.1f);
 	}
 
-	private void OnBodyShapeExitedFeet(Node node){ 
-		if(node is LandingPlatform)
+	private void OnBodyShapeExitedFeet(Node node)
+	{
+		if (node is LandingPlatform)
 			IsOnLandingPad = false;
 	}
 
@@ -166,18 +170,19 @@ public class Player : RigidBody2D
 	private void DamageShip(float modifier = 1f)
 	{
 		var impact = (float)Math.Round(_velocityLastFrame.Length() * modifier);
-		if(impact < 10)
+		if (impact < 10)
 			return;
 
 		_health -= impact;
 		EmitSignal(nameof(HealthChanged), _health);
-		if(_health <= 0)
+		if (_health <= 0)
 			Explode();
 		else
 			PlayImpactSound();
 	}
 
-	private void PlayImpactSound(){
+	private void PlayImpactSound()
+	{
 		var pitchScale = _impactAudio.PitchScale;
 		_impactAudio.PitchScale = pitchScale + ((GD.Randf() - 0.5f) * .8f);
 		_impactAudio.Play();
