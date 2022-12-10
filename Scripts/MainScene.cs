@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Godot;
 using SpaceExplorer.Scripts.Actor;
 
@@ -9,6 +11,7 @@ public class MainScene : Node
 	Player _player = null!;
 	GameUi _ui = null!;
 	Camera _camera = null!;
+	private int _currentProgressionStep = 0;
 
 	public override void _Ready()
 	{
@@ -22,11 +25,89 @@ public class MainScene : Node
 		_ui.SetMaxFuelBarValue(_player.MaxFuel);
 		_ui.SetFuelBarValue(_player.MaxFuel);
 
+		GetNode<UpgradeMenu>("GameUi/UpgradeMenuContainer/UpgradeMenu")
+			.Connect(nameof(UpgradeMenu.CraftedUpgradesChanged), this, nameof(OnCraftedUpgradesChanged));
 		_player.Connect(nameof(Player.HealthChanged), this, nameof(OnPlayerHealthChanged));
 		_player.Connect(nameof(Player.FuelChanged), this, nameof(OnPlayerFuelChanged));
 		_camera.Connect(nameof(Camera.ZoomChanged), this, nameof(OnCameraZoomChanged));
-
+		
 		_musicPlayer.Play();
+	}
+
+	private void OnCraftedUpgradesChanged(List<string> currentUpgrades) {
+		switch(_currentProgressionStep)
+		{
+			case 0: {
+				if(currentUpgrades.Contains("RocketPower"))
+				{
+					Progress(0);
+					_currentProgressionStep += 1;
+				}
+				break;
+			}
+			case 1: {
+				if(currentUpgrades.Contains("Radio"))
+				{
+					Progress(1);
+					_currentProgressionStep += 1;
+				}
+				break;
+			}
+			case 2: {
+				if(currentUpgrades.Contains("TitaniumHull") && currentUpgrades.Contains("Antifreeze"))
+				{
+					Progress(2);
+					_currentProgressionStep += 1;
+				}
+				break;
+			}
+			case 3: {
+				if(currentUpgrades.Contains("RadiationShielding"))
+				{
+					Progress(3);
+					_currentProgressionStep += 1;
+				}
+				break;
+			}
+			case 4: {
+				if(currentUpgrades.Contains("WarpDrive"))
+				{
+					Progress(4);
+					_currentProgressionStep += 1;
+				}
+				break;
+			}
+		}
+	}
+
+	private void Progress(int step) {
+		switch(step) {
+			case 0: {
+				GetNode<ZoomedOutIcon>("World/P1/ZoomedOutIcon").AlwaysHidden = false;
+				_camera.MaxZoom = 3.35f;
+				break;
+			}
+			case 1: {
+				GetNode<ZoomedOutIcon>("World/M1/ZoomedOutIcon").AlwaysHidden = false;
+				GetNode<ZoomedOutIcon>("World/M2/ZoomedOutIcon").AlwaysHidden = false;
+				GetNode<ZoomedOutIcon>("World/P2/ZoomedOutIcon").AlwaysHidden = false;
+				GetNode<ZoomedOutIcon>("World/P3/ZoomedOutIcon").AlwaysHidden = false;
+				_camera.MaxZoom = 5.5f;
+				break;
+			}
+			case 2: {
+				break;
+			}
+			case 3: {
+				GetNode<ZoomedOutIcon>("World/P4/ZoomedOutIcon").AlwaysHidden = false;
+				break;
+			}
+			case 4: {
+				// TODO: Game over.
+				break;
+			}			
+			default: throw new NotImplementedException();
+		}
 	}
 
 	public override void _Process(float delta)
@@ -36,6 +117,6 @@ public class MainScene : Node
 
 	private void OnPlayerHealthChanged(int health) => _ui.SetHealthBarValue(health);
 	private void OnPlayerFuelChanged(int fuel) => _ui.SetFuelBarValue(fuel);
-	private void OnCameraZoomChanged(float zoom) => _ui.AlwaysShowIcons = zoom > 4.5f;
+	private void OnCameraZoomChanged(float zoom) => _ui.AlwaysShowIcons = zoom > 1.9f;
 
 }

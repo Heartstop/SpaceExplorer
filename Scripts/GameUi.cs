@@ -27,6 +27,7 @@ public class GameUi : CanvasLayer
 	ProgressBar _fuelProgressBar = null!;
 	Control _worldIconsContainer = null!;
 	Control _upgradeMenuContainer = null!;
+
 	private Dictionary<ulong, ZoomedOutIconRef> _zoomedOutIconRefs = new Dictionary<ulong, ZoomedOutIconRef>();
  
 	public override void _Ready()
@@ -70,11 +71,13 @@ public class GameUi : CanvasLayer
 			var yMax = viewPortSize.y - MarginBottom;
 			var canvasPosition = containerRef.GameRef.GetGlobalTransformWithCanvas().origin;
 
-			containerRef.LocalRef.Visible = AlwaysShowIcons 
+			containerRef.LocalRef.Visible = (
+				AlwaysShowIcons 
 				|| canvasPosition.x <= xMin 
 				|| canvasPosition.x >= xMax
 				|| canvasPosition.y <= yMin
-				|| canvasPosition.y >= yMax;
+				|| canvasPosition.y >= yMax
+			) && !containerRef.GameRef.AlwaysHidden;
 
 			containerRef.LocalRef.Position = new Vector2(
 				x: Math.Min(xMax, (Math.Max(xMin, canvasPosition.x))),

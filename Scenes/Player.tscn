@@ -145,6 +145,7 @@ bus = "Fx"
 [node name="ZoomedOutIcon" parent="." instance=ExtResource( 7 )]
 visible = false
 texture = ExtResource( 8 )
+AlwaysHidden = false
 
 [node name="MiningLaser" parent="." instance=ExtResource( 9 )]
 position = Vector2( 0, -18 )
