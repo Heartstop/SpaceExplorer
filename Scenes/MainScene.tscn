@@ -34,7 +34,7 @@ __meta__ = {
 }
 
 [node name="PlanetWrapper" type="Node2D" parent="World"]
-position = Vector2( -247, -34548 )
+position = Vector2( -6519, 18060 )
 
 [node name="Planet" parent="World/PlanetWrapper" instance=ExtResource( 3 )]
 scale = Vector2( 300, 300 )
@@ -70,13 +70,14 @@ visible = false
 texture = ExtResource( 4 )
 
 [node name="PlanetWrapper7" type="Node2D" parent="World"]
+position = Vector2( -95744, -33792 )
 
 [node name="Planet" parent="World/PlanetWrapper7" instance=ExtResource( 3 )]
 scale = Vector2( 900, 900 )
 __meta__ = {
 "_edit_lock_": true
 }
-Density = 0.5
+Density = 2.0
 Color1 = Color( 1, 1, 1, 1 )
 Color2 = Color( 1, 0.988235, 0.8, 1 )
 OutlineColor1 = Color( 1, 0.921569, 0.607843, 1 )
@@ -88,7 +89,7 @@ visible = false
 texture = ExtResource( 4 )
 
 [node name="PlanetWrapper3" type="Node2D" parent="World"]
-position = Vector2( 52838, -41721 )
+position = Vector2( 41958, -40441 )
 
 [node name="Planet" parent="World/PlanetWrapper3" instance=ExtResource( 3 )]
 scale = Vector2( 400, 400 )
@@ -106,7 +107,7 @@ visible = false
 texture = ExtResource( 4 )
 
 [node name="PlanetWrapper4" type="Node2D" parent="World"]
-position = Vector2( -24471, -7113 )
+position = Vector2( -60439, -11721 )
 
 [node name="Planet" parent="World/PlanetWrapper4" instance=ExtResource( 3 )]
 scale = Vector2( 500, 500 )
@@ -142,7 +143,7 @@ visible = false
 texture = ExtResource( 4 )
 
 [node name="PlanetWrapper6" type="Node2D" parent="World"]
-position = Vector2( 23624, 48158 )
+position = Vector2( 44488, 47006 )
 
 [node name="Planet" parent="World/PlanetWrapper6" instance=ExtResource( 3 )]
 scale = Vector2( 700, 700 )
@@ -160,7 +161,7 @@ visible = false
 texture = ExtResource( 4 )
 
 [node name="HomePlanetWrapper" type="Node2D" parent="World"]
-position = Vector2( -1040, -40064 )
+position = Vector2( 5232, 6656 )
 
 [node name="Doodads" type="Node2D" parent="World/HomePlanetWrapper"]
 
@@ -198,7 +199,7 @@ SpawnAmount = 10
 MaxClusters = 3
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
-position = Vector2( -1040, -40064 )
+position = Vector2( 5232, 6656 )
 z_index = 1
 
 [node name="PlayerCamera" parent="World/Player" instance=ExtResource( 10 )]

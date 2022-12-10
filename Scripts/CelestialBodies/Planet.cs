@@ -5,8 +5,8 @@ namespace SpaceExplorer.Scripts.CelestialBodies;
 [Tool]
 public class Planet : CelestialBody
 {
-	[Export] float Density = 5;
-	[Export] Color Color1 = new Color() {};
+	[Export] float Density = 4;
+	[Export] Color Color1 = new Color() { };
 
 	[Export] Color Color2 = new Color();
 
@@ -20,20 +20,21 @@ public class Planet : CelestialBody
 
 	public override void _Ready()
 	{
-		GetNode<Area2D>("GravityField").Gravity = Density * Mathf.Pi * Scale.x * Scale.x * Scale.x;
+		GetNode<Area2D>("GravityField").Gravity = Density * Mathf.Pi * Scale.x * Scale.x * Scale.x * 100f;
 		_colorRect = GetNode<ColorRect>("ColorRect");
 		SetShaderParams();
 	}
 
 	public override void _Process(float delta)
 	{
-		if(!Engine.EditorHint)
+		if (!Engine.EditorHint)
 			return;
 
 		SetShaderParams();
 	}
 
-	private void SetShaderParams() {
+	private void SetShaderParams()
+	{
 		var material = (ShaderMaterial)_colorRect.Material;
 		material.SetShaderParam("PIXEL_SCALE", _colorRect.RectSize.x * Scale.x);
 		material.SetShaderParam("COLOR_1", Color1);
@@ -41,6 +42,5 @@ public class Planet : CelestialBody
 		material.SetShaderParam("OUTLINE_COLOR_1", OutlineColor1);
 		material.SetShaderParam("OUTLINE_COLOR_2", OutlineColor2);
 		material.SetShaderParam("BORDER_SIZE", BorderSize);
-
 	}
 }
