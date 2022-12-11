@@ -83,7 +83,6 @@ animations = [ {
 } ]
 
 [node name="RigidBody2D" type="RigidBody2D" groups=["Minable"]]
-
 collision_layer = 3
 mass = 4.0
 script = ExtResource( 1 )
@@ -91,6 +90,7 @@ MinableType = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 reset_on_save = false
+playback_process_mode = 2
 playback_speed = 0.0
 method_call_mode = 1
 anims/RESET = SubResource( 7 )
