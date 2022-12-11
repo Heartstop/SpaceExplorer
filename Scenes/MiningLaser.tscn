@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Materials/LaserSparks.tres" type="Material" id=1]
 [ext_resource path="res://Scripts/MiningLaser.cs" type="Script" id=2]
 [ext_resource path="res://Sounds/MiningLaser.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Sounds/Collect.wav" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -33,5 +34,10 @@ shape = SubResource( 1 )
 
 [node name="MiningSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
+volume_db = -9.0
+bus = "Fx"
+
+[node name="CollectSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 4 )
 volume_db = -9.0
 bus = "Fx"

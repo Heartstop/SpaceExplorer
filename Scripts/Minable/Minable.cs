@@ -32,11 +32,12 @@ public class Minable : RigidBody2D
 		Connect(nameof(Mined), this, nameof(OnMined));
 	}
 	
-	public void OnMined(float miningProgress)
+	public void OnMined(MiningLaser miner, float miningProgress)
 	{
 		TimeLeftToMine -= miningProgress;
 		if (TimeLeftToMine <= 0)
 		{
+			miner.EmitSignal(nameof(MiningLaser.Collected));
 			ResourceInventory.AddResources(new Dictionary<MinableType, int> { { MinableType, 1 }});
 			QueueFree();
 		}

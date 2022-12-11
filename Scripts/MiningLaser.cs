@@ -14,6 +14,9 @@ public class MiningLaser : Node2D
 		}
 	}
 
+	[Signal]
+	public delegate void Collected();
+	
 	public bool DisableInput { get; set; }
 
 	private RayCast2D _rayCast = null!;
@@ -21,6 +24,7 @@ public class MiningLaser : Node2D
 	private Line2D _laser = null!;
 	private Area2D _detectionArea = null!;
 	private AudioStreamPlayer2D _miningSound = null!;
+	private AudioStreamPlayer2D _collectSound = null!;
 	private float _range = 200;
 
 	public override void _Ready()
@@ -30,6 +34,8 @@ public class MiningLaser : Node2D
 		_laser = GetNode<Line2D>("Laser");
 		_detectionArea = GetNode<Area2D>("DetectionArea");
 		_miningSound = GetNode<AudioStreamPlayer2D>("MiningSound");
+		_collectSound = GetNode<AudioStreamPlayer2D>("CollectSound");
+		Connect(nameof(Collected), this, nameof(OnCollect));
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -70,8 +76,13 @@ public class MiningLaser : Node2D
 		var collidingWith = _rayCast.GetCollider();
 		if (ReferenceEquals(target, collidingWith))
 		{
-			target.EmitSignal("Mined", delta);
+			target.EmitSignal("Mined", this, delta);
 		}
+	}
+
+	private void OnCollect()
+	{
+		_collectSound.Play();
 	}
 
 	private void SetBeamEnabled(bool enabled)
