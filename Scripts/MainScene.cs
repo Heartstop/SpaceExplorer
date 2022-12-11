@@ -38,7 +38,6 @@ public class MainScene : Node
 		_player.Connect(nameof(Player.FuelChanged), this, nameof(OnPlayerFuelChanged));
 		_camera.Connect(nameof(Camera.ZoomChanged), this, nameof(OnCameraZoomChanged));
 		_animationPlayer.Connect("animation_finished", this, nameof(OnAnimationFinished));
-		_optionsMenu.Connect(nameof(OptionsMenu.RestartGame), this, nameof(OnRestartGame));
 		_optionsMenu.Connect(nameof(OptionsMenu.RespawnGame), this, nameof(OnRespawn));
 
 

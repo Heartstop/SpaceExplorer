@@ -3,14 +3,12 @@ using Godot;
 public class OptionsMenu : Control
 {
 	[Signal] public delegate void Continue();
-	[Signal] public delegate void RestartGame();
 	[Signal] public delegate void RespawnGame();
 
 	[Export] public bool ShowRestartButton { get; set; } = false;
 
 	HSlider _musicSlider = null!;
 	HSlider _fxSlider = null!;
-	Button _restartButton = null!;
 	Button _continueButton = null!;
 	Button _respawnButton = null!;
 	public override void _Ready()
@@ -18,12 +16,10 @@ public class OptionsMenu : Control
 		_musicSlider = GetNode<HSlider>("PanelContainer/VBoxContainer/HBoxMusic/HSlider");
 		_fxSlider = GetNode<HSlider>("PanelContainer/VBoxContainer/HBoxFx/HSlider");
 		_continueButton = GetNode<Button>("PanelContainer/VBoxContainer/Button");
-		_restartButton = GetNode<Button>("PanelContainer/VBoxContainer/HBoxContainer/RestartButton");
 		_respawnButton = GetNode<Button>("PanelContainer/VBoxContainer/HBoxContainer/RespawnButton");
 
-		_restartButton.Visible = ShowRestartButton;
+		_respawnButton.Visible = ShowRestartButton;
 		_continueButton.Connect("gui_input", this, nameof(OnButtonInput));
-		_restartButton.Connect("gui_input", this, nameof(OnRestartButtonInput));
 		_respawnButton.Connect("gui_input", this, nameof(OnRespawnButtonInput));
 		_musicSlider.GrabFocus();
 	}
@@ -31,14 +27,6 @@ public class OptionsMenu : Control
 	public void Focus()
 	{
 		_musicSlider.GrabFocus();
-	}
-
-	private void OnRestartButtonInput(InputEvent inputEvent)
-	{
-		if(!inputEvent.IsActionReleased("ui_accept"))
-			return;
-
-		EmitSignal(nameof(RestartGame));
 	}
 
 	private void OnRespawnButtonInput(InputEvent inputEvent)
