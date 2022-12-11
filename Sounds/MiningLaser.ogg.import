@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/MiningLaser.ogg-76dc0d56186f0f1249e03e18780bff90.oggstr"
+
+[deps]
+
+source_file="res://Sounds/MiningLaser.ogg"
+dest_files=[ "res://.import/MiningLaser.ogg-76dc0d56186f0f1249e03e18780bff90.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -68,7 +68,7 @@ To get home you only need to set course, spin up your [color=aqua]warp drive[/co
 @"It is already gone? I guess you will have to craft a [color=aqua]warp drive[/color] yourself. The main ingredient of a warp drive is highly radioactive [color=lime]Uranium[/color].
 We should be able to find some nearby."
 				, () => _ui.ShowMessage(
-@"We wont be able to go any reasonable distance with your current engine. So first of all you need to mine some [color=aqua]Aluminum[/color] so we can upgrade your rocket power!.
+@"We wont be able to go any reasonable distance with your current engine. So first of all you need to mine some [color=aqua]Aluminum[/color] so we can upgrade your rocket power!
 Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Aluminum[/color], then return to the landing pad and upgrade your rocket.", 
 					() => {
 						_camera.Current = true;

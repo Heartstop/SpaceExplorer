@@ -39,6 +39,7 @@ public class MessageDialog : Godot.PanelContainer
         if(!inputEvent.IsActionReleased("ui_accept"))
             return;
 
+        GetNode<AudioStreamPlayer>("../UiAcceptSound").Play();
         Visible = false;
         _callback();
     }

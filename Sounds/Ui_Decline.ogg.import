@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Ui_Decline.ogg-a9b759cb28cdab1457a407e7b074ec2a.oggstr"
+
+[deps]
+
+source_file="res://Sounds/Ui_Decline.ogg"
+dest_files=[ "res://.import/Ui_Decline.ogg-a9b759cb28cdab1457a407e7b074ec2a.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
