@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://UiTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/GameUi.cs" type="Script" id=2]
 [ext_resource path="res://Sprites/AtlasQuestionIcon.tres" type="Texture" id=3]
-[ext_resource path="res://UpgradeButton.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/UpgradeButton.cs" type="Script" id=4]
 [ext_resource path="res://Scripts/UpgradeMenu.cs" type="Script" id=5]
 [ext_resource path="res://Sprites/Ores.png" type="Texture" id=6]
-[ext_resource path="res://Scenes/ResourceLabel.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/ResourceLabel.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/ResourceCostLabel.cs" type="Script" id=8]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 6 )
@@ -19,7 +20,7 @@ script = ExtResource( 2 )
 margin_left = 7.0
 margin_top = 6.0
 margin_right = 183.0
-margin_bottom = 227.0
+margin_bottom = 299.0
 rect_min_size = Vector2( 150, 150 )
 theme = ExtResource( 1 )
 
@@ -140,12 +141,54 @@ margin_bottom = 212.0
 size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox6"]
-modulate = Color( 0.427451, 0.988235, 0.392157, 1 )
+modulate = Color( 0.176471, 0.117647, 0.223529, 1 )
 margin_right = 32.0
 margin_bottom = 32.0
 texture = SubResource( 1 )
 
 [node name="Label" type="Label" parent="ResourcePanel/VBoxContainer/Hbox6"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 81.0
+margin_bottom = 24.0
+text = "Lead:"
+script = ExtResource( 7 )
+MinableType = 6
+
+[node name="Hbox7" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
+margin_top = 216.0
+margin_right = 201.0
+margin_bottom = 248.0
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox7"]
+modulate = Color( 1, 0.345098, 0.0588235, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="ResourcePanel/VBoxContainer/Hbox7"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 118.0
+margin_bottom = 24.0
+text = "Tungsten:"
+script = ExtResource( 7 )
+MinableType = 7
+
+[node name="Hbox8" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
+margin_top = 252.0
+margin_right = 201.0
+margin_bottom = 284.0
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox8"]
+modulate = Color( 0.427451, 0.988235, 0.392157, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="ResourcePanel/VBoxContainer/Hbox8"]
 margin_left = 36.0
 margin_top = 7.0
 margin_right = 108.0
@@ -163,7 +206,6 @@ __meta__ = {
 }
 
 [node name="UpgradeMenuContainer" type="Control" parent="."]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -172,9 +214,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -179.0
+margin_left = -275.0
 margin_top = -141.0
-margin_right = 179.0
+margin_right = 275.0
 margin_bottom = 141.0
 theme = ExtResource( 1 )
 script = ExtResource( 5 )
@@ -333,6 +375,9 @@ margin_left = 171.0
 margin_top = 25.0
 margin_right = 336.0
 margin_bottom = 234.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="NameLabel" type="RichTextLabel" parent="UpgradeMenuContainer/UpgradeMenu/InfoVBox"]
 margin_right = 165.0
@@ -349,6 +394,194 @@ margin_bottom = 209.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "This is some long descirption of sorts just for reference. You are welcome."
+
+[node name="CostVBox" type="VBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu"]
+margin_left = 352.0
+margin_top = 25.0
+margin_right = 517.0
+margin_bottom = 337.0
+
+[node name="CostLabel" type="RichTextLabel" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox"]
+margin_right = 165.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 0, 24 )
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Cost"
+
+[node name="Hbox" type="HBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox"]
+margin_top = 28.0
+margin_right = 165.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+script = ExtResource( 8 )
+UpgradeMenuNodePath = NodePath("../..")
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 76.0
+margin_bottom = 24.0
+text = "Iron"
+
+[node name="Hbox2" type="HBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox"]
+margin_top = 64.0
+margin_right = 165.0
+margin_bottom = 96.0
+size_flags_horizontal = 3
+script = ExtResource( 8 )
+UpgradeMenuNodePath = NodePath("../..")
+MinableType = 1
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox2"]
+modulate = Color( 0.278431, 0.521569, 0.694118, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox2"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 117.0
+margin_bottom = 24.0
+text = "Aluminium"
+
+[node name="Hbox3" type="HBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox"]
+margin_top = 100.0
+margin_right = 165.0
+margin_bottom = 132.0
+size_flags_horizontal = 3
+script = ExtResource( 8 )
+UpgradeMenuNodePath = NodePath("../..")
+MinableType = 2
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox3"]
+modulate = Color( 0.905882, 0.556863, 0.247059, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox3"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 98.0
+margin_bottom = 24.0
+text = "Copper"
+
+[node name="Hbox4" type="HBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox"]
+margin_top = 136.0
+margin_right = 165.0
+margin_bottom = 168.0
+size_flags_horizontal = 3
+script = ExtResource( 8 )
+UpgradeMenuNodePath = NodePath("../..")
+MinableType = 3
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox4"]
+modulate = Color( 0.92549, 0.792157, 0.992157, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox4"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 89.0
+margin_bottom = 24.0
+text = "Glycol"
+
+[node name="Hbox5" type="HBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox"]
+margin_top = 172.0
+margin_right = 165.0
+margin_bottom = 204.0
+size_flags_horizontal = 3
+script = ExtResource( 8 )
+UpgradeMenuNodePath = NodePath("../..")
+MinableType = 4
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox5"]
+modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox5"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 106.0
+margin_bottom = 24.0
+text = "Titanium"
+
+[node name="Hbox7" type="HBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox"]
+margin_top = 208.0
+margin_right = 165.0
+margin_bottom = 240.0
+size_flags_horizontal = 3
+script = ExtResource( 8 )
+UpgradeMenuNodePath = NodePath("../..")
+MinableType = 6
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox7"]
+modulate = Color( 0.176471, 0.117647, 0.223529, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox7"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 77.0
+margin_bottom = 24.0
+text = "Lead"
+
+[node name="Hbox8" type="HBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox"]
+margin_top = 244.0
+margin_right = 165.0
+margin_bottom = 276.0
+size_flags_horizontal = 3
+script = ExtResource( 8 )
+UpgradeMenuNodePath = NodePath("../..")
+MinableType = 7
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox8"]
+modulate = Color( 1, 0.345098, 0.0588235, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox8"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 114.0
+margin_bottom = 24.0
+text = "Tungsten"
+
+[node name="Hbox9" type="HBoxContainer" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox"]
+margin_top = 280.0
+margin_right = 165.0
+margin_bottom = 312.0
+size_flags_horizontal = 3
+script = ExtResource( 8 )
+UpgradeMenuNodePath = NodePath("../..")
+MinableType = 5
+
+[node name="TextureRect" type="TextureRect" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox9"]
+modulate = Color( 0.427451, 0.988235, 0.392157, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="UpgradeMenuContainer/UpgradeMenu/CostVBox/Hbox9"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 104.0
+margin_bottom = 24.0
+text = "Uranium"
 
 [node name="Container" type="Control" parent="."]
 anchor_top = 1.0

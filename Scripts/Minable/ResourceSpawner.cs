@@ -48,6 +48,8 @@ public class ResourceSpawner : Node2D
             MinableType.Glycol => "res://Scenes/Minable/Glycol.tscn",
             MinableType.Titanium => "res://Scenes/Minable/Titanium.tscn",
             MinableType.Uranium => "res://Scenes/Minable/Uranium.tscn",
+            MinableType.Lead => "res://Scenes/Minable/Lead.tscn",
+            MinableType.Tungsten => "res://Scenes/Minable/Tungsten.tscn",
             _ => throw new ArgumentOutOfRangeException()
         };
 

@@ -7,5 +7,7 @@ public enum MinableType
     Copper,
     Glycol,
     Titanium,
-    Uranium
+    Uranium,
+    Lead,
+    Tungsten
 }

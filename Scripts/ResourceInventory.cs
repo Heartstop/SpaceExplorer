@@ -9,6 +9,8 @@ public static class ResourceInventory {
         { MinableType.Glycol, 0},
         { MinableType.Titanium, 0},
         { MinableType.Uranium, 0},
+        { MinableType.Tungsten, 0},
+        { MinableType.Lead, 0},
     };
 
     public static void SubtractResources(Dictionary<MinableType, int> x)
