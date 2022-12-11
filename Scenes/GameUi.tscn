@@ -21,11 +21,10 @@ region = Rect2( 32, 32, 32, 32 )
 script = ExtResource( 2 )
 
 [node name="ResourcePanel" type="Panel" parent="."]
-visible = false
 margin_left = 7.0
 margin_top = 6.0
 margin_right = 183.0
-margin_bottom = 299.0
+margin_bottom = 264.0
 rect_min_size = Vector2( 150, 150 )
 theme = ExtResource( 1 )
 
@@ -38,6 +37,7 @@ __meta__ = {
 }
 
 [node name="Hbox" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
+visible = false
 margin_right = 201.0
 margin_bottom = 32.0
 size_flags_horizontal = 3
@@ -56,9 +56,8 @@ text = "Iron:"
 script = ExtResource( 7 )
 
 [node name="Hbox2" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
-margin_top = 36.0
 margin_right = 201.0
-margin_bottom = 68.0
+margin_bottom = 32.0
 size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox2"]
@@ -77,9 +76,9 @@ script = ExtResource( 7 )
 MinableType = 1
 
 [node name="Hbox3" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
-margin_top = 72.0
+margin_top = 36.0
 margin_right = 201.0
-margin_bottom = 104.0
+margin_bottom = 68.0
 size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox3"]
@@ -98,9 +97,9 @@ script = ExtResource( 7 )
 MinableType = 2
 
 [node name="Hbox4" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
-margin_top = 108.0
+margin_top = 72.0
 margin_right = 201.0
-margin_bottom = 140.0
+margin_bottom = 104.0
 size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox4"]
@@ -119,9 +118,9 @@ script = ExtResource( 7 )
 MinableType = 3
 
 [node name="Hbox5" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
-margin_top = 144.0
+margin_top = 108.0
 margin_right = 201.0
-margin_bottom = 176.0
+margin_bottom = 140.0
 size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox5"]
@@ -140,9 +139,9 @@ script = ExtResource( 7 )
 MinableType = 4
 
 [node name="Hbox6" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
-margin_top = 180.0
+margin_top = 144.0
 margin_right = 201.0
-margin_bottom = 212.0
+margin_bottom = 176.0
 size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox6"]
@@ -161,9 +160,9 @@ script = ExtResource( 7 )
 MinableType = 6
 
 [node name="Hbox7" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
-margin_top = 216.0
+margin_top = 180.0
 margin_right = 201.0
-margin_bottom = 248.0
+margin_bottom = 212.0
 size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox7"]
@@ -182,9 +181,9 @@ script = ExtResource( 7 )
 MinableType = 7
 
 [node name="Hbox8" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
-margin_top = 252.0
+margin_top = 216.0
 margin_right = 201.0
-margin_bottom = 284.0
+margin_bottom = 248.0
 size_flags_horizontal = 3
 
 [node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox8"]
@@ -730,3 +729,4 @@ bus = "Fx"
 
 [node name="OptionsMenu" parent="." instance=ExtResource( 12 )]
 visible = false
+ShowRestartButton = true
