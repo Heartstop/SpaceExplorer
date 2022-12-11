@@ -121,8 +121,8 @@ We have sent the coordinates of a nearby [color=maroon]Brown planet[/color] cont
 @"Good job! Now that we have a radio tower we can start locating the uranium needed for our warp drive. Since we are going to at sometime mine radioactive material, you might aswell start crafting [color=lime]Radioactive shielding[/color].
 We have sent you the coordinates of 4 different planets nearby that contain [color=#ff580f]Tungsten[/color] and [color=#2d1e39]Lead[/color] to craft the [color=lime]Radioactive shielding[/color].", () => {
 	_ui.ShowMessage(
-@"[color=red]Warning[/color] The [color=white]White moon[/color] will freeze you if you don't have the [color=aqua]Antifreeze[/color] upgrade, and the [color=ec9102]Orange planet[/color] will burn you if you don't have the [color=teal]Titanium hull[/teal] upgrade.
-So you should probably craft those upgrades before visiting those bodies.
+@"[color=red]Warning[/color] The [color=white]White moon[/color] will freeze you if you don't have the [color=aqua]Antifreeze[/color] upgrade, and the [color=ec9102]Orange planet[/color] will burn you if you don't have the [color=teal]Titanium hull[/color] upgrade.
+So you should probably craft those upgrades before visiting those celestial bodies.
 ");
 });
 				}
