@@ -10,7 +10,7 @@ public class Minable : RigidBody2D
 	public int SpriteIndex = 0;
 
 	[Export]
-	public float TimeToMine = 5;
+	public float TimeToMine = 2.5f;
 
 	[Export]
 	public MinableType MinableType = MinableType.Iron;
