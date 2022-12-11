@@ -17,6 +17,7 @@ public class GameUi : CanvasLayer
 {
 	public bool AlwaysShowIcons { get; set; } = false;
 	public bool IsUpgradeMenuOpen { get { return _upgradeMenuContainer.Visible; }}
+	public bool DisableInput { get; set; } = false;
 
 	[Export] float MarginTop = 20f;
 	[Export] float MarginRight = 20f;
@@ -28,6 +29,9 @@ public class GameUi : CanvasLayer
 	Control _worldIconsContainer = null!;
 	Control _upgradeMenuContainer = null!;
 	Label _timeScale = null!;
+	MessageDialog _messageDialog = null!;
+	Panel _resourcePanel = null!;
+	Control _container = null!;
 	
 	[Signal]
 	delegate void TimeScaleChanged();
@@ -41,6 +45,9 @@ public class GameUi : CanvasLayer
 		_timeScale = GetNode<Label>("Container/TimeScaleLabel");
 		_worldIconsContainer = GetNode<Control>("WorldIconsContainer");
 		_upgradeMenuContainer = GetNode<Control>("UpgradeMenuContainer");
+		_messageDialog = GetNode<MessageDialog>("MessageDialog");
+		_resourcePanel = GetNode<Panel>("ResourcePanel");
+		_container = GetNode<Control>("Container");
 
 		_upgradeMenuContainer.Connect("gui_input", this, nameof(OnUpgradeMenuContainerInput));
 		Connect(nameof(TimeScaleChanged), this, nameof(OnTimeScaleChange));
@@ -50,8 +57,30 @@ public class GameUi : CanvasLayer
 		}
 	}
 
+	public void ShowMessage(string message, Action? callback = null, bool keepUiHidden = false)
+	{
+		_resourcePanel.Visible = false;
+		_upgradeMenuContainer.Visible = false;
+		_container.Visible = false;
+
+		Action modifiedCallback = () => {
+			if(!keepUiHidden)
+			{
+				_resourcePanel.Visible = true;
+				_container.Visible = true;
+			}
+			if(callback is not null)
+				callback();
+		};
+
+		_messageDialog.ShowMessage(message, modifiedCallback);
+	}
+
 	public override void _UnhandledInput(InputEvent @event)
 	{
+		if(_messageDialog.Visible || DisableInput)
+			return;
+
 		if(@event.IsActionReleased("open_upgrade_menu"))
 		{
 			_upgradeMenuContainer.Visible = !_upgradeMenuContainer.Visible;
@@ -80,7 +109,7 @@ public class GameUi : CanvasLayer
 			var canvasPosition = containerRef.GameRef.GetGlobalTransformWithCanvas().origin;
 
 			containerRef.LocalRef.Visible = (
-				AlwaysShowIcons 
+				AlwaysShowIcons
 				|| canvasPosition.x <= xMin 
 				|| canvasPosition.x >= xMax
 				|| canvasPosition.y <= yMin

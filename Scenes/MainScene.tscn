@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Scripts/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -14,9 +14,351 @@
 [ext_resource path="res://Scenes/ZoomedOutIcon.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/Minable/Aluminum.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/DangerField.tscn" type="PackedScene" id=14]
+[ext_resource path="res://icon.png" type="Texture" id=15]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 21.5, 39 )
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 1 )
+colors = PoolColorArray( 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("IntroCamera:current")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("World/Player/PlayerCamera:current")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Blackhole:material:shader_param/strength")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Blackhole:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 4.91406, 4.23805 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "scene_1"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:DisableInput")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("IntroCamera:current")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("World/Player/PlayerCamera:current")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("World/Player:sleeping")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("World/Player:mode")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 3.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 3, 0 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("World/Player:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 2.8, 3.2 ),
+"transitions": PoolRealArray( 1, 2.82843, 1 ),
+"update": 0,
+"values": [ Vector2( 5232, 6359 ), Vector2( 5232, 6359 ), Vector2( 5232, 6657 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Blackhole:material:shader_param/strength")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.8, 1.6, 2.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 1.0, 0.5 ]
+}
+tracks/7/type = "method"
+tracks/7/path = NodePath("Blackhole/AnimationPlayer")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 2.8 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "Loop", -1, 1.0, false ],
+"method": "play"
+} ]
+}
+tracks/8/type = "method"
+tracks/8/path = NodePath("World/Player")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 3.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "reset_physics_interpolation"
+} ]
+}
+tracks/9/type = "method"
+tracks/9/path = NodePath("World/Player")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 3.2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "force_update_transform"
+} ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("World/Player:linear_velocity")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 3.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/11/type = "method"
+tracks/11/path = NodePath("GameUi")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"values": [  ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("World/Home/Doodads/FuelSilo:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -51, -305 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "scene_2"
+length = 2.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("World/Home/Doodads/FuelSilo:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 1.1, 2.1 ),
+"transitions": PoolRealArray( 1, 4.92458, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -51, -327 ), Vector2( -51, -327 ), Vector2( -51, 0 ), Vector2( -51, 0 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "scene_3"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Blackhole:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 3.03143, 1 ),
+"update": 0,
+"values": [ Vector2( 4.91406, 4.23805 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath("Blackhole")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("Occluder")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "queue_free"
+} ]
+}
+
+[sub_resource type="Shader" id=7]
+code = "shader_type canvas_item;
+
+uniform sampler2D curve;
+uniform float strength = 1.;
+
+void fragment() {
+	vec2 vecToCenter = vec2(0.5, 0.5) - UV;
+	float distToCenter = length(vecToCenter);
+	float curveVal = texture(curve, vec2(distToCenter)).r;
+	vec2 diff = normalize(vecToCenter) * 0.6 * strength * curveVal;
+	COLOR = texture(SCREEN_TEXTURE, SCREEN_UV - diff);
+}"
+
+[sub_resource type="Curve" id=9]
+min_value = -1.0
+_data = [ Vector2( 0.00201207, 0.527273 ), 0.0, 0.0, 0, 0, Vector2( 0.0905433, -0.438636 ), -4.51818, -4.51818, 0, 0, Vector2( 0.242455, 0.815909 ), 0.0, 0.0, 0, 0, Vector2( 0.32495, -0.329545 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+curve = SubResource( 9 )
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
+shader_param/strength = 0.5
+shader_param/curve = SubResource( 10 )
+
+[sub_resource type="Animation" id=11]
+resource_name = "Loop"
+length = 6.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3, 6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.5, 0.7, 0.5 ]
+}
+
+[sub_resource type="Animation" id=12]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/strength")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.5 ]
+}
 
 [node name="MainScene" type="Node"]
 script = ExtResource( 1 )
@@ -49,15 +391,22 @@ texture = ExtResource( 11 )
 AlwaysHidden = false
 
 [node name="FuelSilo" type="StaticBody2D" parent="World/Home/Doodads"]
-position = Vector2( -51, 1 )
+position = Vector2( -51, -305 )
 collision_layer = 3
 
 [node name="Sprite" type="Sprite" parent="World/Home/Doodads/FuelSilo"]
+light_mask = 16
 texture = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/Home/Doodads/FuelSilo"]
 position = Vector2( -0.5, 0 )
 shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Planet" parent="World/Home" instance=ExtResource( 3 )]
 position = Vector2( 1, 276 )
@@ -275,12 +624,18 @@ visible = false
 texture = ExtResource( 4 )
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
-position = Vector2( 5232, 6656 )
+position = Vector2( 5232, 6359 )
 z_index = 1
+mode = 3
+sleeping = true
+__meta__ = {
+"_edit_lock_": true
+}
 MaxFuel = 400.0
 
 [node name="PlayerCamera" parent="World/Player" instance=ExtResource( 10 )]
 z_as_relative = false
+current = false
 MinZoom = 0.65
 MaxZoom = 1.0
 
@@ -288,3 +643,30 @@ MaxZoom = 1.0
 stream = ExtResource( 5 )
 volume_db = -20.975
 bus = "Music"
+
+[node name="Occluder" type="Light2D" parent="."]
+position = Vector2( 5241.5, 6363.5 )
+scale = Vector2( 0.145996, -190.999 )
+texture = SubResource( 6 )
+mode = 3
+range_item_cull_mask = 16
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 4 )
+anims/scene_1 = SubResource( 3 )
+anims/scene_2 = SubResource( 13 )
+anims/scene_3 = SubResource( 14 )
+
+[node name="Blackhole" type="Sprite" parent="."]
+material = SubResource( 8 )
+position = Vector2( 5231, 6359 )
+scale = Vector2( 4.91406, 4.23805 )
+texture = ExtResource( 15 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Blackhole"]
+anims/Loop = SubResource( 11 )
+anims/RESET = SubResource( 12 )
+
+[node name="IntroCamera" type="Camera2D" parent="."]
+position = Vector2( 5231, 6489 )
+current = true

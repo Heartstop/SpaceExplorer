@@ -11,6 +11,9 @@ public class MainScene : Node
 	Player _player = null!;
 	GameUi _ui = null!;
 	Camera _camera = null!;
+	AnimationPlayer _animationPlayer = null!;
+
+	[Export] public bool DisableInput { get; set; } = true;
 	private int _currentProgressionStep = 0;
 
 	public override void _Ready()
@@ -19,6 +22,7 @@ public class MainScene : Node
 		_player = GetNode<Player>("World/Player");
 		_ui = GetNode<GameUi>("GameUi");
 		_camera = GetNode<Camera>("World/Player/PlayerCamera");
+		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
 		_ui.SetMaxHealthBarValue(_player.MaxHealth);
 		_ui.SetHealthBarValue(_player.MaxHealth);
@@ -30,12 +34,53 @@ public class MainScene : Node
 		_player.Connect(nameof(Player.HealthChanged), this, nameof(OnPlayerHealthChanged));
 		_player.Connect(nameof(Player.FuelChanged), this, nameof(OnPlayerFuelChanged));
 		_camera.Connect(nameof(Camera.ZoomChanged), this, nameof(OnCameraZoomChanged));
+		_animationPlayer.Connect("animation_finished", this, nameof(OnAnimationFinished));
+
 		
 		_musicPlayer.Play();
+		_animationPlayer.Play("scene_1");
 	}
 
-	private void OnCraftedUpgradesChanged(List<string> currentUpgrades)
+	private void OnAnimationFinished(string animationName)
 	{
+		switch(animationName)
+		{
+			case "scene_1": {
+				_ui.ShowMessage(
+@"Oh no! It seems like you accidentally took a wrong turn and ended up in a [u][color=fuchsia]wormhole[/color][/u]!
+To get home you only need to set course, spin up your [color=aqua]warp drive[/color] and you will be on your way home in no time!"
+				, () => {
+					_ui.ShowMessage(
+@"Your ship is not equipped with a warp drive? No worries! We will provide with you tons of fuel so you can thrust yourself home in the speed of light."
+					, () => _animationPlayer.Play("scene_2"), true);
+				});
+				break;
+			}
+			case "scene_2": {
+				_ui.ShowMessage(
+@"Oh... You would be dead by the time that you got back? Well then, you better quickly go back into the wormhole and hope it takes you back before it destabilizes and closes down."
+				, () => _animationPlayer.Play("scene_3"), true);
+				break;
+			}
+			case "scene_3": {
+				_ui.ShowMessage(
+@"It is already gone? I guess you will have to craft a [color=aqua]warp drive[/color] yourself. The main ingredient of a warp drive is highly radioactive [color=lime]Uranium[/color].
+We should be able to find some nearby."
+				, () => _ui.ShowMessage(
+@"We wont be able to go any reasonable distance with your current engine. So first of all you need to mine some [color=aqua]Aluminum[/color] so we can upgrade your rocket power!.
+Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Aluminum[/color], then return to the landing pad and upgrade your rocket.", 
+					() => {
+						_camera.Current = true;
+						DisableInput = false;
+					})
+				);
+				break;
+			}
+			default: throw new NotImplementedException();
+		}
+	}
+
+	private void OnCraftedUpgradesChanged(List<string> currentUpgrades) {
 		if (currentUpgrades.Contains("Antifreeze"))
 			_player.AntiFreezeUpgrade = true;
 
@@ -44,7 +89,7 @@ public class MainScene : Node
 
 		if (currentUpgrades.Contains("RadiationShielding"))
 			_player.RadiationShieldUpgrade = true;
-		
+	
 		switch(_currentProgressionStep)
 		{
 			case 0: {
@@ -122,7 +167,9 @@ public class MainScene : Node
 
 	public override void _Process(float delta)
 	{
-		_player.UIOpen = _ui.IsUpgradeMenuOpen;
+		_player.UIOpen = _ui.IsUpgradeMenuOpen || DisableInput;
+		_camera.DisableInput = _ui.IsUpgradeMenuOpen || DisableInput;
+		_ui.DisableInput = DisableInput;
 	}
 
 	public override void _UnhandledInput(InputEvent @event)

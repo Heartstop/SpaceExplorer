@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://UiTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/GameUi.cs" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Sprites/Ores.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/ResourceLabel.cs" type="Script" id=7]
 [ext_resource path="res://Scripts/ResourceCostLabel.cs" type="Script" id=8]
+[ext_resource path="res://Scripts/MessageDialog.cs" type="Script" id=9]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 6 )
@@ -17,6 +18,7 @@ region = Rect2( 32, 32, 32, 32 )
 script = ExtResource( 2 )
 
 [node name="ResourcePanel" type="Panel" parent="."]
+visible = false
 margin_left = 7.0
 margin_top = 6.0
 margin_right = 183.0
@@ -206,6 +208,7 @@ __meta__ = {
 }
 
 [node name="UpgradeMenuContainer" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -584,6 +587,7 @@ margin_bottom = 24.0
 text = "Uranium"
 
 [node name="Container" type="Control" parent="."]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -650,9 +654,52 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -58.0
-margin_top = -14.0
+margin_left = -80.0
+margin_top = -17.0
+margin_right = -2.0
 grow_horizontal = 0
+theme = ExtResource( 1 )
 text = "1x Speed"
 align = 2
 valign = 2
+
+[node name="MessageDialog" type="PanelContainer" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -41.0
+margin_right = 160.0
+margin_bottom = 41.0
+theme = ExtResource( 1 )
+script = ExtResource( 9 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MessageDialog"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 310.0
+margin_bottom = 72.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MessageDialog/VBoxContainer"]
+margin_right = 300.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 300, 0 )
+text = "Message"
+
+[node name="Message" type="RichTextLabel" parent="MessageDialog/VBoxContainer"]
+margin_top = 21.0
+margin_right = 300.0
+margin_bottom = 39.0
+size_flags_vertical = 4
+bbcode_enabled = true
+fit_content_height = true
+
+[node name="ContinueButton" type="Button" parent="MessageDialog/VBoxContainer"]
+margin_top = 43.0
+margin_right = 300.0
+margin_bottom = 62.0
+text = "Continue"

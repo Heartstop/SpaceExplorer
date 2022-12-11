@@ -114,7 +114,7 @@ resources to get us home.")
 
     private void OnUpgradeButtonInput(InputEvent inputEvent)
     {
-        if(!inputEvent.IsAction("ui_accept"))
+        if(!inputEvent.IsActionReleased("ui_accept"))
             return;
 
         var selectedUpgrade = Upgrades[_selectedUpgradeKey];

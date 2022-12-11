@@ -8,7 +8,7 @@ public class Camera : Camera2D
 	[Signal] public delegate void ZoomChanged(float newZoom);
 
 	public bool DisableInput { get; set; }
-	public float CurrentZoom { get; set; }
+	public float CurrentZoom { get; set; } = 1;
 	const float SCROLL_WHEEL_ZOOM_RATE = 0.1f;
 
 	public override void _Process(float delta)
@@ -39,14 +39,15 @@ public class Camera : Camera2D
 
 	private void ZoomProcess(float delta)
 	{
+		var zoomPow = (float)Math.Pow(CurrentZoom, 2.8);
+		Zoom = new Vector2(zoomPow, zoomPow);
+
 		if(DisableInput)
 			return;
 			
 		var amount = (Input.GetActionStrength("camera_zoom_in") - Input.GetActionStrength("camera_zoom_out")) * delta;
 		AddRelativeZoom(amount);
 		
-		var zoomPow = (float)Math.Pow(CurrentZoom, 2.8);
-		Zoom = new Vector2(zoomPow, zoomPow);
 	}
 
 	private void AddRelativeZoom(float amount) {
