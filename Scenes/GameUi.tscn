@@ -1,20 +1,169 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://UiTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Scripts/GameUi.cs" type="Script" id=2]
 [ext_resource path="res://Sprites/AtlasQuestionIcon.tres" type="Texture" id=3]
 [ext_resource path="res://UpgradeButton.cs" type="Script" id=4]
 [ext_resource path="res://Scripts/UpgradeMenu.cs" type="Script" id=5]
+[ext_resource path="res://Sprites/Ores.png" type="Texture" id=6]
+[ext_resource path="res://Scenes/ResourceLabel.cs" type="Script" id=7]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 6 )
+region = Rect2( 32, 32, 32, 32 )
 
 [node name="GameUi" type="CanvasLayer"]
 script = ExtResource( 2 )
+
+[node name="ResourcePanel" type="Panel" parent="."]
+margin_left = 7.0
+margin_top = 6.0
+margin_right = 183.0
+margin_bottom = 227.0
+rect_min_size = Vector2( 150, 150 )
+theme = ExtResource( 1 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ResourcePanel"]
+margin_right = 201.0
+margin_bottom = 143.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Hbox" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
+margin_right = 201.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox"]
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="ResourcePanel/VBoxContainer/Hbox"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 80.0
+margin_bottom = 24.0
+text = "Iron:"
+script = ExtResource( 7 )
+
+[node name="Hbox2" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
+margin_top = 36.0
+margin_right = 201.0
+margin_bottom = 68.0
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox2"]
+modulate = Color( 0.278431, 0.521569, 0.694118, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="ResourcePanel/VBoxContainer/Hbox2"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 121.0
+margin_bottom = 24.0
+text = "Aluminium:"
+script = ExtResource( 7 )
+MinableType = 1
+
+[node name="Hbox3" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
+margin_top = 72.0
+margin_right = 201.0
+margin_bottom = 104.0
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox3"]
+modulate = Color( 0.905882, 0.556863, 0.247059, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="ResourcePanel/VBoxContainer/Hbox3"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 102.0
+margin_bottom = 24.0
+text = "Copper:"
+script = ExtResource( 7 )
+MinableType = 2
+
+[node name="Hbox4" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
+margin_top = 108.0
+margin_right = 201.0
+margin_bottom = 140.0
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox4"]
+modulate = Color( 0.92549, 0.792157, 0.992157, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="ResourcePanel/VBoxContainer/Hbox4"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 93.0
+margin_bottom = 24.0
+text = "Glycol:"
+script = ExtResource( 7 )
+MinableType = 3
+
+[node name="Hbox5" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
+margin_top = 144.0
+margin_right = 201.0
+margin_bottom = 176.0
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox5"]
+modulate = Color( 0.294118, 0.294118, 0.294118, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="ResourcePanel/VBoxContainer/Hbox5"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 110.0
+margin_bottom = 24.0
+text = "Titanium:"
+script = ExtResource( 7 )
+MinableType = 4
+
+[node name="Hbox6" type="HBoxContainer" parent="ResourcePanel/VBoxContainer"]
+margin_top = 180.0
+margin_right = 201.0
+margin_bottom = 212.0
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="ResourcePanel/VBoxContainer/Hbox6"]
+modulate = Color( 0.427451, 0.988235, 0.392157, 1 )
+margin_right = 32.0
+margin_bottom = 32.0
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="ResourcePanel/VBoxContainer/Hbox6"]
+margin_left = 36.0
+margin_top = 7.0
+margin_right = 108.0
+margin_bottom = 24.0
+text = "Uranium:"
+script = ExtResource( 7 )
+MinableType = 4
 
 [node name="WorldIconsContainer" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="UpgradeMenuContainer" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 

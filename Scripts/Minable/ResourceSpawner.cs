@@ -29,7 +29,8 @@ public class ResourceSpawner : Node2D
         {
             for (var i = 0; i < cluster.Count; i++)
             {
-                var minable = minableScene.Instance<RigidBody2D>();
+                var minable = minableScene.Instance<Minable>();
+                minable.SpriteIndex = random.Next(0, 4);
                 minable.Position = new Vector2(Mathf.Sin(cluster.Angle), Mathf.Cos(cluster.Angle)) * SpawnRadius;
                 minable.Rotation = minable.Position.Angle() + Mathf.Pi * 0.5f;
                 AddChild(minable);
@@ -39,10 +40,17 @@ public class ResourceSpawner : Node2D
 
     private static PackedScene GetMinable(MinableType minableType)
     {
-        return minableType switch
+        var scenePath = minableType switch
         {
-            MinableType.Iron => ResourceLoader.Load<PackedScene>("res://Scenes/Minable/Iron.tscn"),
+            MinableType.Iron => "res://Scenes/Minable/Iron.tscn",
+            MinableType.Aluminum => "res://Scenes/Minable/Aluminum.tscn",
+            MinableType.Copper => "res://Scenes/Minable/Copper.tscn",
+            MinableType.Glycol => "res://Scenes/Minable/Glycol.tscn",
+            MinableType.Titanium => "res://Scenes/Minable/Titanium.tscn",
+            MinableType.Uranium => "res://Scenes/Minable/Uranium.tscn",
             _ => throw new ArgumentOutOfRangeException()
         };
+
+        return ResourceLoader.Load<PackedScene>(scenePath);
     }
 }
