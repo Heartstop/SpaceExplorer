@@ -14,10 +14,13 @@ public class MiningLaser : Node2D
 		}
 	}
 
+	public bool DisableInput { get; set; }
+
 	private RayCast2D _rayCast = null!;
 	private Particles2D _hitParticles = null!;
 	private Line2D _laser = null!;
 	private Area2D _detectionArea = null!;
+	private AudioStreamPlayer2D _miningSound = null!;
 	private float _range = 200;
 
 	public override void _Ready()
@@ -26,12 +29,17 @@ public class MiningLaser : Node2D
 		_hitParticles = GetNode<Particles2D>("HitParticles");
 		_laser = GetNode<Line2D>("Laser");
 		_detectionArea = GetNode<Area2D>("DetectionArea");
+		_miningSound = GetNode<AudioStreamPlayer2D>("MiningSound");
 	}
 
 	public override void _PhysicsProcess(float delta)
 	{
+		if(DisableInput)
+			return;
+
 		if (!Input.IsActionPressed("mine"))
 		{
+			_miningSound.Stop();
 			SetBeamEnabled(false);
 			return;
 		}
@@ -43,9 +51,13 @@ public class MiningLaser : Node2D
 			.FirstOrDefault();
 		if (target == null)
 		{
+			_miningSound.Stop();
 			SetBeamEnabled(false);
 			return;
 		}
+
+		if(!_miningSound.Playing)
+			_miningSound.Play();
 
 		SetBeamEnabled(true);
 		_rayCast.CastTo = _rayCast.ToLocal(target.GlobalPosition);

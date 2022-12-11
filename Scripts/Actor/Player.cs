@@ -51,6 +51,7 @@ public class Player : RigidBody2D
 	
 	private Particles2D _dustParticles = null!;
 	private Sprite _shipSprite = null!;
+	private MiningLaser _miningLaser = null!;
 
 	// Vars
 	private Vector2 _velocityLastFrame = new(0, 0);
@@ -69,6 +70,8 @@ public class Player : RigidBody2D
 		_radioactiveClick = GetNode<AudioStreamPlayer2D>("DangerFieldSounds/RadioactiveClick");
 		_dustParticles = GetNode<Particles2D>("ExplosionNode/DustParticles");
 		_shipSprite = GetNode<Sprite>("ShipSprite");
+		_miningLaser = GetNode<MiningLaser>("MiningLaser");
+
 		_thrustAnimatedSprite.Play();
 		_health = MaxHealth;
 		_fuel = MaxFuel;
@@ -86,6 +89,7 @@ public class Player : RigidBody2D
 		ConsumeFuel(delta);
 		RefuelingAndRepair(delta);
 		EffectsProcess();
+		_miningLaser.DisableInput = DisableInput;
 	}
 
 	public void DangerProcess(float delta)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Materials/LaserSparks.tres" type="Material" id=1]
 [ext_resource path="res://Scripts/MiningLaser.cs" type="Script" id=2]
+[ext_resource path="res://Sounds/MiningLaser.ogg" type="AudioStream" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -16,7 +17,7 @@ default_color = Color( 0.309804, 1, 0.588235, 1 )
 [node name="HitParticles" type="Particles2D" parent="."]
 position = Vector2( 0, -100 )
 amount = 200
-lifetime = 2.0
+lifetime = 0.5
 local_coords = false
 process_material = ExtResource( 1 )
 
@@ -29,3 +30,8 @@ scale = Vector2( 10, 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
 shape = SubResource( 1 )
+
+[node name="MiningSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+volume_db = -9.0
+bus = "Fx"

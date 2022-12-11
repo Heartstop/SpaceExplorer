@@ -108,6 +108,7 @@ resources to get us home.")
 
         GetViewport().Connect("gui_focus_changed", this, nameof(OnGuiFocusChanged));
         Connect("visibility_changed", this, nameof(OnVisibilityChanged));
+        GetNode<Button>("CraftButton").Connect("gui_input", this, nameof(OnUpgradeButtonInput));
 
         _currentlyFocusedControl.GrabFocus();
     }
@@ -121,9 +122,13 @@ resources to get us home.")
         var button = GetNode<Button>(selectedUpgrade.NodePath);
 
         if(button.Disabled)
+        {
+            GetNode<AudioStreamPlayer>("../../UiDeclineSound").Play();
             return;
+        }
 
         // TODO: Add logic for checking if player has the resources available
+        GetNode<AudioStreamPlayer>("../../UiAcceptSound").Play();
         _craftedUpgrades.Add(_selectedUpgradeKey);
         EmitSignal(nameof(CraftedUpgradesChanged), _craftedUpgrades.ToList());        
         SetDisabledState();
