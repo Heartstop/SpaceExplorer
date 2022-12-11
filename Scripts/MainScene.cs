@@ -179,6 +179,9 @@ Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Alu
 
 	private void HandleTimeScale(InputEvent @event)
 	{
+		if(DisableInput)
+			return;
+			
 		if (@event.IsActionReleased("time_scale_swap"))
 		{
 			Engine.TimeScale = Math.Abs(Engine.TimeScale - 1) < 0.1 ? 5 : 1;
