@@ -83,6 +83,7 @@ animations = [ {
 } ]
 
 [node name="RigidBody2D" type="RigidBody2D" groups=["Minable"]]
+
 collision_layer = 3
 mass = 4.0
 script = ExtResource( 1 )
