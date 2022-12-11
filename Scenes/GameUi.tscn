@@ -14,6 +14,7 @@ atlas = ExtResource( 6 )
 region = Rect2( 32, 32, 32, 32 )
 
 [node name="GameUi" type="CanvasLayer"]
+visible = false
 script = ExtResource( 2 )
 
 [node name="ResourcePanel" type="Panel" parent="."]
@@ -206,6 +207,7 @@ __meta__ = {
 }
 
 [node name="UpgradeMenuContainer" type="Control" parent="."]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 

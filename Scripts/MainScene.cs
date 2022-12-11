@@ -11,6 +11,9 @@ public class MainScene : Node
 	Player _player = null!;
 	GameUi _ui = null!;
 	Camera _camera = null!;
+	AnimationPlayer _animationPlayer = null!;
+
+	[Export] public bool DisableInput { get; set; } = false;
 	private int _currentProgressionStep = 0;
 
 	public override void _Ready()
@@ -19,6 +22,7 @@ public class MainScene : Node
 		_player = GetNode<Player>("World/Player");
 		_ui = GetNode<GameUi>("GameUi");
 		_camera = GetNode<Camera>("World/Player/PlayerCamera");
+		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
 		_ui.SetMaxHealthBarValue(_player.MaxHealth);
 		_ui.SetHealthBarValue(_player.MaxHealth);
@@ -32,6 +36,7 @@ public class MainScene : Node
 		_camera.Connect(nameof(Camera.ZoomChanged), this, nameof(OnCameraZoomChanged));
 		
 		_musicPlayer.Play();
+		_animationPlayer.Play("scene_1");
 	}
 
 	private void OnCraftedUpgradesChanged(List<string> currentUpgrades)
@@ -123,6 +128,8 @@ public class MainScene : Node
 	public override void _Process(float delta)
 	{
 		_player.UIOpen = _ui.IsUpgradeMenuOpen;
+		_player.DisableInput = _ui.IsUpgradeMenuOpen || DisableInput;
+		_camera.DisableInput = _ui.IsUpgradeMenuOpen || DisableInput;
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
