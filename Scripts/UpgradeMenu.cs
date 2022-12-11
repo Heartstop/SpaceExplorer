@@ -127,7 +127,15 @@ resources to get us home.")
             return;
         }
 
-        // TODO: Add logic for checking if player has the resources available
+        var canAfford = selectedUpgrade.ResourceCost.All(kvp =>
+            ResourceInventory.ResourceCounts.ContainsKey(kvp.Key) &&
+            ResourceInventory.ResourceCounts[kvp.Key] >= kvp.Value);
+        if (!canAfford)
+        {
+            GetNode<AudioStreamPlayer>("../../UiDeclineSound").Play();
+            return;
+        }
+        ResourceInventory.SubtractResources(selectedUpgrade.ResourceCost);
         GetNode<AudioStreamPlayer>("../../UiAcceptSound").Play();
         _craftedUpgrades.Add(_selectedUpgradeKey);
         EmitSignal(nameof(CraftedUpgradesChanged), _craftedUpgrades.ToList());        
