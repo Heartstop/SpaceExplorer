@@ -34,7 +34,17 @@ public class MainScene : Node
 		_musicPlayer.Play();
 	}
 
-	private void OnCraftedUpgradesChanged(List<string> currentUpgrades) {
+	private void OnCraftedUpgradesChanged(List<string> currentUpgrades)
+	{
+		if (currentUpgrades.Contains("Antifreeze"))
+			_player.AntiFreezeUpgrade = true;
+
+		if (currentUpgrades.Contains("TitaniumHull"))
+			_player.TitaniumHullUpgrade = true;
+
+		if (currentUpgrades.Contains("RadiationShielding"))
+			_player.RadiationShieldUpgrade = true;
+		
 		switch(_currentProgressionStep)
 		{
 			case 0: {
@@ -112,7 +122,7 @@ public class MainScene : Node
 
 	public override void _Process(float delta)
 	{
-		_player.DisableInput = _ui.IsUpgradeMenuOpen;
+		_player.UIOpen = _ui.IsUpgradeMenuOpen;
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
@@ -125,7 +135,6 @@ public class MainScene : Node
 		if (@event.IsActionReleased("time_scale_swap"))
 		{
 			Engine.TimeScale = Math.Abs(Engine.TimeScale - 1) < 0.1 ? 5 : 1;
-			_ui.EmitSignal("time_scale_changed", Engine.TimeScale);
 		}
 		else if (@event.IsActionPressed("time_scale_up", true))
 		{

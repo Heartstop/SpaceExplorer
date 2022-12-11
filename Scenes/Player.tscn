@@ -154,3 +154,7 @@ AlwaysHidden = false
 z_index = -1
 Points = 300
 Color = Color( 1, 0, 0, 1 )
+
+[node name="DangerFieldSounds" type="Node" parent="."]
+
+[node name="RadioactiveClick" type="AudioStreamPlayer2D" parent="DangerFieldSounds"]

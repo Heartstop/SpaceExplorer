@@ -1,5 +1,6 @@
 using Godot;
 using SpaceExplorer.Scripts.Minable;
+
 public class ResourceCostLabel : HBoxContainer
 {
     [Export] NodePath UpgradeMenuNodePath = null!;

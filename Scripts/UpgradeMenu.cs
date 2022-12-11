@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using Godot;
 using SpaceExplorer.Scripts.Minable;
@@ -34,22 +32,22 @@ public class UpgradeMenu : Panel
     {
         { 
             "RocketPower", new UpgradeInfo(
-            name: "Rocket Power!",
-            nodePath: "VBoxContainer/HBox/RocketPower",
-            upgradeDependencies: new HashSet<string>(),
-            resourceCost: new Dictionary<MinableType, int>{ { MinableType.Aluminum, 5 } },
-            description: 
-@"If we are going to be able to take ourselves anywhere, we will need 
+                name: "Rocket Power!",
+                nodePath: "VBoxContainer/HBox/RocketPower",
+                upgradeDependencies: new HashSet<string>(),
+                resourceCost: new Dictionary<MinableType, int>{ { MinableType.Aluminum, 5 } },
+                description: 
+                @"If we are going to be able to take ourselves anywhere, we will need 
 to modify our rockets to produce some more power!")
         },
         { 
             "Radio", new UpgradeInfo(
-            name: "Radio tower",
-            nodePath: "VBoxContainer/HBox2/Radio",
-            upgradeDependencies: new HashSet<string> { "RocketPower" },
-            resourceCost: new Dictionary<MinableType, int>{ { MinableType.Aluminum, 2 }, { MinableType.Copper, 8 } },
-            description: 
-@"This radio tower will help us find celestial bodies containing the
+                name: "Radio tower",
+                nodePath: "VBoxContainer/HBox2/Radio",
+                upgradeDependencies: new HashSet<string> { "RocketPower" },
+                resourceCost: new Dictionary<MinableType, int>{ { MinableType.Aluminum, 2 }, { MinableType.Copper, 8 } },
+                description: 
+                @"This radio tower will help us find celestial bodies containing the
 resources to get us home.")
         },
         {
@@ -59,7 +57,7 @@ resources to get us home.")
                 upgradeDependencies: new HashSet<string> { "Radio" },
                 resourceCost: new Dictionary<MinableType, int>{ { MinableType.Titanium, 10 }, { MinableType.Aluminum, 3 } },
                 description: 
-"A hull made of titanium that is capable of handling high temperature environments.")
+                "A hull made of titanium that is capable of handling high temperature environments.")
         },
         {
             "Antifreeze", new UpgradeInfo( 
@@ -68,7 +66,7 @@ resources to get us home.")
                 upgradeDependencies: new HashSet<string> { "Radio" },
                 resourceCost: new Dictionary<MinableType, int>{ { MinableType.Glycol, 8 } },
                 description: 
-"Antifreeze additive for our fuel so that it does not freeze in cold environments.")
+                "Antifreeze additive for our fuel so that it does not freeze in cold environments.")
         },
         {
             "RadiationShielding", new UpgradeInfo(
@@ -77,7 +75,7 @@ resources to get us home.")
                 upgradeDependencies: new HashSet<string> { "TitaniumHull", "Antifreeze" },
                 resourceCost: new Dictionary<MinableType, int>{ { MinableType.Tungsten, 8 }, { MinableType.Lead, 8 }, },
                 description: 
-"Adds radiation shielding to our hull to protect ourselves against radioactive environments")
+                "Adds radiation shielding to our hull to protect ourselves against radioactive environments")
         },
         {
             "WarpDrive", new UpgradeInfo(
