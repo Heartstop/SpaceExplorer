@@ -63,6 +63,7 @@ public class GameUi : CanvasLayer
 	public void OnOptionsMenuContinue()
 	{
 		_optionsMenu.Visible = false;
+		GetTree().Paused = false;
 		GetNode<AudioStreamPlayer>("UiAcceptSound").Play();
 	}
 
@@ -98,8 +99,15 @@ public class GameUi : CanvasLayer
 		if(@event.IsActionReleased("open_options"))
 		{
 			_optionsMenu.Visible = !_optionsMenu.Visible;
-			if(_optionsMenu.Visible)
+			if (_optionsMenu.Visible)
+			{
 				_optionsMenu.Focus();
+				GetTree().Paused = true;
+			}
+			else
+			{
+				GetTree().Paused = false;
+			}
 		}
 	}
 
