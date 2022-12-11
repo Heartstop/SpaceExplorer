@@ -519,10 +519,12 @@ BorderSize = 75.0
 [node name="CopperSpawner" type="Node2D" parent="World/P1/Planet"]
 script = ExtResource( 6 )
 SpawnAmount = 64
+MaxClusters = 9
 MinableType = 2
 
 [node name="ZoomedOutIcon" parent="World/P1" instance=ExtResource( 12 )]
 visible = false
+modulate = Color( 0.427451, 0.341176, 0.0901961, 1 )
 texture = ExtResource( 4 )
 
 [node name="M1" type="Node2D" parent="World"]
@@ -542,10 +544,12 @@ BorderSize = 75.0
 [node name="TitaniumSpawner" type="Node2D" parent="World/M1/Planet"]
 script = ExtResource( 6 )
 SpawnAmount = 20
+MaxClusters = 3
 MinableType = 4
 
 [node name="ZoomedOutIcon" parent="World/M1" instance=ExtResource( 12 )]
 visible = false
+modulate = Color( 0.105882, 0.105882, 0.105882, 1 )
 texture = ExtResource( 4 )
 
 [node name="M2" type="Node2D" parent="World"]
@@ -565,6 +569,7 @@ BorderSize = 50.0
 [node name="LeadSpawner" type="Node2D" parent="World/M2/Planet"]
 script = ExtResource( 6 )
 SpawnAmount = 16
+MaxClusters = 4
 MinableType = 6
 
 [node name="DangerField" parent="World/M2/Planet" instance=ExtResource( 14 )]
@@ -590,10 +595,12 @@ BorderSize = 75.0
 [node name="GlycolSpawner" type="Node2D" parent="World/P2/Planet"]
 script = ExtResource( 6 )
 SpawnAmount = 40
+MaxClusters = 5
 MinableType = 3
 
 [node name="ZoomedOutIcon" parent="World/P2" instance=ExtResource( 12 )]
 visible = false
+modulate = Color( 0.498039, 0.223529, 0.619608, 1 )
 texture = ExtResource( 4 )
 
 [node name="P3" type="Node2D" parent="World"]
@@ -614,13 +621,16 @@ BorderSize = 50.0
 scale = Vector2( 0.002, 0.002 )
 script = ExtResource( 6 )
 SpawnAmount = 30
+MaxClusters = 6
 MinableType = 7
 
 [node name="DangerField" parent="World/P3/Planet" instance=ExtResource( 14 )]
+visible = false
 FieldType = 1
 
 [node name="ZoomedOutIcon" parent="World/P3" instance=ExtResource( 12 )]
 visible = false
+modulate = Color( 0.87451, 0.576471, 0.156863, 1 )
 texture = ExtResource( 4 )
 
 [node name="P4" type="Node2D" parent="World"]
@@ -640,13 +650,16 @@ BorderSize = 125.0
 [node name="UraniumSpawner" type="Node2D" parent="World/P4/Planet"]
 script = ExtResource( 6 )
 SpawnAmount = 35
+MaxClusters = 7
 MinableType = 5
 
 [node name="DangerField" parent="World/P4/Planet" instance=ExtResource( 14 )]
+visible = false
 FieldType = 2
 
 [node name="ZoomedOutIcon" parent="World/P4" instance=ExtResource( 12 )]
 visible = false
+modulate = Color( 0.168627, 0.768627, 0.643137, 1 )
 texture = ExtResource( 4 )
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
