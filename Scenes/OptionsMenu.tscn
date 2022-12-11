@@ -90,14 +90,6 @@ margin_right = 380.0
 margin_bottom = 146.0
 alignment = 2
 
-[node name="RestartButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-margin_left = 213.0
-margin_right = 290.0
-margin_bottom = 19.0
-size_flags_horizontal = 0
-custom_styles/normal = SubResource( 1 )
-text = "Restart"
-
 [node name="RespawnButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 margin_left = 294.0
 margin_right = 380.0
