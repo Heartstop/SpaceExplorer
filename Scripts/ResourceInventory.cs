@@ -13,13 +13,13 @@ public static class ResourceInventory {
         { MinableType.Lead, 0},
     };
 
-    public static void SubtractResources(Dictionary<MinableType, int> x)
+    public static void SubtractResources(IReadOnlyDictionary<MinableType, int> x)
     {
         foreach(var resource in x)
             ResourceCounts[resource.Key] -= resource.Value; 
     }
 
-    public static void AddResources(Dictionary<MinableType, int> x)
+    public static void AddResources(IReadOnlyDictionary<MinableType, int> x)
     {
         foreach(var resource in x)
             ResourceCounts[resource.Key] += resource.Value;

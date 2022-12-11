@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using Godot;
 using SpaceExplorer.Scripts.Actor;
 
@@ -35,8 +36,10 @@ public class MainScene : Node
 		_player.Connect(nameof(Player.FuelChanged), this, nameof(OnPlayerFuelChanged));
 		_camera.Connect(nameof(Camera.ZoomChanged), this, nameof(OnCameraZoomChanged));
 		_animationPlayer.Connect("animation_finished", this, nameof(OnAnimationFinished));
+		GetNode<OptionsMenu>("GameUi/OptionsMenu")
+			.Connect(nameof(OptionsMenu.RestartGame), this, nameof(OnRestartGame));
 
-		
+
 		_musicPlayer.Play();
 		_animationPlayer.Play("scene_1");
 		_player.GetNode<Trajectory>("Trajectory").Render = false;
@@ -203,6 +206,12 @@ Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Alu
 		_ui.EmitSignal("TimeScaleChanged");
 	}
 
+	private void OnRestartGame()
+	{
+		Engine.TimeScale = 1;
+		ResourceInventory.SubtractResources(ResourceInventory.ResourceCounts.ToImmutableDictionary());
+		GetTree().ReloadCurrentScene();
+	}
 	private void OnPlayerHealthChanged(int health) => _ui.SetHealthBarValue(health);
 	private void OnPlayerFuelChanged(int fuel) => _ui.SetFuelBarValue(fuel);
 	private void OnCameraZoomChanged(float zoom) => _ui.AlwaysShowIcons = zoom > 1.9f;
