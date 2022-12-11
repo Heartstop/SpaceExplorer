@@ -730,4 +730,3 @@ bus = "Fx"
 
 [node name="OptionsMenu" parent="." instance=ExtResource( 12 )]
 visible = false
-ShowRestartButton = true

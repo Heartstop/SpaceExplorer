@@ -12,7 +12,7 @@ script = ExtResource( 2 )
 
 [node name="Laser" type="Line2D" parent="."]
 points = PoolVector2Array( 0, 0, 0, -100 )
-width = 5.0
+width = 1.5
 default_color = Color( 0.309804, 1, 0.588235, 1 )
 
 [node name="HitParticles" type="Particles2D" parent="."]
@@ -34,10 +34,10 @@ shape = SubResource( 1 )
 
 [node name="MiningSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
-volume_db = -9.0
+volume_db = -7.0
 bus = "Fx"
 
 [node name="CollectSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
-volume_db = -9.0
+volume_db = -10.0
 bus = "Fx"
