@@ -107,6 +107,11 @@ OutlineColor1 = Color( 0.121569, 0.0823529, 0.129412, 1 )
 OutlineColor2 = Color( 0.192157, 0.12549, 0.196078, 1 )
 BorderSize = 75.0
 
+[node name="TitaniumSpawner" type="Node2D" parent="World/M1/Planet"]
+script = ExtResource( 6 )
+SpawnAmount = 20
+MinableType = 4
+
 [node name="ZoomedOutIcon" parent="World/M1" instance=ExtResource( 12 )]
 visible = false
 texture = ExtResource( 4 )
@@ -124,6 +129,11 @@ Color2 = Color( 0.831373, 0.831373, 0.831373, 1 )
 OutlineColor1 = Color( 1, 1, 1, 1 )
 OutlineColor2 = Color( 0.933333, 0.933333, 0.933333, 1 )
 BorderSize = 50.0
+
+[node name="LeadSpawner" type="Node2D" parent="World/M2/Planet"]
+script = ExtResource( 6 )
+SpawnAmount = 16
+MinableType = 6
 
 [node name="ZoomedOutIcon" parent="World/M2" instance=ExtResource( 12 )]
 visible = false
@@ -143,6 +153,11 @@ OutlineColor1 = Color( 0.686275, 0.247059, 0.847059, 1 )
 OutlineColor2 = Color( 0.627451, 0.270588, 0.486275, 1 )
 BorderSize = 75.0
 
+[node name="GlycolSpawner" type="Node2D" parent="World/P2/Planet"]
+script = ExtResource( 6 )
+SpawnAmount = 40
+MinableType = 3
+
 [node name="ZoomedOutIcon" parent="World/P2" instance=ExtResource( 12 )]
 visible = false
 texture = ExtResource( 4 )
@@ -161,6 +176,12 @@ OutlineColor1 = Color( 0.898039, 0.341176, 0.0666667, 1 )
 OutlineColor2 = Color( 0.92549, 0.392157, 0.156863, 1 )
 BorderSize = 50.0
 
+[node name="TungstenSpawner" type="Node2D" parent="World/P3/Planet"]
+scale = Vector2( 0.002, 0.002 )
+script = ExtResource( 6 )
+SpawnAmount = 30
+MinableType = 7
+
 [node name="ZoomedOutIcon" parent="World/P3" instance=ExtResource( 12 )]
 visible = false
 texture = ExtResource( 4 )
@@ -178,6 +199,11 @@ Color2 = Color( 0.239216, 0.870588, 0.188235, 1 )
 OutlineColor1 = Color( 0.580392, 0.835294, 0.12549, 1 )
 OutlineColor2 = Color( 0.74902, 0.937255, 0.364706, 1 )
 BorderSize = 125.0
+
+[node name="UraniumSpawner" type="Node2D" parent="World/P4/Planet"]
+script = ExtResource( 6 )
+SpawnAmount = 35
+MinableType = 5
 
 [node name="ZoomedOutIcon" parent="World/P4" instance=ExtResource( 12 )]
 visible = false
