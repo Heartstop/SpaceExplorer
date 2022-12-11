@@ -611,10 +611,11 @@ texture = ExtResource( 4 )
 position = Vector2( -60439, -11721 )
 
 [node name="Planet" parent="World/P3" instance=ExtResource( 3 )]
-scale = Vector2( 500, 500 )
+scale = Vector2( 400, 400 )
 __meta__ = {
 "_edit_lock_": true
 }
+Density = 2.0
 Color1 = Color( 0.905882, 0.560784, 0.196078, 1 )
 Color2 = Color( 0.945098, 0.615686, 0.415686, 1 )
 OutlineColor1 = Color( 0.898039, 0.341176, 0.0666667, 1 )
@@ -641,10 +642,11 @@ texture = ExtResource( 4 )
 position = Vector2( 70368, 54014 )
 
 [node name="Planet" parent="World/P4" instance=ExtResource( 3 )]
-scale = Vector2( 700, 700 )
+scale = Vector2( 450, 450 )
 __meta__ = {
 "_edit_lock_": true
 }
+Density = 2.0
 Color1 = Color( 0.168627, 0.776471, 0.592157, 1 )
 Color2 = Color( 0.239216, 0.870588, 0.188235, 1 )
 OutlineColor1 = Color( 0.580392, 0.835294, 0.12549, 1 )
