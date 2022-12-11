@@ -192,7 +192,8 @@ public class Player : RigidBody2D
 		if (DisableInput)
 			return;
 
-		var inputStrength = Input.GetActionStrength("player_up") + 0.5f * Math.Abs(Input.GetActionStrength("player_right") - Input.GetActionStrength("player_left"));
+		var inputStrength = Input.GetActionStrength("player_up")
+			+ 0.5f * Math.Abs(Input.GetActionStrength("player_right") - Input.GetActionStrength("player_left")) / (2 * Engine.TimeScale);
 		_fuel -= inputStrength * delta * FUEL_CONSUMPTION_RATE;
 		EmitSignal(nameof(FuelChanged), _fuel);
 	}
@@ -215,7 +216,7 @@ public class Player : RigidBody2D
 		AppliedForce += thrust.Rotated(Rotation);
 		
 		var torque = Input.GetActionStrength("player_right") - Input.GetActionStrength("player_left");
-		AppliedTorque += RotSpeed * torque;
+		AppliedTorque += RotSpeed * torque / (2 * Engine.TimeScale);
 	}
 
 	private void ApplyGravity()
