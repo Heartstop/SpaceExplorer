@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=2]
+[gd_resource type="Theme" load_steps=10 format=2]
 
 [ext_resource path="res://font.ttf" type="DynamicFontData" id=1]
 
@@ -32,6 +32,17 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 
+[sub_resource type="StyleBoxFlat" id=8]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0, 0, 0, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+
 [sub_resource type="StyleBoxFlat" id=2]
 draw_center = false
 border_width_left = 2
@@ -54,6 +65,7 @@ Button/styles/focus = SubResource( 5 )
 Button/styles/normal = SubResource( 6 )
 Label/fonts/font = SubResource( 1 )
 Panel/styles/panel = SubResource( 4 )
+PanelContainer/styles/panel = SubResource( 8 )
 ProgressBar/colors/font_color = Color( 0.94, 0.94, 0.94, 1 )
 ProgressBar/styles/bg = SubResource( 2 )
 ProgressBar/styles/fg = SubResource( 3 )
