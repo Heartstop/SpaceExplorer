@@ -16,7 +16,7 @@ public class ZoomedOutIconRef {
 public class GameUi : CanvasLayer
 {
 	public bool AlwaysShowIcons { get; set; } = false;
-	public bool IsUpgradeMenuOpen { get { return _upgradeMenuContainer.Visible; }}
+	public bool IsMenuOpen { get { return _upgradeMenuContainer.Visible || _optionsMenu.Visible; }}
 	public bool DisableInput { get; set; } = false;
 
 	[Export] float MarginTop = 20f;
@@ -32,6 +32,7 @@ public class GameUi : CanvasLayer
 	MessageDialog _messageDialog = null!;
 	Panel _resourcePanel = null!;
 	Control _container = null!;
+	OptionsMenu _optionsMenu = null!;
 	
 	[Signal]
 	delegate void TimeScaleChanged();
@@ -48,13 +49,21 @@ public class GameUi : CanvasLayer
 		_messageDialog = GetNode<MessageDialog>("MessageDialog");
 		_resourcePanel = GetNode<Panel>("ResourcePanel");
 		_container = GetNode<Control>("Container");
-
+		_optionsMenu = GetNode<OptionsMenu>("OptionsMenu");
+		
 		_upgradeMenuContainer.Connect("gui_input", this, nameof(OnUpgradeMenuContainerInput));
+		_optionsMenu.Connect(nameof(OptionsMenu.Continue), this, nameof(OnOptionsMenuContinue));
 		Connect(nameof(TimeScaleChanged), this, nameof(OnTimeScaleChange));
 
 		foreach(var node in GetTree().GetNodesInGroup("ZoomedOutContainer")){
 			EvalIconRef(node);
 		}
+	}
+
+	public void OnOptionsMenuContinue()
+	{
+		_optionsMenu.Visible = false;
+		GetNode<AudioStreamPlayer>("UiAcceptSound").Play();
 	}
 
 	public void ShowMessage(string message, Action? callback = null, bool keepUiHidden = false)
@@ -84,6 +93,13 @@ public class GameUi : CanvasLayer
 		if(@event.IsActionReleased("open_upgrade_menu"))
 		{
 			_upgradeMenuContainer.Visible = !_upgradeMenuContainer.Visible;
+		}
+
+		if(@event.IsActionReleased("open_options"))
+		{
+			_optionsMenu.Visible = !_optionsMenu.Visible;
+			if(_optionsMenu.Visible)
+				_optionsMenu.Focus();
 		}
 	}
 
@@ -129,6 +145,7 @@ public class GameUi : CanvasLayer
 
 		var sprite = new Sprite();
 		sprite.Texture = zoomedOutIcon.Texture;
+		sprite.Modulate = zoomedOutIcon.Modulate;
 		_zoomedOutIconRefs.Add(zoomedOutIcon.GetInstanceId(), new ZoomedOutIconRef(sprite, zoomedOutIcon));
 		_worldIconsContainer.AddChild(sprite);
 	}
