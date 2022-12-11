@@ -27,6 +27,10 @@ public class GameUi : CanvasLayer
 	ProgressBar _fuelProgressBar = null!;
 	Control _worldIconsContainer = null!;
 	Control _upgradeMenuContainer = null!;
+	Label _timeScale = null!;
+	
+	[Signal]
+	delegate void TimeScaleChanged();
 
 	private Dictionary<ulong, ZoomedOutIconRef> _zoomedOutIconRefs = new Dictionary<ulong, ZoomedOutIconRef>();
  
@@ -34,10 +38,12 @@ public class GameUi : CanvasLayer
 	{
 		_healthProgressBar = GetNode<ProgressBar>("Container/HealthVBoxContainer/HealthProgressBar");
 		_fuelProgressBar = GetNode<ProgressBar>("Container/FuelVBoxContainer/FuelProgressBar");
+		_timeScale = GetNode<Label>("Container/TimeScaleLabel");
 		_worldIconsContainer = GetNode<Control>("WorldIconsContainer");
 		_upgradeMenuContainer = GetNode<Control>("UpgradeMenuContainer");
 
 		_upgradeMenuContainer.Connect("gui_input", this, nameof(OnUpgradeMenuContainerInput));
+		Connect(nameof(TimeScaleChanged), this, nameof(OnTimeScaleChange));
 
 		foreach(var node in GetTree().GetNodesInGroup("ZoomedOutContainer")){
 			EvalIconRef(node);
@@ -58,6 +64,8 @@ public class GameUi : CanvasLayer
 
 		_upgradeMenuContainer.Visible = false;
 	}
+
+	private void OnTimeScaleChange() => _timeScale.Text = $"{Engine.TimeScale:F1}x Speed";
 
 	public override void _Process(float delta)
 	{
