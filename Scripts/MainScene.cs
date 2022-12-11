@@ -169,8 +169,8 @@ Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Alu
 
 	public override void _Process(float delta)
 	{
-		_player.UIOpen = _ui.IsUpgradeMenuOpen || DisableInput;
-		_camera.DisableInput = _ui.IsUpgradeMenuOpen || DisableInput;
+		_player.UIOpen = _ui.IsMenuOpen || DisableInput;
+		_camera.DisableInput = _ui.IsMenuOpen || DisableInput;
 		_ui.DisableInput = DisableInput;
 	}
 
