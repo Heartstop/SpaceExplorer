@@ -115,6 +115,33 @@ public class MainScene : Node
 		_player.DisableInput = _ui.IsUpgradeMenuOpen;
 	}
 
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		HandleTimeScale(@event);
+	}
+
+	private void HandleTimeScale(InputEvent @event)
+	{
+		if (@event.IsActionReleased("time_scale_swap"))
+		{
+			Engine.TimeScale = Math.Abs(Engine.TimeScale - 1) < 0.1 ? 5 : 1;
+			_ui.EmitSignal("time_scale_changed", Engine.TimeScale);
+		}
+		else if (@event.IsActionPressed("time_scale_up", true))
+		{
+			Engine.TimeScale = Math.Min(Engine.TimeScale + 0.1f, 10f);
+		}
+		else if (@event.IsActionPressed("time_scale_down", true))
+		{
+			Engine.TimeScale = Math.Max(Engine.TimeScale - 0.1f, 1f);
+		}
+		else
+		{
+			return;
+		}
+		_ui.EmitSignal("TimeScaleChanged");
+	}
+
 	private void OnPlayerHealthChanged(int health) => _ui.SetHealthBarValue(health);
 	private void OnPlayerFuelChanged(int fuel) => _ui.SetFuelBarValue(fuel);
 	private void OnCameraZoomChanged(float zoom) => _ui.AlwaysShowIcons = zoom > 1.9f;
