@@ -163,9 +163,11 @@ Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Alu
 				break;
 			}
 			case 4: {
-				// TODO: Game over.
+				_ui.ShowMessage("YOU SUCCESSFULLY WARPED HOME! CONGRATULATIONS!", () =>
+					_ui.ShowMessage("Thanks for playing our game!", OnRestartGame, true)
+					, true);
 				break;
-			}			
+			}
 			default: throw new NotImplementedException();
 		}
 	}
