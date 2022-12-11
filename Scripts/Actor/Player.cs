@@ -68,12 +68,14 @@ public class Player : RigidBody2D
 	{
 		_health = MaxHealth;
 		_fuel = MaxFuel;
+		EmitSignal(nameof(HealthChanged), _health);
+		EmitSignal(nameof(FuelChanged), _fuel);
 		_radioactiveInterferenceEnd = null;
 		IsOnLandingPad = false;
 		Dead = false;
-		EmitSignal(nameof(HealthChanged), _health);
-		EmitSignal(nameof(FuelChanged), _fuel);
-		
+		AngularVelocity = 0;
+		LinearVelocity = Vector2.Zero;
+
 		_dustParticles.Emitting = false;
 		_shipSprite.Show();
 		Mode = ModeEnum.Rigid;
