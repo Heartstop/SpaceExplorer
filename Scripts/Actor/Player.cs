@@ -158,7 +158,7 @@ public class Player : RigidBody2D
 
 		_shipCold = Math.Max(1f, _shipCold - HeatingSpeed * delta);
 
-		var coldModulate = !AntiFreezeUpgrade && dangerEffects.ContainsKey(DangerFieldType.Cold) ? 0.1f * _shipCold  : 1;
+		var coldModulate = !AntiFreezeUpgrade && _shipCold > 1 ? 0.25f * _shipCold  : 1;
 		var hotModulate = !TitaniumHullUpgrade && dangerEffects.ContainsKey(DangerFieldType.Hot) ? 25 * dangerEffects[DangerFieldType.Hot] : 1;
 		var radioactiveModulate = !RadiationShieldUpgrade && dangerEffects.ContainsKey(DangerFieldType.Radioactive) ? 25 * dangerEffects[DangerFieldType.Radioactive] : 1;
 		_shipSprite.Modulate = new Color(
