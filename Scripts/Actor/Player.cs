@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Linq;
 using Godot;
 
@@ -20,11 +21,24 @@ public class Player : RigidBody2D
 	[Export]
 	public float MaxFuel = 100;
 
-	public bool DisableInput { get; set; } = false;
+	public bool DisableInput => UIOpen || Dead || _radioactiveInterferenceEnd > DateTimeOffset.Now;
+	public bool Dead = false;
+	public bool UIOpen = false;
+	private DateTimeOffset? _radioactiveInterferenceEnd = null;
 
-	public float RotSpeed => 10000;
-	public float ThrustSpeed => 10000;
+	public float RotSpeed => 10000 / _shipCold;
+	public float ThrustSpeed => 10000 / _shipCold;
+	public float HeatingSpeed => 0.1f;
+	public float HeatDamage => 1f;
+	public float ColdDamage => 1f;
+	public float CoolingSpeed => 1f;
+	public float RadioactiveDamage => 5f;
+	private float _shipCold = 1;
 	public bool IsOnLandingPad { get; private set; } = false;
+
+	public bool TitaniumHullUpgrade = false;
+	public bool AntiFreezeUpgrade = false;
+	public bool RadiationShieldUpgrade = false;
 
 	// Node refs
 	private AnimatedSprite _thrustAnimatedSprite = null!;
@@ -32,13 +46,18 @@ public class Player : RigidBody2D
 	private AudioStreamPlayer2D _impactAudio = null!;
 	private AudioStreamPlayer2D _refuelAudio = null!;
 	private AudioStreamPlayer2D _explosionAudio = null!;
+
+	private AudioStreamPlayer2D _radioactiveClick = null!;
+	
 	private Particles2D _dustParticles = null!;
 	private Sprite _shipSprite = null!;
 
 	// Vars
-	private Vector2 _velocityLastFrame = new Vector2(0, 0);
+	private Vector2 _velocityLastFrame = new(0, 0);
 	private float _health;
 	private float _fuel;
+
+	private Random _rngSource = new();
 
 	public override void _Ready()
 	{
@@ -47,6 +66,7 @@ public class Player : RigidBody2D
 		_impactAudio = GetNode<AudioStreamPlayer2D>("ImpactAudio");
 		_refuelAudio = GetNode<AudioStreamPlayer2D>("RefuelAudio");
 		_explosionAudio = GetNode<AudioStreamPlayer2D>("ExplosionNode/ExplosionAudio");
+		_radioactiveClick = GetNode<AudioStreamPlayer2D>("DangerFieldSounds/RadioactiveClick");
 		_dustParticles = GetNode<Particles2D>("ExplosionNode/DustParticles");
 		_shipSprite = GetNode<Sprite>("ShipSprite");
 		_thrustAnimatedSprite.Play();
@@ -62,9 +82,63 @@ public class Player : RigidBody2D
 
 	public override void _Process(float delta)
 	{
+		DangerProcess(delta);
 		ConsumeFuel(delta);
 		RefuelingAndRepair(delta);
 		EffectsProcess();
+	}
+
+	public void DangerProcess(float delta)
+	{
+		var dangerEffects = GetTree().GetNodesInGroup("danger_field")
+			.Cast<DangerField>()
+			.Where(field => field.OverlapsBody(this))
+			.GroupBy(a => a.FieldType)
+			.ToImmutableDictionary(
+				g => g.Key,
+				g => g.Sum(field => field.GlobalScale.x / field.GlobalPosition.DistanceTo(GlobalPosition)));
+		foreach (var dangerEffect in dangerEffects)
+		{
+			var effect = 100 * delta * dangerEffect.Value;
+			switch (dangerEffect.Key)
+			{
+				case DangerFieldType.Cold:
+					_shipCold = Math.Min(AntiFreezeUpgrade ? 2 : 100, _shipCold + effect * CoolingSpeed);
+					if (_shipCold > 50)
+					{
+						_health -= effect * ColdDamage;
+						EmitSignal(nameof(HealthChanged), _health);
+					}
+					break;
+				case DangerFieldType.Hot:
+					_health -= TitaniumHullUpgrade
+						? 0.01f * effect * HeatDamage
+						: effect * HeatDamage;
+					EmitSignal(nameof(HealthChanged), _health);
+					break;
+				case DangerFieldType.Radioactive:
+					if(_radioactiveInterferenceEnd + TimeSpan.FromSeconds(4) < DateTimeOffset.Now)
+						continue;
+
+					_health -= effect * RadioactiveDamage;
+					EmitSignal(nameof(HealthChanged), _health);
+					_radioactiveInterferenceEnd = DateTimeOffset.Now + TimeSpan.FromSeconds(1);
+					_radioactiveClick.Play();
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		_shipCold = Math.Max(1f, _shipCold - HeatingSpeed * delta);
+
+		var coldModulate = !AntiFreezeUpgrade && dangerEffects.ContainsKey(DangerFieldType.Cold) ? 25 * dangerEffects[DangerFieldType.Cold] : 1;
+		var hotModulate = !TitaniumHullUpgrade && dangerEffects.ContainsKey(DangerFieldType.Hot) ? 25 * dangerEffects[DangerFieldType.Hot] : 1;
+		var radioactiveModulate = !RadiationShieldUpgrade && dangerEffects.ContainsKey(DangerFieldType.Radioactive) ? 25 * dangerEffects[DangerFieldType.Radioactive] : 1;
+		_shipSprite.Modulate = new Color(
+			r: 1 / Math.Max(1, coldModulate * radioactiveModulate),
+			g: 1 / Math.Max(1, coldModulate * hotModulate),
+			b: 1 / Math.Max(1, hotModulate * radioactiveModulate));
 	}
 
 	public void EffectsProcess()
@@ -153,7 +227,7 @@ public class Player : RigidBody2D
 		if (node is LandingPlatform)
 			IsOnLandingPad = true;
 
-		DamageShip(0.1f);
+		ShipImpact(0.1f);
 	}
 
 	private void OnBodyShapeExitedFeet(Node node)
@@ -162,11 +236,11 @@ public class Player : RigidBody2D
 			IsOnLandingPad = false;
 	}
 
-	private void OnBodyShapeEnteredHull(Node _) => DamageShip(0.5f);
+	private void OnBodyShapeEnteredHull(Node _) => ShipImpact(0.5f);
 
-	private void DamageShip(float modifier = 1f)
+	private void ShipImpact(float damageModifier)
 	{
-		var impact = (float)Math.Round(_velocityLastFrame.Length() * modifier);
+		var impact = (float)Math.Round(_velocityLastFrame.Length() * damageModifier);
 		if (impact < 10)
 			return;
 
