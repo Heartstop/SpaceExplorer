@@ -153,6 +153,7 @@ AlwaysHidden = false
 
 [node name="Trajectory" parent="." instance=ExtResource( 12 )]
 z_index = -1
+TrajectoryTarget = NodePath("..")
 Points = 300
 Color = Color( 1, 0, 0, 1 )
 
