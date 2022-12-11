@@ -14,7 +14,7 @@ public class Trajectory : Node2D
 	public Color Color = Colors.Gold;
 
 	[Export]
-	public float Width = 5f;
+	public float Width = 3f;
 
 	[Export]
 	public float StepSize = 10;
@@ -90,10 +90,11 @@ public class Trajectory : Node2D
 		{
 			_renderPoints[i] = ToLocal(_pathPoints[i]);
 		}
+
 		DrawPolyline(
 			points: _renderPoints,
 			color: Color,
-			width: Width,
+			width: Math.Max(Width, Width / GetCanvasTransform().Scale.Length()),
 			antialiased: true);
 	}
 }
