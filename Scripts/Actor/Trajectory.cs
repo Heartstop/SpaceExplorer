@@ -14,7 +14,7 @@ public class Trajectory : Node2D
 	public Color Color = Colors.Gold;
 
 	[Export]
-	public float Width = 3f;
+	public float Width = 2f;
 
 	[Export]
 	public float StepSize = 10;

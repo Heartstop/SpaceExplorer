@@ -8,7 +8,7 @@ namespace SpaceExplorer.Scripts.Actor;
 public class Player : RigidBody2D
 {
 	const float FUEL_CONSUMPTION_RATE = 4f;
-	const float REFUEL_RATE = 8f;
+	const float REFUEL_RATE = 24f;
 	const float REPAIR_RATE = 8f;
 
 	[Signal] public delegate void HealthChanged(int newHealth);
@@ -25,7 +25,7 @@ public class Player : RigidBody2D
 	public bool UIOpen = false;
 	private DateTimeOffset? _radioactiveInterferenceEnd = null;
 
-	public float RotSpeed => 10000 / _shipCold;
+	public float RotSpeed => 13500 / _shipCold;
 	public float ThrustSpeed => 10000 / _shipCold;
 	public float HeatingSpeed => 0.1f;
 	public float HeatDamage => 1f;
@@ -231,7 +231,7 @@ public class Player : RigidBody2D
 		if (node is LandingPlatform)
 			IsOnLandingPad = true;
 
-		ShipImpact(0.1f);
+		ShipImpact(0.22f);
 	}
 
 	private void OnBodyShapeExitedFeet(Node node)
