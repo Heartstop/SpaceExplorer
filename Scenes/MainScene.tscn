@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Scenes/PlayerCamera.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Sprites/AtlasHomeIcon.tres" type="Texture" id=11]
 [ext_resource path="res://Scenes/ZoomedOutIcon.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/Minable/Aluminum.tscn" type="PackedScene" id=13]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 21.5, 39 )
@@ -66,10 +67,64 @@ __meta__ = {
 Density = 60.0
 BorderSize = 50.0
 
-[node name="IronSpawner" type="Node2D" parent="World/Home/Planet"]
-script = ExtResource( 6 )
-SpawnAmount = 10
-MaxClusters = 3
+[node name="Resources" type="Node2D" parent="World/Home"]
+
+[node name="RigidBody2D" parent="World/Home/Resources" instance=ExtResource( 13 )]
+position = Vector2( 117, 45 )
+rotation = 0.532077
+
+[node name="RigidBody2D2" parent="World/Home/Resources" instance=ExtResource( 13 )]
+position = Vector2( 138, 57 )
+rotation = 0.532077
+SpriteIndex = 1
+
+[node name="RigidBody2D3" parent="World/Home/Resources" instance=ExtResource( 13 )]
+position = Vector2( 98, 34 )
+rotation = 0.532077
+SpriteIndex = 2
+
+[node name="RigidBody2D4" parent="World/Home/Resources" instance=ExtResource( 13 )]
+position = Vector2( -90, 33 )
+rotation = -0.467713
+SpriteIndex = 3
+
+[node name="RigidBody2D5" parent="World/Home/Resources" instance=ExtResource( 13 )]
+position = Vector2( -110, 42 )
+rotation = -0.477864
+
+[node name="RigidBody2D6" parent="World/Home/Resources" instance=ExtResource( 13 )]
+position = Vector2( -228, 399 )
+rotation = -2.19329
+SpriteIndex = 1
+
+[node name="RigidBody2D7" parent="World/Home/Resources" instance=ExtResource( 13 )]
+position = Vector2( 261, 269 )
+rotation = 1.55901
+SpriteIndex = 2
+
+[node name="RigidBody2D8" parent="World/Home/Resources" instance=ExtResource( 13 )]
+position = Vector2( -237, 168 )
+rotation = -1.14003
+SpriteIndex = 3
+
+[node name="RigidBody2D9" parent="World/Home/Resources" instance=ExtResource( 13 )]
+position = Vector2( 63, 532 )
+rotation = 2.9133
+
+[node name="RigidBody2D10" parent="World/Home/Resources" instance=ExtResource( 13 )]
+position = Vector2( 33, 536 )
+rotation = 3.01911
+SpriteIndex = 1
+
+[node name="RigidBody2D11" parent="World/Home/Resources" instance=ExtResource( 13 )]
+position = Vector2( 105, 519 )
+rotation = 2.67491
+SpriteIndex = 2
+
+[node name="RigidBody2D12" parent="World/Home/Resources" instance=ExtResource( 13 )]
+position = Vector2( -151, 491 )
+rotation = -2.55328
+SpriteIndex = 3
 
 [node name="P1" type="Node2D" parent="World"]
 position = Vector2( -6519, 18060 )
@@ -88,6 +143,7 @@ BorderSize = 75.0
 [node name="CopperSpawner" type="Node2D" parent="World/P1/Planet"]
 script = ExtResource( 6 )
 SpawnAmount = 64
+MinableType = 2
 
 [node name="ZoomedOutIcon" parent="World/P1" instance=ExtResource( 12 )]
 visible = false
