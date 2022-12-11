@@ -99,6 +99,13 @@ Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Alu
 				{
 					Progress(0);
 					_currentProgressionStep += 1;
+					_ui.ShowMessage(
+@"Great job! We can sense a weak sign of [color=lime]Uranium[/color] in this system, but we cannot locate it at the moment. If we had a radio tower we could start locating the [color=lime]Uranium[/color].
+We have sent the coordinates of a nearby [color=maroon]Brown planet[/color] containing [color=#e78e3f]Copper[/color] we can use to build a radio tower.", () =>
+					_ui.ShowMessage(
+@"[color=lime]TIP![/color] Remember you can use time warp to make your journey a lot quicker. But be careful to not accidentally crash into a planet while doing so."
+					));
+					
 				}
 				break;
 			}
@@ -107,6 +114,14 @@ Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Alu
 				{
 					Progress(1);
 					_currentProgressionStep += 1;
+					_ui.ShowMessage(
+@"Good job! Now that we have a radio tower we can start locating the uranium needed for our warp drive. Since we are going to at sometime mine radioactive material, you might aswell start crafting [color=lime]Radioactive shielding[/color].
+We have sent you the coordinates of 4 different planets nearby that contain [color=#ff580f]Tungsten[/color] and [color=#2d1e39]Lead[/color] to craft the [color=lime]Radioactive shielding[/color].", () => {
+	_ui.ShowMessage(
+@"[color=red]Warning[/color] The [color=white]White moon[/color] will freeze you if you don't have the [color=aqua]Antifreeze[/color] upgrade, and the [color=ec9102]Orange planet[/color] will burn you if you don't have the [color=teal]Titanium hull[/teal] upgrade.
+So you should probably craft those upgrades before visiting those bodies.
+");
+});
 				}
 				break;
 			}
@@ -115,6 +130,9 @@ Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Alu
 				{
 					Progress(2);
 					_currentProgressionStep += 1;
+					_ui.ShowMessage(
+@"Great! Now you can focus on crafting the [color=teal]Radiation shielding[/color]. We will soon of the location of the [color=lime]Uranium[/color]."
+					);
 				}
 				break;
 			}
@@ -122,6 +140,9 @@ Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Alu
 				if(currentUpgrades.Contains("RadiationShielding"))
 				{
 					Progress(3);
+					_ui.ShowMessage(
+@"Good news! We have found the location of the [color=lime]Uranium[/color]. We have sent you the location of it, go over there and gather it!"
+					);
 					_currentProgressionStep += 1;
 				}
 				break;
@@ -129,6 +150,7 @@ Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Alu
 			case 4: {
 				if(currentUpgrades.Contains("WarpDrive"))
 				{
+					
 					Progress(4);
 					_currentProgressionStep += 1;
 				}
