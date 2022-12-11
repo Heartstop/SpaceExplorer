@@ -22,8 +22,8 @@ public class Player : RigidBody2D
 
 	public bool DisableInput { get; set; } = false;
 
-	public float RotSpeed => 100;
-	public float ThrustSpeed => 100;
+	public float RotSpeed => 10000;
+	public float ThrustSpeed => 10000;
 	public bool IsOnLandingPad { get; private set; } = false;
 
 	// Node refs

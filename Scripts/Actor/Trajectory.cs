@@ -63,7 +63,8 @@ public class Trajectory : Node2D
 		if (physicsPerformance > 1)
 		{
 			_updatesPerFrame = Math.Max(1, _updatesPerFrame - 1);
-		} else if (physicsPerformance < 0.9)
+		}
+		else if (physicsPerformance < 0.9)
 		{
 			_updatesPerFrame = Math.Min(p, _updatesPerFrame + 1);
 		}
@@ -84,6 +85,6 @@ public class Trajectory : Node2D
 			points: _renderPoints,
 			color: Color,
 			width: Width,
-			antialiased: false);
+			antialiased: true);
 	}
 }
