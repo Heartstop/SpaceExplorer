@@ -155,8 +155,9 @@ AlwaysHidden = false
 [node name="Trajectory" parent="." instance=ExtResource( 12 )]
 z_index = -1
 TrajectoryTarget = NodePath("..")
-Points = 300
+Points = 600
 Color = Color( 1, 0, 0, 1 )
+StepSize = 7.5
 
 [node name="DangerFieldSounds" type="Node" parent="."]
 
