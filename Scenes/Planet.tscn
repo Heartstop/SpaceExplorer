@@ -1,14 +1,19 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Shaders/Planet.gdshader" type="Shader" id=1]
 [ext_resource path="res://Scripts/CelestialBodies/Planet.cs" type="Script" id=2]
+[ext_resource path="res://Shaders/Atmosphere.gdshader" type="Shader" id=3]
 
 [sub_resource type="CircleShape2D" id=5]
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 3 )
+shader_param/PIXEL_SCALE = 900.0
 
 [sub_resource type="ShaderMaterial" id=2]
 resource_local_to_scene = true
 shader = ExtResource( 1 )
-shader_param/PIXEL_SCALE = 20.0
+shader_param/PIXEL_SCALE = 600.0
 shader_param/BORDER_SIZE = 100.0
 shader_param/COLOR_1 = Color( 0.356863, 0.356863, 0.356863, 1 )
 shader_param/COLOR_2 = Color( 0.517647, 0.517647, 0.517647, 1 )
@@ -18,6 +23,7 @@ shader_param/OUTLINE_COLOR_2 = Color( 0.32549, 0.32549, 0.32549, 1 )
 [sub_resource type="CircleShape2D" id=6]
 
 [node name="Planet" type="StaticBody2D"]
+scale = Vector2( 30, 30 )
 collision_layer = 3
 script = ExtResource( 2 )
 Color1 = Color( 0.356863, 0.356863, 0.356863, 1 )
@@ -28,6 +34,16 @@ OutlineColor2 = Color( 0.32549, 0.32549, 0.32549, 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 shape = SubResource( 5 )
+
+[node name="Node2D" type="Node2D" parent="."]
+z_index = -1
+
+[node name="ColorRect2" type="ColorRect" parent="Node2D"]
+material = SubResource( 7 )
+margin_left = -15.0
+margin_top = -15.0
+margin_right = 15.0
+margin_bottom = 15.0
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource( 2 )
@@ -43,7 +59,7 @@ space_override = 1
 gravity_point = true
 gravity_distance_scale = 8.0
 gravity_vec = Vector2( 0, 0 )
-gravity = 1256.64
+gravity = 3.39292e+07
 linear_damp = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GravityField"]

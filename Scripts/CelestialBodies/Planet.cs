@@ -17,11 +17,13 @@ public class Planet : CelestialBody
 	[Export] float BorderSize = 100;
 
 	private ColorRect _colorRect = null!;
+	private ColorRect _atmosphere = null!;
 
 	public override void _Ready()
 	{
 		GetNode<Area2D>("GravityField").Gravity = Density * Mathf.Pi * Scale.x * Scale.x * Scale.x * 100f;
 		_colorRect = GetNode<ColorRect>("ColorRect");
+		_atmosphere = GetNode<ColorRect>("Node2D/ColorRect2");
 		SetShaderParams();
 	}
 
@@ -42,5 +44,8 @@ public class Planet : CelestialBody
 		material.SetShaderParam("OUTLINE_COLOR_1", OutlineColor1);
 		material.SetShaderParam("OUTLINE_COLOR_2", OutlineColor2);
 		material.SetShaderParam("BORDER_SIZE", BorderSize);
+
+		var atmosphereMaterial = (ShaderMaterial)_atmosphere.Material;
+		atmosphereMaterial.SetShaderParam("PIXEL_SCALE", _atmosphere.RectSize.x * Scale.x);
 	}
 }

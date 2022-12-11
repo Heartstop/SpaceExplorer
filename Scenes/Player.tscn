@@ -74,6 +74,7 @@ scale_curve = SubResource( 10 )
 color_ramp = SubResource( 8 )
 
 [node name="Player" type="RigidBody2D"]
+mass = 100.0
 gravity_scale = 0.0
 contacts_reported = 1
 contact_monitor = true
@@ -98,14 +99,16 @@ polygon = PoolVector2Array( -8, 4, -4, -20, 4, -20, 8, 4 )
 [node name="BodyCollision" type="CollisionPolygon2D" parent="."]
 polygon = PoolVector2Array( -8, 4, -14, 15, -14, 20, -10, 20, -3, 18, 3, 18, 10, 20, 14, 20, 14, 15, 8, 4, 4, -20, -4, -20 )
 
-[node name="ShipSprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+[node name="MiningLaser" parent="." instance=ExtResource( 9 )]
+position = Vector2( 0, -18 )
 
 [node name="ThrustAnimation" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( 0, 25 )
-z_index = -1
 frames = SubResource( 2 )
+
+[node name="ShipSprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
 
 [node name="RocketAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
@@ -146,9 +149,6 @@ bus = "Fx"
 visible = false
 texture = ExtResource( 8 )
 AlwaysHidden = false
-
-[node name="MiningLaser" parent="." instance=ExtResource( 9 )]
-position = Vector2( 0, -18 )
 
 [node name="Trajectory" parent="." instance=ExtResource( 12 )]
 z_index = -1
