@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Scripts/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -15,6 +15,8 @@
 [ext_resource path="res://Scenes/Minable/Aluminum.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/DangerField.tscn" type="PackedScene" id=14]
 [ext_resource path="res://icon.png" type="Texture" id=15]
+[ext_resource path="res://Sounds/Impact2.wav" type="AudioStream" id=16]
+[ext_resource path="res://Sounds/Impact.wav" type="AudioStream" id=17]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 21.5, 39 )
@@ -241,6 +243,18 @@ tracks/12/keys = {
 "update": 0,
 "values": [ Vector2( -51, -305 ) ]
 }
+tracks/13/type = "value"
+tracks/13/path = NodePath("AnimationPlayer/Impact:playing")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 3.2 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [sub_resource type="Animation" id=13]
 resource_name = "scene_2"
@@ -256,6 +270,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 4.92458, 1, 1 ),
 "update": 0,
 "values": [ Vector2( -51, -327 ), Vector2( -51, -327 ), Vector2( -51, 0 ), Vector2( -51, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimationPlayer/Impact2:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1.1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
 }
 
 [sub_resource type="Animation" id=14]
@@ -624,9 +650,8 @@ visible = false
 texture = ExtResource( 4 )
 
 [node name="Player" parent="World" instance=ExtResource( 2 )]
-position = Vector2( 5232, 6359 )
+position = Vector2( 5232, 6657 )
 z_index = 1
-mode = 3
 sleeping = true
 __meta__ = {
 "_edit_lock_": true
@@ -656,6 +681,16 @@ anims/RESET = SubResource( 4 )
 anims/scene_1 = SubResource( 3 )
 anims/scene_2 = SubResource( 13 )
 anims/scene_3 = SubResource( 14 )
+
+[node name="Impact" type="AudioStreamPlayer" parent="AnimationPlayer"]
+stream = ExtResource( 17 )
+volume_db = -8.796
+bus = "Fx"
+
+[node name="Impact2" type="AudioStreamPlayer" parent="AnimationPlayer"]
+stream = ExtResource( 16 )
+volume_db = -7.939
+bus = "Fx"
 
 [node name="Blackhole" type="Sprite" parent="."]
 material = SubResource( 8 )
