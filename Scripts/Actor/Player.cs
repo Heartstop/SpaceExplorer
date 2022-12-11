@@ -293,8 +293,9 @@ public class Player : RigidBody2D
 	private void Explode()
 	{
 		_dustParticles.Emitting = true;
-		_explosionAudio.Play();
 		_shipSprite.Hide();
+		if(!_explosionAudio.Playing)
+			_explosionAudio.Play();
 		Mode = RigidBody2D.ModeEnum.Static;
 	}
 }
