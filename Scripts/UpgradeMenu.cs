@@ -1,20 +1,30 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using Godot;
+using SpaceExplorer.Scripts.Minable;
 
-class UpgradeInfo {
+public class UpgradeInfo {
     public string Name { get; set; }
     public string Description { get; set; }
     public HashSet<string> UpgradeDependencies { get; set; }
     public string NodePath { get; set; }
 
-    public UpgradeInfo(string name, string description, HashSet<string> upgradeDependencies, string nodePath)
+    public Dictionary<MinableType, int> ResourceCost { get; set; }
+
+    public UpgradeInfo(
+        string name,
+        string description,
+        HashSet<string> upgradeDependencies,
+        string nodePath,
+        Dictionary<MinableType, int> resourceCost)
     {
         Name = name;
         Description = description;
         UpgradeDependencies = upgradeDependencies;
         NodePath = nodePath;
+        ResourceCost = resourceCost;
     }
 }
 
@@ -22,18 +32,22 @@ public class UpgradeMenu : Panel
 {
     private static IDictionary<string, UpgradeInfo> Upgrades = new Dictionary<string, UpgradeInfo>
     {
-        { "RocketPower", new UpgradeInfo(
+        { 
+            "RocketPower", new UpgradeInfo(
             name: "Rocket Power!",
             nodePath: "VBoxContainer/HBox/RocketPower",
             upgradeDependencies: new HashSet<string>(),
+            resourceCost: new Dictionary<MinableType, int>{ { MinableType.Aluminum, 5 } },
             description: 
 @"If we are going to be able to take ourselves anywhere, we will need 
 to modify our rockets to produce some more power!")
         },
-        { "Radio", new UpgradeInfo(
+        { 
+            "Radio", new UpgradeInfo(
             name: "Radio tower",
             nodePath: "VBoxContainer/HBox2/Radio",
             upgradeDependencies: new HashSet<string> { "RocketPower" },
+            resourceCost: new Dictionary<MinableType, int>{ { MinableType.Aluminum, 2 }, { MinableType.Copper, 8 } },
             description: 
 @"This radio tower will help us find celestial bodies containing the
 resources to get us home.")
@@ -43,6 +57,7 @@ resources to get us home.")
                 name: "Titanium hull",
                 nodePath: "VBoxContainer/HBox3/TitaniumHull",
                 upgradeDependencies: new HashSet<string> { "Radio" },
+                resourceCost: new Dictionary<MinableType, int>{ { MinableType.Titanium, 10 }, { MinableType.Aluminum, 3 } },
                 description: 
 "A hull made of titanium that is capable of handling high temperature environments.")
         },
@@ -51,6 +66,7 @@ resources to get us home.")
                 name: "Antifreeze",
                 nodePath: "VBoxContainer/HBox3/Antifreeze",
                 upgradeDependencies: new HashSet<string> { "Radio" },
+                resourceCost: new Dictionary<MinableType, int>{ { MinableType.Glycol, 8 } },
                 description: 
 "Antifreeze additive for our fuel so that it does not freeze in cold environments.")
         },
@@ -59,6 +75,7 @@ resources to get us home.")
                 name: "Radiation shielding",
                 nodePath: "VBoxContainer/HBox4/RadiationShielding",
                 upgradeDependencies: new HashSet<string> { "TitaniumHull", "Antifreeze" },
+                resourceCost: new Dictionary<MinableType, int>{ { MinableType.Tungsten, 8 }, { MinableType.Lead, 8 }, },
                 description: 
 "Adds radiation shielding to our hull to protect ourselves against radioactive environments")
         },
@@ -67,9 +84,12 @@ resources to get us home.")
                 name: "Warp drive",
                 nodePath: "VBoxContainer/HBox5/WarpDrive",
                 upgradeDependencies: new HashSet<string> { "RadiationShielding" },
+                resourceCost: new Dictionary<MinableType, int>{ { MinableType.Uranium, 10 } },
                 description: "A warp drive to take us home!")
         }
     };
+
+    public UpgradeInfo SelectedUpgrade { get { return Upgrades[_selectedUpgradeKey]; } }
 
     [Signal] public delegate void CraftedUpgradesChanged(List<string> currentUpgrades);
 

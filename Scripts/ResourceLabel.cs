@@ -1,7 +1,5 @@
 using Godot;
 using SpaceExplorer.Scripts.Minable;
-using System;
-using System.Runtime.InteropServices;
 
 public class ResourceLabel : Label
 {
