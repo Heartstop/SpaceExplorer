@@ -17,6 +17,7 @@ public class GameUi : CanvasLayer
 {
 	public bool AlwaysShowIcons { get; set; } = false;
 	public bool IsUpgradeMenuOpen { get { return _upgradeMenuContainer.Visible; }}
+	public bool DisableInput { get; set; } = false;
 
 	[Export] float MarginTop = 20f;
 	[Export] float MarginRight = 20f;
@@ -77,6 +78,9 @@ public class GameUi : CanvasLayer
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
+		if(_messageDialog.Visible || DisableInput)
+			return;
+
 		if(@event.IsActionReleased("open_upgrade_menu"))
 		{
 			_upgradeMenuContainer.Visible = !_upgradeMenuContainer.Visible;

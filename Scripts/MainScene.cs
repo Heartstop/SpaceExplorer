@@ -13,7 +13,7 @@ public class MainScene : Node
 	Camera _camera = null!;
 	AnimationPlayer _animationPlayer = null!;
 
-	[Export] public bool DisableInput { get; set; } = false;
+	[Export] public bool DisableInput { get; set; } = true;
 	private int _currentProgressionStep = 0;
 
 	public override void _Ready()
@@ -70,11 +70,8 @@ We should be able to find some nearby."
 @"We wont be able to go any reasonable distance with your current engine. So first of all you need to mine some [color=aqua]Aluminum[/color] so we can upgrade your rocket power!.
 Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Aluminum[/color], then return to the landing pad and upgrade your rocket.", 
 					() => {
+						_camera.Current = true;
 						DisableInput = false;
-
-						GD.Print(_player.DisableInput);
-						GD.Print(_camera.DisableInput);
-						GD.Print(_player.Mode);
 					})
 				);
 				break;
@@ -172,6 +169,7 @@ Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Alu
 	{
 		_player.UIOpen = _ui.IsUpgradeMenuOpen || DisableInput;
 		_camera.DisableInput = _ui.IsUpgradeMenuOpen || DisableInput;
+		_ui.DisableInput = DisableInput;
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
