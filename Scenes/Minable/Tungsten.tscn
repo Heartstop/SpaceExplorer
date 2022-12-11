@@ -90,6 +90,7 @@ MinableType = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 reset_on_save = false
+playback_process_mode = 2
 playback_speed = 0.0
 method_call_mode = 1
 anims/RESET = SubResource( 7 )

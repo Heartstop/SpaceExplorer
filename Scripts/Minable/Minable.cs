@@ -25,6 +25,7 @@ public class Minable : RigidBody2D
 		base._Ready();
 		var animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		animationPlayer.Play("index");
+		animationPlayer.PlaybackSpeed = 1;
 		animationPlayer.Advance(SpriteIndex);
 		animationPlayer.PlaybackSpeed = 0;
 		TimeLeftToMine = TimeToMine;
