@@ -21,6 +21,7 @@ public class MiningLaser : Node2D
 	private Line2D _laser = null!;
 	private Area2D _detectionArea = null!;
 	private AudioStreamPlayer2D _miningSound = null!;
+	private AudioStreamPlayer2D _collectSound = null!;
 	private float _range = 200;
 
 	public override void _Ready()
@@ -30,6 +31,7 @@ public class MiningLaser : Node2D
 		_laser = GetNode<Line2D>("Laser");
 		_detectionArea = GetNode<Area2D>("DetectionArea");
 		_miningSound = GetNode<AudioStreamPlayer2D>("MiningSound");
+		_collectSound = GetNode<AudioStreamPlayer2D>("CollectSound");
 	}
 
 	public override void _PhysicsProcess(float delta)
@@ -70,6 +72,7 @@ public class MiningLaser : Node2D
 		var collidingWith = _rayCast.GetCollider();
 		if (ReferenceEquals(target, collidingWith))
 		{
+			_collectSound.Play();
 			target.EmitSignal("Mined", delta);
 		}
 	}
