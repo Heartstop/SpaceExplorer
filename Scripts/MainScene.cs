@@ -11,6 +11,7 @@ public class MainScene : Node
 	AudioStreamPlayer _musicPlayer = null!;
 	Player _player = null!;
 	GameUi _ui = null!;
+	private OptionsMenu _optionsMenu = null!;
 	Camera _camera = null!;
 	AnimationPlayer _animationPlayer = null!;
 
@@ -22,6 +23,7 @@ public class MainScene : Node
 		_musicPlayer = GetNode<AudioStreamPlayer>("MusicPlayer");
 		_player = GetNode<Player>("World/Player");
 		_ui = GetNode<GameUi>("GameUi");
+		_optionsMenu = GetNode<OptionsMenu>("GameUi/OptionsMenu");
 		_camera = GetNode<Camera>("World/Player/PlayerCamera");
 		_animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 
@@ -36,8 +38,8 @@ public class MainScene : Node
 		_player.Connect(nameof(Player.FuelChanged), this, nameof(OnPlayerFuelChanged));
 		_camera.Connect(nameof(Camera.ZoomChanged), this, nameof(OnCameraZoomChanged));
 		_animationPlayer.Connect("animation_finished", this, nameof(OnAnimationFinished));
-		GetNode<OptionsMenu>("GameUi/OptionsMenu")
-			.Connect(nameof(OptionsMenu.RestartGame), this, nameof(OnRestartGame));
+		_optionsMenu.Connect(nameof(OptionsMenu.RestartGame), this, nameof(OnRestartGame));
+		_optionsMenu.Connect(nameof(OptionsMenu.RespawnGame), this, nameof(OnRespawn));
 
 
 		_musicPlayer.Play();
@@ -236,8 +238,26 @@ So you should probably craft those upgrades before visiting those celestial bodi
 		ResourceInventory.SubtractResources(ResourceInventory.ResourceCounts.ToImmutableDictionary());
 		GetTree().ReloadCurrentScene();
 	}
-	private void OnPlayerHealthChanged(int health) => _ui.SetHealthBarValue(health);
-	private void OnPlayerFuelChanged(int fuel) => _ui.SetFuelBarValue(fuel);
+	
+	private void OnRespawn()
+	{
+		Engine.TimeScale = 1;
+		_player.GlobalPosition = GetNode<Node2D>("World/SpawnPoint").GlobalPosition;
+		_player.GlobalRotation = 0;
+		_player.ResetPhysicsInterpolation();
+		_player.EmitSignal(nameof(Player.Respawned));
+	}
+	private void OnPlayerHealthChanged(float health)
+	{
+		_ui.SetHealthBarValue(health);
+		if (health <= 0)
+		{
+			var timer = GetTree().CreateTimer(3);
+			timer.Connect("timeout", this, nameof(OnRespawn));
+		}
+	}
+
+	private void OnPlayerFuelChanged(float fuel) => _ui.SetFuelBarValue(fuel);
 	private void OnCameraZoomChanged(float zoom) => _ui.AlwaysShowIcons = zoom > 1.9f;
 
 }
