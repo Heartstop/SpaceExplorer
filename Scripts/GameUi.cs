@@ -145,6 +145,7 @@ public class GameUi : CanvasLayer
 
 		var sprite = new Sprite();
 		sprite.Texture = zoomedOutIcon.Texture;
+		sprite.Modulate = zoomedOutIcon.Modulate;
 		_zoomedOutIconRefs.Add(zoomedOutIcon.GetInstanceId(), new ZoomedOutIconRef(sprite, zoomedOutIcon));
 		_worldIconsContainer.AddChild(sprite);
 	}
