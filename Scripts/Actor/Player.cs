@@ -11,8 +11,13 @@ public class Player : RigidBody2D
 	const float REFUEL_RATE = 8f;
 	const float REPAIR_RATE = 8f;
 
-	[Signal] public delegate void HealthChanged(int newHealth);
-	[Signal] public delegate void FuelChanged(int newFuel);
+	[Signal]
+	public delegate void HealthChanged(float newHealth);
+	[Signal]
+	public delegate void FuelChanged(float newFuel);
+
+	[Signal]
+	public delegate void Respawned();
 
 	[Export]
 	public float MaxHealth = 100;
@@ -59,6 +64,23 @@ public class Player : RigidBody2D
 
 	private Random _rngSource = new();
 
+	private void OnRespawned()
+	{
+		_health = MaxHealth;
+		_fuel = MaxFuel;
+		_radioactiveInterferenceEnd = null;
+		IsOnLandingPad = false;
+		Dead = false;
+		EmitSignal(nameof(HealthChanged), _health);
+		EmitSignal(nameof(FuelChanged), _fuel);
+		
+		_dustParticles.Emitting = false;
+		_shipSprite.Show();
+		Mode = ModeEnum.Rigid;
+		ResetPhysicsInterpolation();
+		_shipCold = 1;
+	}
+
 	public override void _Ready()
 	{
 		_thrustAnimatedSprite = GetNode<AnimatedSprite>("ThrustAnimation");
@@ -80,6 +102,7 @@ public class Player : RigidBody2D
 		feetHurtBox.Connect("body_exited", this, nameof(OnBodyShapeExitedFeet));
 		GetNode<Area2D>("HullHurtBox").Connect("body_entered", this, nameof(OnBodyShapeEnteredHull));
 		_impactAudio.Connect("finished", this, nameof(OnImpactSoundFinished));
+		Connect(nameof(Respawned), this, nameof(OnRespawned));
 	}
 
 	public override void _Process(float delta)
