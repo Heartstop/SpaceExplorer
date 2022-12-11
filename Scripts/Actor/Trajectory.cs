@@ -19,6 +19,12 @@ public class Trajectory : Node2D
 	[Export]
 	public float StepSize = 10;
 
+	[Export]
+	public bool Render { get; set; } = true;
+	
+	[Export]
+	public NodePath TrajectoryTarget { get; set; }
+
 	private int _updatesPerFrame = 100;
 	private Vector2[] _pathPoints = { };
 	private Vector2 _lastVelocity;
@@ -41,7 +47,7 @@ public class Trajectory : Node2D
 		if (_pointIndex == 0)
 		{
 			_pathPoints[0] = GlobalPosition;
-			_lastVelocity = GetParent<RigidBody2D>().LinearVelocity;
+			_lastVelocity = GetNode<RigidBody2D>(TrajectoryTarget).LinearVelocity;
 			_pointIndex++;
 		}
 
@@ -73,6 +79,9 @@ public class Trajectory : Node2D
 
 	public override void _Draw()
 	{
+		if(!Render)
+			return;
+
 		if (_renderPoints.Length != _pathPoints.Length)
 			_renderPoints = new Vector2[_pathPoints.Length];
 

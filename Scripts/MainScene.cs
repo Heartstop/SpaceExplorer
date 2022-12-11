@@ -39,6 +39,7 @@ public class MainScene : Node
 		
 		_musicPlayer.Play();
 		_animationPlayer.Play("scene_1");
+		_player.GetNode<Trajectory>("Trajectory").Render = false;
 	}
 
 	private void OnAnimationFinished(string animationName)
@@ -72,6 +73,7 @@ Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Alu
 					() => {
 						_camera.Current = true;
 						DisableInput = false;
+						_player.GetNode<Trajectory>("Trajectory").Render = true;
 					})
 				);
 				break;
