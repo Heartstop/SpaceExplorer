@@ -44,7 +44,7 @@ public class MainScene : Node
 		_camera.Connect(nameof(Camera.ZoomChanged), this, nameof(OnCameraZoomChanged));
 		_animationPlayer.Connect("animation_finished", this, nameof(OnAnimationFinished));
 		_optionsMenu.Connect(nameof(OptionsMenu.RespawnGame), this, nameof(OnRespawn));
-		_ui.GetNode<Label>("Container/LifesLabel").Text = $"{Lifes} Lifes";
+		_ui.GetNode<Label>("Container/LifesLabel").Text = $"{Lifes} Lives";
 		Connect(nameof(Restart), this, nameof(OnRestartGame));
 
 		_musicPlayer.Play();
