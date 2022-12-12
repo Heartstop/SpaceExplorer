@@ -14,8 +14,12 @@ public class MainScene : Node
 	private OptionsMenu _optionsMenu = null!;
 	Camera _camera = null!;
 	AnimationPlayer _animationPlayer = null!;
+	private int Lifes = 5;
 
-	[Export] public bool DisableInput { get; set; } = true;
+	[Export]
+	public bool DisableInput { get; set; } = true;
+	[Signal]
+	public delegate void Restart();
 	private int _currentProgressionStep = 0;
 
 	public override void _Ready()
@@ -39,7 +43,8 @@ public class MainScene : Node
 		_camera.Connect(nameof(Camera.ZoomChanged), this, nameof(OnCameraZoomChanged));
 		_animationPlayer.Connect("animation_finished", this, nameof(OnAnimationFinished));
 		_optionsMenu.Connect(nameof(OptionsMenu.RespawnGame), this, nameof(OnRespawn));
-
+		_ui.GetNode<Label>("Container/LifesLabel").Text = $"{Lifes} Lifes";
+		Connect(nameof(Restart), this, nameof(OnRestartGame));
 
 		_musicPlayer.Play();
 		_animationPlayer.Play("scene_1");
@@ -235,11 +240,19 @@ So you should probably craft those upgrades before visiting those celestial bodi
 	{
 		Engine.TimeScale = 1;
 		ResourceInventory.SubtractResources(ResourceInventory.ResourceCounts.ToImmutableDictionary());
-		GetTree().ReloadCurrentScene();
+		var reload = GetTree().ReloadCurrentScene();
 	}
 	
 	private void OnRespawn()
 	{
+		Lifes -= 1;
+		_ui.GetNode<Label>("Container/LifesLabel").Text = $"{Lifes} Lifes";
+		if (Lifes <= 0)
+		{
+			_optionsMenu.Visible = false;
+			_ui.ShowMessage("You unfortunately ran out of spare ships, try again?", () => EmitSignal(nameof(Restart)));
+			return;
+		}
 		Engine.TimeScale = 1;
 		_player.GlobalPosition = GetNode<Node2D>("World/SpawnPoint").GlobalPosition;
 		_player.GlobalRotation = 0;

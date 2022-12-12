@@ -676,6 +676,16 @@ text = "1x Speed"
 align = 2
 valign = 2
 
+[node name="LifesLabel" type="Label" parent="Container"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 593.0
+margin_top = -20.0
+margin_right = 641.0
+margin_bottom = -3.0
+theme = ExtResource( 1 )
+text = "1 Life"
+
 [node name="MessageDialog" type="PanelContainer" parent="."]
 visible = false
 anchor_left = 0.5
