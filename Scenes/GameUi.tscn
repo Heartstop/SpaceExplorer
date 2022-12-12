@@ -21,6 +21,7 @@ region = Rect2( 32, 32, 32, 32 )
 script = ExtResource( 2 )
 
 [node name="ResourcePanel" type="Panel" parent="."]
+visible = false
 margin_left = 7.0
 margin_top = 6.0
 margin_right = 183.0
