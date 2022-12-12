@@ -25,10 +25,9 @@ public class Player : RigidBody2D
 	[Export]
 	public float MaxFuel = 100;
 
-	public bool DisableInput => UIOpen || Dead || _radioactiveInterferenceEnd > DateTimeOffset.Now;
+	public bool DisableInput => UIOpen || Dead;
 	public bool Dead = false;
 	public bool UIOpen = false;
-	private DateTimeOffset? _radioactiveInterferenceEnd = null;
 
 	public float RotSpeed => 13500 / _shipCold;
 	public float ThrustSpeed => 10000 / _shipCold;
@@ -37,6 +36,7 @@ public class Player : RigidBody2D
 	public float ColdDamage => 1f;
 	public float CoolingSpeed => 1f;
 	public float RadioactiveDamage => 5f;
+	private float _radioactiveCount = 0;
 	private float _shipCold = 1;
 	public bool IsOnLandingPad { get; private set; } = false;
 
@@ -70,7 +70,7 @@ public class Player : RigidBody2D
 		_fuel = MaxFuel;
 		EmitSignal(nameof(HealthChanged), _health);
 		EmitSignal(nameof(FuelChanged), _fuel);
-		_radioactiveInterferenceEnd = null;
+		_radioactiveCount = 0;
 		IsOnLandingPad = false;
 		Dead = false;
 		AngularVelocity = 0;
@@ -145,12 +145,15 @@ public class Player : RigidBody2D
 					EmitSignal(nameof(HealthChanged), _health);
 					break;
 				case DangerFieldType.Radioactive:
-					if(_radioactiveInterferenceEnd + TimeSpan.FromSeconds(4) < DateTimeOffset.Now)
+					if(RadiationShieldUpgrade)
 						continue;
+					_radioactiveCount += effect;
+					if (_radioactiveCount < 10)
+						continue;
+					_health -= RadioactiveDamage * _radioactiveCount;
+					_radioactiveCount %= 10;
 
-					_health -= effect * RadioactiveDamage;
 					EmitSignal(nameof(HealthChanged), _health);
-					_radioactiveInterferenceEnd = DateTimeOffset.Now + TimeSpan.FromSeconds(1);
 					_radioactiveClick.Play();
 					break;
 				default:
