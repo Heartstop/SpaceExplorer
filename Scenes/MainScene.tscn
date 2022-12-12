@@ -620,7 +620,6 @@ bus = "Fx"
 
 [node name="GameUi" parent="." instance=ExtResource( 7 )]
 pause_mode = 2
-visible = false
 MarginTop = 40.0
 MarginRight = 40.0
 MarginBottom = 50.0
