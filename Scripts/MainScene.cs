@@ -250,7 +250,10 @@ So you should probably craft those upgrades before visiting those celestial bodi
 		if (Lifes <= 0)
 		{
 			_optionsMenu.Visible = false;
-			_ui.ShowMessage("You unfortunately ran out of spare ships, try again?", () => EmitSignal(nameof(Restart)));
+			_ui.ShowMessage(
+				"You unfortunately ran out of spare ships, try again?",
+				() => _ui.ShowMessage("Restart of game is not implemented, reload the game instead.",
+					() => throw new NotImplementedException("Restart of game is not implemented, reload the game instead.")));
 			return;
 		}
 		Engine.TimeScale = 1;
