@@ -82,6 +82,9 @@ Luckily there seems to be some on this little astroid. Go mine 5 [color=aqua]Alu
 				);
 				break;
 			}
+			case "end": {
+				throw new NotImplementedException("Game over");
+			}
 			default: throw new NotImplementedException();
 		}
 	}
@@ -186,9 +189,9 @@ So you should probably craft those upgrades before visiting those celestial bodi
 				break;
 			}
 			case 4: {
-				_ui.ShowMessage("YOU SUCCESSFULLY WARPED HOME! CONGRATULATIONS!", () =>
-					_ui.ShowMessage("Thanks for playing our game!", OnRestartGame, true)
-					, true);
+				_ui.ShowMessage("You have the warpdrive! Finally we can go home!", () => {
+					_animationPlayer.Play("end");
+				});
 				break;
 			}
 			default: throw new NotImplementedException();

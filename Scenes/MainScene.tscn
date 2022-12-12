@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://Scripts/MainScene.cs" type="Script" id=1]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=2]
@@ -17,6 +17,47 @@
 [ext_resource path="res://icon.png" type="Texture" id=15]
 [ext_resource path="res://Sounds/Impact2.wav" type="AudioStream" id=16]
 [ext_resource path="res://Sounds/Impact.wav" type="AudioStream" id=17]
+[ext_resource path="res://UiTheme.tres" type="Theme" id=18]
+[ext_resource path="res://font.ttf" type="DynamicFontData" id=19]
+[ext_resource path="res://Sprites/ship.png" type="Texture" id=20]
+[ext_resource path="res://Sounds/Explosion.wav" type="AudioStream" id=21]
+[ext_resource path="res://Sprites/8x8circle.png" type="Texture" id=22]
+
+[sub_resource type="DynamicFont" id=16]
+size = 50
+font_data = ExtResource( 19 )
+
+[sub_resource type="Gradient" id=17]
+offsets = PoolRealArray( 0.101266, 0.131646, 0.281013, 0.311392, 0.762025, 0.941772, 0.946835, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 0.941406, 0.731681, 0.40451, 1, 1, 0.421875, 0, 1, 0.265625, 0.265625, 0.265625, 1, 0.0776367, 0.0776367, 0.0776367, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0.964091, 0.964091, 0.964091, 0.0421687 )
+
+[sub_resource type="GradientTexture" id=8]
+gradient = SubResource( 17 )
+
+[sub_resource type="Curve" id=18]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.380383, 0.756818 ), -3.12581, -3.12581, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+curve = SubResource( 18 )
+
+[sub_resource type="ParticlesMaterial" id=19]
+lifetime_randomness = 1.0
+emission_shape = 1
+emission_sphere_radius = 11.47
+flag_disable_z = true
+direction = Vector3( 0, 0, 0 )
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 154.91
+initial_velocity_random = 0.38
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 71.65
+damping_random = 0.62
+angle_random = 1.0
+scale = 2.5
+scale_curve = SubResource( 10 )
+color_ramp = SubResource( 8 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 21.5, 39 )
@@ -78,9 +119,143 @@ tracks/3/keys = {
 "update": 0,
 "values": [ Vector2( 4.91406, 4.23805 ) ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("EndLayer:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("EndLayer/TextureRect:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=15]
 resource_name = "end"
+length = 8.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("EndLayer/EndCamera:current")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("EndLayer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("EndLayer/EndLabel:text")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4, 6.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "3", "2", "1", "Go!", "
+", "Oh well..." ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("EndLayer/EndCamera:zoom")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1.51572 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.5, 0.5 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("EndLayer/TextureRect:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 2, 3.5, 4.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 497, 371 ), Vector2( 504, 371 ), Vector2( 497, 371 ), Vector2( 507, 371 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("EndLayer/ExplosionNode/ExplosionAudio:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 4.8, 7.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("EndLayer/ExplosionNode/DustParticles:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 4.9, 6.6 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("EndLayer/TextureRect:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 4.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("GameUi:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "scene_1"
@@ -349,13 +524,13 @@ void fragment() {
 min_value = -1.0
 _data = [ Vector2( 0.00201207, 0.527273 ), 0.0, 0.0, 0, 0, Vector2( 0.0905433, -0.438636 ), -4.51818, -4.51818, 0, 0, Vector2( 0.242455, 0.815909 ), 0.0, 0.0, 0, 0, Vector2( 0.32495, -0.329545 ), 0.0, 0.0, 0, 0, Vector2( 0.5, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=10]
+[sub_resource type="CurveTexture" id=20]
 curve = SubResource( 9 )
 
-[sub_resource type="ShaderMaterial" id=8]
+[sub_resource type="ShaderMaterial" id=21]
 shader = SubResource( 7 )
 shader_param/strength = 0.5
-shader_param/curve = SubResource( 10 )
+shader_param/curve = SubResource( 20 )
 
 [sub_resource type="Animation" id=11]
 resource_name = "Loop"
@@ -395,8 +570,57 @@ __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
 
+[node name="EndLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="EndCamera" type="Camera2D" parent="EndLayer"]
+zoom = Vector2( 0.5, 0.5 )
+
+[node name="EndLabel" type="Label" parent="EndLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.0
+margin_top = -23.0
+margin_right = 31.0
+margin_bottom = 23.0
+theme = ExtResource( 18 )
+custom_fonts/font = SubResource( 16 )
+text = "Oh well..."
+align = 1
+valign = 1
+
+[node name="TextureRect" type="TextureRect" parent="EndLayer"]
+visible = false
+margin_left = 507.0
+margin_top = 371.0
+margin_right = 535.0
+margin_bottom = 411.0
+texture = ExtResource( 20 )
+
+[node name="ExplosionNode" type="Node2D" parent="EndLayer"]
+position = Vector2( 512, 373 )
+
+[node name="DustParticles" type="Particles2D" parent="EndLayer/ExplosionNode"]
+emitting = false
+amount = 128
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 19 )
+texture = ExtResource( 22 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ExplosionAudio" type="AudioStreamPlayer" parent="EndLayer/ExplosionNode"]
+stream = ExtResource( 21 )
+volume_db = -0.133
+bus = "Fx"
+
 [node name="GameUi" parent="." instance=ExtResource( 7 )]
 pause_mode = 2
+visible = false
 MarginTop = 40.0
 MarginRight = 40.0
 MarginBottom = 50.0
@@ -680,6 +904,9 @@ MaxFuel = 400.0
 [node name="PlayerCamera" parent="World/Player" instance=ExtResource( 10 )]
 z_as_relative = false
 current = false
+__meta__ = {
+"_edit_lock_": true
+}
 MinZoom = 0.65
 MaxZoom = 1.0
 
@@ -716,7 +943,7 @@ volume_db = -7.939
 bus = "Fx"
 
 [node name="Blackhole" type="Sprite" parent="."]
-material = SubResource( 8 )
+material = SubResource( 21 )
 position = Vector2( 5231, 6359 )
 scale = Vector2( 4.91406, 4.23805 )
 texture = ExtResource( 15 )
