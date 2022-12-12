@@ -35,7 +35,7 @@ public class Player : RigidBody2D
 	public float HeatDamage => 1f;
 	public float ColdDamage => 1f;
 	public float CoolingSpeed => 1f;
-	public float RadioactiveDamage => 5f;
+	public float RadioactiveDamage => 1f;
 	private float _radioactiveCount = 0;
 	private float _shipCold = 1;
 	public bool IsOnLandingPad { get; private set; } = false;
