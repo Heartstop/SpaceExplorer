@@ -199,7 +199,7 @@ margin_right = 108.0
 margin_bottom = 24.0
 text = "Uranium:"
 script = ExtResource( 7 )
-MinableType = 4
+MinableType = 5
 
 [node name="WorldIconsContainer" type="Control" parent="."]
 anchor_right = 1.0

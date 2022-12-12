@@ -46,13 +46,13 @@ animations = [ {
 offsets = PoolRealArray( 0.101266, 0.131646, 0.281013, 0.311392, 0.762025, 0.941772, 0.946835, 1 )
 colors = PoolColorArray( 1, 1, 1, 1, 0.941406, 0.731681, 0.40451, 1, 1, 0.421875, 0, 1, 0.265625, 0.265625, 0.265625, 1, 0.0776367, 0.0776367, 0.0776367, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0.964091, 0.964091, 0.964091, 0.0421687 )
 
-[sub_resource type="GradientTexture" id=8]
+[sub_resource type="GradientTexture" id=17]
 gradient = SubResource( 16 )
 
 [sub_resource type="Curve" id=9]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.380383, 0.756818 ), -3.12581, -3.12581, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=10]
+[sub_resource type="CurveTexture" id=18]
 curve = SubResource( 9 )
 
 [sub_resource type="ParticlesMaterial" id=11]
@@ -71,8 +71,8 @@ damping = 71.65
 damping_random = 0.62
 angle_random = 1.0
 scale = 2.5
-scale_curve = SubResource( 10 )
-color_ramp = SubResource( 8 )
+scale_curve = SubResource( 18 )
+color_ramp = SubResource( 17 )
 
 [node name="Player" type="RigidBody2D"]
 mass = 100.0
