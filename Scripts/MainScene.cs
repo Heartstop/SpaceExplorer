@@ -21,6 +21,7 @@ public class MainScene : Node
 	[Signal]
 	public delegate void Restart();
 	private int _currentProgressionStep = 0;
+	private bool Dying = false;
 
 	public override void _Ready()
 	{
@@ -249,7 +250,7 @@ So you should probably craft those upgrades before visiting those celestial bodi
 	private void OnRespawn()
 	{
 		Lifes -= 1;
-		_ui.GetNode<Label>("Container/LifesLabel").Text = $"{Lifes} Lifes";
+		_ui.GetNode<Label>("Container/LifesLabel").Text = $"{Lifes} Lives";
 		if (Lifes <= 0)
 		{
 			_optionsMenu.Visible = false;
@@ -264,12 +265,14 @@ So you should probably craft those upgrades before visiting those celestial bodi
 		_player.GlobalRotation = 0;
 		_player.ResetPhysicsInterpolation();
 		_player.EmitSignal(nameof(Player.Respawned));
+		Dying = false;
 	}
 	private void OnPlayerHealthChanged(float health)
 	{
 		_ui.SetHealthBarValue(health);
-		if (health <= 0)
+		if (health <= 0 && Dying == false)
 		{
+			Dying = true;
 			var timer = GetTree().CreateTimer(3);
 			timer.Connect("timeout", this, nameof(OnRespawn));
 		}
